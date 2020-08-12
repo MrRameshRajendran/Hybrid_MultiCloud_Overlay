@@ -1,0 +1,27 @@
+- name: Setting variables' values 
+  hosts: all
+  gather_facts: true
+  vars:
+   ansible_ssh_user : "{{ lookup('env','TF_VAR_VM_USER') }}"
+   ansible_ssh_private_key_file : "{{ lookup('env','TF_VAR_VM_SSH_KEY_FILE') }}"
+   subnetmask : "{{ lookup('env','TF_VAR_L2_OVERLAY_SUBNETMASK') }}"
+   ipv6_subnet : "{{ lookup('env','TF_VAR_L2_OVERLAY_v6NETWORK') }}"
+   ipv6_prefix_len : "{{ lookup('env','TF_VAR_L2_OVERLAY_v6PREFIX_LEN') }}"
+
+  tasks:
+  - name: "remove hosts from known_hosts"
+    local_action:
+      known_hosts
+      path=known_hosts
+      name='{{inventory_hostname}}'
+      state=absent
+          
+  - name: print out the hostname of target
+    command: hostname
+      
+  - name: Assign IP for VM
+    shell: |
+      sudo ovs-vsctl add-br l2-br
+      sudo ifconfig l2-br up
+      sudo ifconfig l2-br {{ ip_address }} netmask {{ subnetmask }}
+      sudo ip addr add {{ ipv6_subnet }}{{ ipv6_index }}/{{ ipv6_prefix_len }} dev l2-br

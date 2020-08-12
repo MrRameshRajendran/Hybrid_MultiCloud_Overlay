@@ -1,0 +1,227 @@
+{
+	"variables": {
+		"ESXI_HOST": "{{env `TF_VAR_ESXI_HOST`}}",	
+		"ESXI_ROUTER_NAME": "{{env `TF_VAR_ESXI_ROUTER_NAME`}}",
+		"ESXI_CLIENT1_NAME": "{{env `TF_VAR_ESXI_CLIENT1_NAME`}}",		
+		"VM_USERNAME": "{{env `TF_VAR_VM_USER`}}",
+		"VM_PASSWORD": "{{env `TF_VAR_VM_PASSWORD`}}",
+		"VM_SSH_KEY_FILE": "{{env `TF_VAR_VM_SSH_KEY_FILE`}}",
+		"VM_SSH_PUBLICKEY_FILE": "{{env `TF_VAR_VM_SSH_PUBLICKEY_FILE`}}",
+		"ESXI_DATASTORE": "{{env `TF_VAR_ESXI_DATASTORE`}}",
+		"ESXI_USERNAME": "{{env `TF_VAR_VSPHERE_USER`}}",
+		"ESXI_PASSWORD": "{{env `TF_VAR_VSPHERE_PASSWORD`}}",
+		"ESXI_MGMT_PG": "{{env `TF_VAR_ESXI_MGMT_PG`}}",
+		"VSPHERE_ROUTER_FRONT_INTF_MAC": "{{env `TF_VAR_VSPHERE_ROUTER_FRONT_INTF_MAC`}}",
+		"VSPHERE_UBUNTU_ISO_URLS": "{{env `TF_VAR_VSPHERE_UBUNTU_ISO_URLS`}}",	
+		"VSPHERE_ISO_CHECKSUM": "{{env `TF_VAR_VSPHERE_UBUNTU_ISO_CHECKSUM`}}",	
+		"VSPHERE_ISO_CHECKSUM_TYPE": "{{env `TF_VAR_VSPHERE_UBUNTU_ISO_CHECKSUM_TYPE`}}"
+	},
+	"builders": [{
+		"vm_name": "{{user `ESXI_ROUTER_NAME`}}",
+		"name": "{{user `ESXI_ROUTER_NAME`}}",
+		"type": "vmware-iso",
+		"guest_os_type": "ubuntu-64",
+		"tools_upload_flavor": "linux",
+		"keep_registered": "true",
+		"headless": false,
+		"vnc_port_min": 5905,
+		"vnc_port_max": 6000,
+		"iso_urls": "{{user `VSPHERE_UBUNTU_ISO_URLS`}}",
+		"iso_checksum": "{{user `VSPHERE_ISO_CHECKSUM`}}",
+		"iso_checksum_type": "{{user `VSPHERE_ISO_CHECKSUM_TYPE`}}",
+		"ssh_username": "{{user `VM_USERNAME`}}",
+		"ssh_password": "{{user `VM_PASSWORD`}}",
+		"ssh_keypair_name" : "ssh_key",
+		"ssh_private_key_file": "{{user `VM_SSH_KEY_FILE`}}",
+		"ssh_timeout": "60m",
+		"ssh_clear_authorized_keys": "true",
+		"floppy_files": [
+			"vsphere/packer/ubuntu.cfg",
+			"{{user `VM_SSH_PUBLICKEY_FILE`}}"
+		],
+	
+		"output_directory": "./",
+		"disk_type_id": "thin",
+	
+		"boot_command": [
+			"<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+			"<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+			"<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+			"<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+			"/install/vmlinuz noapic ",
+			"debian-installer=en_GB auto locale=en_GB kbd-chooser/method=gb ",
+			"hostname={{ .Name }} ",
+			"fb=false debconf/frontend=noninteractive ",
+			"preseed/file=/floppy/ubuntu.cfg ",
+			"keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=gb ",
+			"keyboard-configuration/variant=gb console-setup/ask_detect=false ",
+			"grub-installer/bootdev=/dev/sda ",
+			"initrd=/install/initrd.gz -- <enter>"
+		],
+		
+	
+		"shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo $(whoami)|sudo -S sh 'shutdown.sh'",
+		
+		"remote_type": "esx5",
+	
+		"remote_host": "{{user `ESXI_HOST`}}",
+		"remote_datastore": "{{user `ESXI_DATASTORE`}}",
+		"remote_username": "{{user `ESXI_USERNAME`}}",
+		"remote_password": "{{user `ESXI_PASSWORD`}}",
+		"vnc_disable_password" : "true",
+		
+	 	"vmx_data": {
+			"ethernet0.networkName": "backend",
+			"ethernet1.networkName": "{{user `ESXI_MGMT_PG`}}",
+			"ethernet0.present": "TRUE",
+			"ethernet0.startConnected": "TRUE",
+			"ethernet0.virtualDev": "e1000",
+			"ethernet0.addressType": "generated",
+			"ethernet0.generatedAddressOffset": "0",
+			"ethernet0.wakeOnPcktRcv": "FALSE",
+			"ethernet1.present": "TRUE",
+			"ethernet1.startConnected": "TRUE",
+			"ethernet1.virtualDev": "e1000",
+			"ethernet1.addressType": "static",
+			"ethernet1.address": "{{user `VSPHERE_ROUTER_FRONT_INTF_MAC`}}",
+			"ethernet1.generatedAddressOffset": "1",
+			"ethernet1.wakeOnPcktRcv": "FALSE"
+		}
+	},{
+		"type": "vmware-iso", 
+		"vm_name": "{{user `ESXI_CLIENT1_NAME`}}",
+		"name": "{{user `ESXI_CLIENT1_NAME`}}",
+		"guest_os_type": "ubuntu-64",
+		"tools_upload_flavor": "linux",
+		"keep_registered": "true",
+		"headless": false,
+		"iso_urls": "{{user `VSPHERE_UBUNTU_ISO_URLS`}}",
+		"iso_checksum": "{{user `VSPHERE_ISO_CHECKSUM`}}",
+		"iso_checksum_type": "{{user `VSPHERE_ISO_CHECKSUM_TYPE`}}",
+		"ssh_username": "{{user `VM_USERNAME`}}",
+		"ssh_password": "{{user `VM_PASSWORD`}}",
+		"ssh_keypair_name" : "ssh_key",		
+		"ssh_private_key_file": "{{user `VM_SSH_KEY_FILE`}}",
+		"ssh_timeout": "60m",
+		"ssh_clear_authorized_keys": "true",		
+		"floppy_files": [
+			"vsphere/packer/ubuntu.cfg",
+			"{{user `VM_SSH_PUBLICKEY_FILE`}}"
+		],
+	
+		"output_directory": "./",
+		"disk_type_id": "thin",
+	
+		"boot_command": [
+			"<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+			"<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+			"<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+			"<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+			"/install/vmlinuz noapic ",
+			"debian-installer=en_GB auto locale=en_GB kbd-chooser/method=gb ",
+			"hostname={{ .Name }} ",
+			"fb=false debconf/frontend=noninteractive ",
+			"preseed/file=/floppy/ubuntu.cfg ",
+			"keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=gb ",
+			"keyboard-configuration/variant=gb console-setup/ask_detect=false ",
+			"grub-installer/bootdev=/dev/sda ",
+			"initrd=/install/initrd.gz -- <enter>"
+		],
+		
+		"shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo $(whoami)|sudo -S sh 'shutdown.sh'",
+	
+		"remote_type": "esx5",
+	
+		"remote_host": "{{user `ESXI_HOST`}}",
+		"remote_datastore": "{{user `ESXI_DATASTORE`}}",
+		"remote_username": "{{user `ESXI_USERNAME`}}",
+		"remote_password": "{{user `ESXI_PASSWORD`}}",
+		"vnc_disable_password" : "true",
+		"vmx_data": {
+			"ethernet0.networkName": "backend",
+			"ethernet1.networkName": "{{user `ESXI_MGMT_PG`}}",
+			"ethernet0.present": "TRUE",
+			"ethernet0.startConnected": "TRUE",
+			"ethernet0.virtualDev": "e1000",
+			"ethernet0.addressType": "generated",
+			"ethernet0.generatedAddressOffset": "0",
+			"ethernet0.wakeOnPcktRcv": "FALSE",
+			"ethernet1.present": "TRUE",
+			"ethernet1.startConnected": "TRUE",
+			"ethernet1.virtualDev": "e1000",
+			"ethernet1.addressType": "generated",
+			"ethernet1.generatedAddressOffset": "1",
+			"ethernet1.wakeOnPcktRcv": "FALSE"
+		}
+	}],
+	"provisioners": [
+	{
+		"type": "file",
+		"source": "vsphere/packer/sources.list",
+		"destination": "sources.list"
+	},
+	{
+		"type": "shell",
+		"inline": [
+			"sudo su -c 'cat sources.list >>  /etc/apt/sources.list'"
+		],
+		"execute_command": "sudo -E -S bash '{{ .Path }}'"
+	},	
+	{
+		"type": "shell",
+		"scripts": [
+			"common/tools.sh"
+		],
+		"execute_command": "sudo -E -S bash '{{ .Path }}'"
+	},	
+	{
+		"type": "shell",
+		"inline": [
+			"ifconfig  |  sed -e '0,/RUNNING/d' | sed -ne 's/.*inet \\(.*\\)  netmask.*/\\1/gp' | sed -n '1p'  >> {{user `ESXI_CLIENT1_NAME`}}.txt"
+		],
+		"execute_command": "sudo -E -S bash '{{ .Path }}'",
+		"only": ["{{user `ESXI_CLIENT1_NAME`}}"]
+	},
+	{
+		"type": "file",
+		"source": "{{user `ESXI_CLIENT1_NAME`}}.txt",
+		"destination": "{{user `ESXI_CLIENT1_NAME`}}.txt",
+		"direction" : "download",
+		"only": ["{{user `ESXI_CLIENT1_NAME`}}"]
+	},
+	{
+		"type": "shell",
+		"inline": [
+			"ifconfig | sed -e '0,/RUNNING/d' | sed -ne 's/.*inet \\(.*\\)  netmask.*/\\1/gp' | sed -n '1p'  >> {{user `ESXI_ROUTER_NAME`}}.txt"
+		],
+		"execute_command": "sudo -E -S bash '{{ .Path }}'",
+		"only": ["{{user `ESXI_ROUTER_NAME`}}"]
+	},
+	{
+		"type": "file",
+		"source": "{{user `ESXI_ROUTER_NAME`}}.txt",
+		"destination": "{{user `ESXI_ROUTER_NAME`}}.txt",
+		"direction" : "download",
+		"only": ["{{user `ESXI_ROUTER_NAME`}}"]
+	},	
+	{
+		"type": "shell",
+		"inline": [
+			"mkdir -p $HOME/.ssh",
+			"sudo chmod 777 $HOME/.ssh",
+			"mkdir -p /media",	
+			"sudo mount /dev/fd0 /media",
+			"cp /media/* $HOME/.ssh/",
+			"cat $HOME/.ssh/*key* >> $HOME/.ssh/authorized_keys",
+			"sudo chown -R $(whoami):$(whoami) $HOME/.ssh",
+			"chmod 700 $HOME/.ssh",
+			"chmod 644 $HOME/.ssh/authorized_keys",
+			"sudo chmod 777 /etc/ssh/sshd_config",
+			"sudo echo \"PubkeyAuthentication yes\" >> /etc/ssh/sshd_config",
+			"sudo echo \"AuthorizedKeysFile      .ssh/authorized_keys\" >> /etc/ssh/sshd_config",
+			"sudo echo \"PasswordAuthentication no\" >> /etc/ssh/sshd_config"
+		],
+		"execute_command": "bash -x '{{ .Path }}'"
+	}
+	]
+}

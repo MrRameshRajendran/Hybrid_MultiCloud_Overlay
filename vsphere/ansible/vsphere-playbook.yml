@@ -1,0 +1,36 @@
+- hosts: localhost
+  tasks:
+    - set_fact: 
+       username: "{{ lookup('env','TF_VAR_VSPHERE_USER') }}"
+       password: "{{ lookup('env','TF_VAR_VSPHERE_PASSWORD') }}"  
+           
+- hosts: all
+  vars:
+    ansible_host_key_checking: false  
+    ansible_user: "{{ hostvars['localhost']['username'] }}"
+    ansible_ssh_pass: "{{ hostvars['localhost']['password'] }}"
+  tasks:
+  - name: print out the hostname of target
+    ignore_errors: yes
+    command: hostname
+  
+  - name: PowerOff Router
+    ignore_errors: yes
+    shell:
+      vim-cmd vmsvc/power.off $(vim-cmd vmsvc/getallvms | grep {{ESXI_ROUTER_NAME}} | awk '{print $1}')      
+  
+  - name: PowerOff Client1
+    ignore_errors: yes
+    shell:
+      vim-cmd vmsvc/power.off $(vim-cmd vmsvc/getallvms | grep {{ESXI_CLIENT1_NAME}} | awk '{print $1}')    
+            
+  - name: Destroy Router
+    ignore_errors: yes
+    shell:  
+      vim-cmd vmsvc/destroy $(vim-cmd vmsvc/getallvms | grep {{ESXI_ROUTER_NAME}} | awk '{print $1}')
+
+  - name: Destroy Client1
+    ignore_errors: yes
+    shell:  
+      vim-cmd vmsvc/destroy $(vim-cmd vmsvc/getallvms | grep {{ESXI_CLIENT1_NAME}} | awk '{print $1}')
+      

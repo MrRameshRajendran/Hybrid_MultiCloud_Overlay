@@ -1,0 +1,26 @@
+- name: Setting variables' values 
+  hosts: all
+  gather_facts: true
+  vars:
+   ansible_ssh_user : "{{ lookup('env','TF_VAR_VM_USER') }}"
+   ansible_ssh_private_key_file : "{{ lookup('env','TF_VAR_VM_SSH_KEY_FILE') }}"
+
+  tasks:
+  - name: checking reachability
+    command: ping -c5 {{remote_client}} 
+    ignore_errors: yes
+    
+  - name: checking reachability    
+    command: ping -c5 {{remote_client}} 
+    register: ping_result
+    ignore_errors: yes
+    
+  - name: Collecting results    
+    group_by: key=reachable
+    when: ping_result is success
+    
+  - name: return results
+    debug: msg="{{ ping_result }}"
+
+    
+

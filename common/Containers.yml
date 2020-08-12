@@ -1,0 +1,48 @@
+- name: Setting variables' values 
+  hosts: all
+  gather_facts: true
+  vars:
+   ansible_ssh_user : "{{ lookup('env','TF_VAR_VM_USER') }}"
+   ansible_ssh_private_key_file : "{{ lookup('env','TF_VAR_VM_SSH_KEY_FILE') }}"
+   subnet : "{{ lookup('env','TF_VAR_L2_OVERLAY_NETWORK') }}"
+   ipv6_subnet : "{{ lookup('env','TF_VAR_L2_OVERLAY_v6NETWORK') }}"
+   ipv6_prefix_len : "{{ lookup('env','TF_VAR_L2_OVERLAY_v6PREFIX_LEN') }}"
+   
+  tasks:
+  - name: "remove hosts from known_hosts"
+    local_action:
+      known_hosts
+      path=known_hosts
+      name='{{inventory_hostname}}'
+      state=absent
+     
+  - name: print out the hostname of target
+    command: hostname
+  - debug: msg="{{ subnet }}"
+  - name: Create containers
+    shell: | 
+      sudo ovs-vsctl add-br l2-br
+      sudo ifconfig l2-br up    
+      sudo ovs-vsctl set bridge l2-br stp_enable=true
+      sudo docker network create -d macvlan --subnet={{ subnet }} --ip-range={{ ip_range }} --ipv6 --subnet={{ ipv6_subnet }}/{{ ipv6_prefix_len }} --gateway={{ ipv6_subnet }}{{ ipv6_index }} -o parent=l2-br -o macvlan_mode=bridge l2-networks            
+      sudo docker run --rm -itd --name c1 --net l2-networks --ip6={{ ipv6_subnet }}{{ ipv6_index | int + 1 }} ubuntu sh
+      sudo docker run --rm -itd --name c2 --net l2-networks --ip6={{ ipv6_subnet }}{{ ipv6_index | int + 2 }} ubuntu sh
+      sudo docker run --rm -itd --name c3 --net l2-networks --ip6={{ ipv6_subnet }}{{ ipv6_index | int + 3 }} ubuntu sh    
+      sudo docker inspect --format={% raw %}'{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(sudo docker ps -aq) {% endraw %} >> output    
+      sudo docker inspect --format={% raw %}'{{with index .NetworkSettings.Networks "l2-networks" }}{{.IPAMConfig.IPv6Address}}{{end}}' $(sudo docker ps -aq) {% endraw %} >> output    
+      sed ':a;N;s/\n/,/;ta' output >> ip_addresses
+
+  - name: Get containers' ip addresses
+    shell:      
+      cat ip_addresses 
+    register: ip_addresses
+    
+  - name: Remove the temporary file
+    shell: |      
+      rm ip_addresses  
+      rm output
+  - debug: msg="{{ ip_addresses.stdout }}"
+
+  - local_action:     
+      copy content={{ ip_addresses.stdout }} dest={{ file }} 
+    

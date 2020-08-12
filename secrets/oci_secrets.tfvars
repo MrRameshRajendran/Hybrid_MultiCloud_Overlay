@@ -1,0 +1,5 @@
+tenancy_ocid	=	"xxxxxxxxxxxxxxxxxxxxxxxxx"
+user_ocid		=	"xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+fingerprint		=	"xxxxxxxxxxxxxxxxxxxxxxxxxx"
+compartment_ocid=	"xxxxxxxxxxxxxxxxxxxxxxxxxx"
+private_key_path=	".ssh/oci_api_key.pem"
