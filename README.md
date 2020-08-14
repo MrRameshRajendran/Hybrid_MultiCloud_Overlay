@@ -45,15 +45,26 @@ Jenkins Multi Parallel pipeline is implemented to accomplish the build, test and
 &nbsp;  
 &nbsp;  
   
-You can find a brief description on the each stage below.  
-
+You can find a brief description on the each stage below.
+&nbsp;  
 In the first stage, as name states, I am assigning values for the variables. If you want to assign values dynamically prior to creating resources, you can do in this stage.  
+&nbsp;  
+&nbsp;  
 In the 2nd stage, Infrastructure change, terraform script is bringing up virtual machines in all environment. This stage also provisions the virtual machines with necessary packages.  
+&nbsp;  
+&nbsp;   
 In the 3rd stage, “Containers & VMs config”, ansible scripts are bringing up containers in all router virtual machines. We are also gathering IP addresses to terminate tunnels in this stage.  
-In the fourth stage, tunnel config, this is where all magic happens, connectivity is established based on the information prepared in the previous step. Ansible scripts are bringing up tunnels between hub and spoke sites over router virtual machines. Initially, I thought of writing the tunnel configurations in Python. However, I managed to accommodate within Groovy.    
+&nbsp;  
+&nbsp;   
+In the fourth stage, tunnel config, this is where all magic happens, connectivity is established based on the information prepared in the previous step. Ansible scripts are bringing up tunnels between hub and spoke sites over router virtual machines. Initially, I thought of writing the tunnel configurations in Python. However, I managed to accommodate within Groovy.      
+&nbsp;  
+&nbsp;   
 In the final stage, testing, connectivity is tested from the client virtual machine located in hub site to the all containers and client virtual machines located in all spoke sites.  
+&nbsp;  
+&nbsp;  
 Once the testing is completed, scripted stage “unconfig” will be called from the main script to destroy the all resources created in previous stages.  
-
+&nbsp;  
+&nbsp;  
 All parameters required for the scripts are configured using environment variables. Below is the list of environment variables that can be configured before any running the scripts.    
 ## *Environment variables:*
 //Please configure the below environment variables in either Jenkins GUI or here
@@ -104,7 +115,7 @@ TF_VAR_VM_SSH_PUBLICKEY_FILE	=	"$HOME/.ssh/ssh_public_key"
 TF_VAR_VM_USER	=	"ramesh"  
 TF_VAR_VM_PASSWORD=	"ramesh"  
 
-// ******VSPHERE variables*****  
+// *****VSPHERE variables*****  
 &nbsp;  
 //I used ESXi server without any VCENTER license. Hence, I couldn't clone any VM. I used packer(registered on) for creating VMs and ansible for destroying VMs   
 // Do not check secrets_file into github. Use either "git update-index --skip-worktree secrets/vsphere_secrets.tfvars" or .gitignore  
