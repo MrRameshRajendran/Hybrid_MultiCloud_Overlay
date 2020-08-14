@@ -12,7 +12,7 @@ def test_client = ""
 pipeline {
 	agent any
 	environment { 
-		//Please configure the below environment variables in Jenkins GUI or here
+		//Please configure the below environment variables in either Jenkins GUI or here
 
 		//You can add/remove "cloud keywords" from below line. You need to specify atleast two cloud. 
 		CLOUD_LIST								=	"aws_azure_gcp_ali_oracle_vsphere"
