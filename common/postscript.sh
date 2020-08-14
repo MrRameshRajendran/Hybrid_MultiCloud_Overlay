@@ -1,4 +1,5 @@
 #!/bin/bash
+# This file is no longer used. Groovy scripts/stages can be replaced with this script when Jenkins stages need to be removed	
 hub_public_ip=$1
 spoke_public_ips=$2
 hub_flag=$3

@@ -12,7 +12,7 @@ def test_client = ""
 pipeline {
 	agent any
 	environment { 
-		//Please configure the below variables either under global environment variables or here
+		//Please configure the below environment variables in Jenkins GUI or here
 
 		//You can add/remove "cloud keywords" from below line. You need to specify atleast two cloud. 
 		CLOUD_LIST								=	"aws_azure_gcp_ali_oracle_vsphere"
@@ -23,10 +23,14 @@ pipeline {
 
 		//If you want to remove all resources post testing, Please set the below variable to "yes"
 		REMOVE_CONFIG							=	"yes"	
-		//Please note that all terraform state files are created in workspace directory. If you intend to keep all resources, please take backup of tf state files before next build overwrites them.
+		//Please note that all terraform state files are created in workspace directory. 
+		//If you intend to keep all resources, please take backup of tf state files before next build overwrites them.
 		
-		//TUNNEL_TYPE can be configured as geneve, vxlan or gre; Please note that only TCP/UDP/ICMP based ACLs are allowed in public clouds,and GRE is always blocked in certain clouds. 
+		//TUNNEL_TYPE can be configured as geneve or vxlan; 
+		//Please note that only TCP/UDP/ICMP based ACLs are allowed in public clouds,and GRE is always blocked in certain clouds. 
 		TUNNEL_TYPE								=	"geneve"
+		
+		//Disabling ansible ssh host key checking 
 		ANSIBLE_HOST_KEY_CHECKING				=	"False"
 		
 		//Below subnet will be used as overlay subnet in all cloud. This will not be visible in underlying infrastructure. 
@@ -35,25 +39,30 @@ pipeline {
 		//Containers & Client VM machines will use the addresses from this address space
 		//This can be managed easily using IPAM driver, still an experimental/private feature under docker
 		TF_VAR_L2_OVERLAY_NETWORK				=	"192.168.2.0/24"
-		TF_VAR_L2_OVERLAY_SUBNETMASK			=	"255.255.255.0"		
+		TF_VAR_L2_OVERLAY_SUBNETMASK			=	"255.255.255.0"	
+		
+		//Some cloud environments require subnet mask instead of prefix length. Underlay subnets are defined further below. 
+		//This should match the underlay prefix length. For eg /24 should be 255.255.255.0
+		//Automatic subnet calculation is for future improvements
 		TF_VAR_UNDERLAY_SUBNETMASK				=	"255.255.255.0"				
 
+		//Below variables cover the IPv6 network and subnet mask. They will be used in Overlay network
 		TF_VAR_L2_OVERLAY_v6NETWORK				=	"fc00::"
 		TF_VAR_L2_OVERLAY_v6PREFIX_LEN			=	"64"
 				
-		//Below files will be used for authenticating VMs. Public-key name should have "key" .
+		//Below files will be used for authenticating VMs. SSH key will be uploaded onto virtual machines during the build process.
 		TF_VAR_VM_SSH_KEY_FILE 					=	"$HOME/.ssh/ssh_key.pem"
 		TF_VAR_VM_SSH_PUBLICKEY_FILE			=	"$HOME/.ssh/ssh_public_key"
 	
 	
-		//You can define below usernames and passwords under Jenkins environment variables or here. This password will be used only in
-		//vsphere VMs during initial setup and then packer will change the SSH password authentication to SSH public key. 
+		//Below username will be configured in all virtual machines. The password will be used expecially in vsphere VMs during initial setup 
+		//and then packer will change the SSH password authentication to SSH public key. 
 		TF_VAR_VM_USER							=	"ramesh"
 		TF_VAR_VM_PASSWORD						=	"ramesh"
 
 		// ******VSPHERE variables******	
 		//I used ESXi server without any VCENTER license. Hence, I couldn't clone any VM. I used packer(registered on) for creating VMs and ansible for destroying VMs 
-		// Do not check secrets_file into github. Using the command "git update-index --skip-worktree secrets/aws_secrets.tfvars"
+		// Do not check secrets_file into github. Use either "git update-index --skip-worktree secrets/vsphere_secrets.tfvars" or .gitignore
 		VSPHERE_SECRETS_FILE					=	"$HOME/scripts/L2_Overlay_Cloud_Dockers/secrets/vsphere_secrets.tfvars"
 		
 		//You can define below usernames and passwords under Jenkins environment variables or here 
@@ -84,7 +93,7 @@ pipeline {
 		//Refer TF_VAR_L2_OVERLAY_NETWORK. This should be subset of it.
 		VSPHERE_OVERLAY_IP_RANGE				=	"192.168.2.16/28"	
 			
-		//Below images will be loaded into Vsphere VMs, Get the checksum from the ubuntu website. Packer can automatically determine the checksum type from the checksum length
+		//Below images will be loaded onto Vsphere VMs, Get the checksum from the ubuntu website. Packer can automatically determine the checksum type from the checksum length
 		//Don't forget to check the sources.list file located in vsphere/packer/. If you have a private ISO and your ISO doesn't have proper sources.list, populate your servers' list in sources.list
 		TF_VAR_VSPHERE_UBUNTU_ISO_URLS			=	'''/var/cache/iso/ubuntu-18.04.4-server-amd64.iso'''
 		//TF_VAR_VSPHERE_UBUNTU_ISO_URLS		=	'''http://cdimage.ubuntu.com/releases/bionic/release/ubuntu-18.04.4-server-amd64.iso'''
@@ -93,20 +102,18 @@ pipeline {
 
 
 		// ******AWS variables******	
-		// Do not check secrets_file into github by using the command "git update-index --skip-worktree secrets/aws_secrets.tfvars"
+		// Do not check secrets_file into github. You can use either the command "git update-index --skip-worktree secrets/aws_secrets.tfvars" or .gitignore file
 		AWS_SECRETS_FILE						=	"$HOME/scripts/L2_Overlay_Cloud_Dockers/secrets/aws_secrets.tfvars"
 		TF_VAR_AWS_REGION						=	"eu-west-2"
 		TF_VAR_AWS_CIDR							=	"192.168.0.0/16"
 		TF_VAR_AWS_FRONT_SUBNET					=	"192.168.0.0/24"
-		TF_VAR_AWS_UNDERLAY_SUBNET				=	"192.168.1.0/24"	
-		//	TF_VAR_AWS_CLIENT1_ADDRESS				=	"192.168.1.11"
-		//	TF_VAR_AWS_ROUTER_BACKEND_ADDRESS		=	"192.168.1.10"		
+		TF_VAR_AWS_UNDERLAY_SUBNET				=	"192.168.1.0/24"		
 		//Refer TF_VAR_L2_OVERLAY_NETWORK. This should be subset of it.
 		AWS_OVERLAY_IP_RANGE					=	"192.168.2.32/28"
 			
 					
 		// ******AZURE variables******
-		// Do not check secrets_file into github by using the command "git update-index --skip-worktree secrets/azure_secrets.tfvars"
+		// Do not check secrets_file into github. You can use either the command "git update-index --skip-worktree secrets/azure_secrets.tfvars" or .gitignore file
 		AZURE_SECRETS_FILE						=	"$HOME/scripts/L2_Overlay_Cloud_Dockers/secrets/azure_secrets.tfvars"		
 		TF_VAR_AZURE_LOCATION					=	"westeurope"
 		TF_VAR_AZURE_CIDR						=	"192.168.0.0/16"
@@ -117,7 +124,7 @@ pipeline {
 
 
 		// ******GCP variables******
-		// Do not check secrets_file into github by using the command "git update-index --skip-worktree secrets/gcp_secrets.tfvars"
+		// Do not check secrets_file into github. You can use either the command "git update-index --skip-worktree secrets/gcp_secrets.tfvars" or .gitignore file
 		TF_VAR_GCP_KEY_FILE						=	"$HOME/.ssh/gcp-key.json"
 		TF_VAR_GCP_FRONT_SUBNET					=	"192.168.0.0/24"
 		TF_VAR_GCP_PROJECT						=	"round-vent-223215"
@@ -129,7 +136,7 @@ pipeline {
 		
 		
 		// ******OCI variables******
-		// Do not check secrets_file into github by using the command "git update-index --skip-worktree secrets/oci_secrets.tfvars"
+		// Do not check secrets_file into github. You can use either the command "git update-index --skip-worktree secrets/oci_secrets.tfvars" or .gitignore file
 		OCI_SECRETS_FILE						=	"$HOME/scripts/L2_Overlay_Cloud_Dockers/secrets/oci_secrets.tfvars"
 		TF_VAR_OCI_REGION						=	"uk-london-1"
 		TF_VAR_OCI_CIDR							=	"192.168.0.0/16"
@@ -140,7 +147,7 @@ pipeline {
 
 		
 		// ******ALIBABA CLOUD variables******	
-		// Do not check secrets_file into github by using the command "git update-index --skip-worktree secrets/aws_secrets.tfvars"
+		// Do not check secrets_file into github. You can use either the command "git update-index --skip-worktree secrets/aws_secrets.tfvars" or .gitignore file
 		ALI_SECRETS_FILE						=	"$HOME/scripts/L2_Overlay_Cloud_Dockers/secrets/ali_secrets.tfvars"
 		TF_VAR_ALI_REGION						=	"eu-west-1"
 		TF_VAR_ALI_CIDR							=	"192.168.0.0/16"
@@ -166,7 +173,7 @@ pipeline {
 				branch 'master'
 			}
 			failFast true	
-			// I used parllel and static stages to get good visualization from blueocean	
+			//Preferred to use parallel pipeline to build the virtual machines across all environment at the same time 	
 			parallel {	
 				stage('VSphere') {
 					when {
@@ -182,11 +189,10 @@ pipeline {
 								sh "sed -i 's/mypass/${env.TF_VAR_VM_PASSWORD}/g' vsphere/packer/ubuntu.cfg"
 								
 								echo "Calling packer to build VMs in VSphere"
-								//I am using standalone ESXI(without vcenter). Hence, I am copying the finished files directly from local \
-								//environment to ESXI server
+								//I am using standalone ESXI(without vcenter). Finished files will be copied directly from workspace environment to ESXI server
 								sh "packer build -force vsphere/packer/ubuntu.json"			 							
 			
-								//My Jenkins server and laptops are connected to vsphere environment over management networks		
+								//My Jenkins server and Automation/Management servers are connected to vsphere environment over management networks		
 		 						vsphere_client1_mgmt_ip	=	sh (script: "cat ${TF_VAR_ESXI_CLIENT1_NAME}.txt", returnStdout: true).trim()
 		 						echo "vsphere_client1_mgmt_ip ${vsphere_client1_mgmt_ip}"
 		 						vsphere_router_mgmt_ip	=	sh (script: "cat ${TF_VAR_ESXI_ROUTER_NAME}.txt", returnStdout: true).trim()
@@ -507,10 +513,10 @@ def Containers_VMs_config(thiscloud) {
 	lock("ipv6 allocations lock") {
 		starting_index = ipv6_index
 		
-		//Docker gateway ip address. It doesn't need to be added into clients list
+		//Docker gateway ipv6 address. It doesn't need to be added into clients list
 		ReserveIPv6_address(1)
 		
-		//Containers' ip addresses
+		//Containers' ipv6 addresses
 		ReserveIPv6_address(3)
 	}	
 	sh " ssh-keygen  -R ${cloudVariable."$thiscloud".router_mgmt_ip} || true"
