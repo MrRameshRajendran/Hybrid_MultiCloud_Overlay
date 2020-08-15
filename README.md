@@ -20,7 +20,21 @@ MutiCloud_Overlay demonstrates a use case of overlay over multi clouds such as A
 &nbsp;  
 &nbsp;  
 
-Even if you don’t want to deploy overlay or Multi-Cloud, you should be able to use just subset of the scripts to create Jenkins multi parallel pipelines, configure security policies, build virtual machines and attach multi NIC cards in the major cloud environment.  
+I have named the virtual machine that establishes tunnel with other public clouds as a router and the virtual machine, from the same cloud, that establishes tunnel with the router as a Client. Traffic between two spoke sites always send via Router in Hub site. Router virtual machine hosts atleast three docker containers in each environment. All virtual machines and containers have dual stack configurations. Virtual machines are built using Ubuntu. All router virtual machines have two interfaces. Client virtual machine in public cloud has only one interface. One difference is that client virtual machine in VMware has two interfaces because I preferred to have dedicated management interface in private cloud. All public cloud virtual machines are managed over internet and private cloud virtual machines are managed within the environment over dedicated management interface. 
+&nbsp;  
+&nbsp;  
+![Components - Cloud - watermark](https://user-images.githubusercontent.com/42124227/90312733-ba7c7700-defe-11ea-9342-a63939c3a683.jpg)
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Components in Cloud 
+&nbsp;  
+&nbsp;  
+&nbsp;  
+![Components - vSphere - watermark](https://user-images.githubusercontent.com/42124227/90312735-c10aee80-defe-11ea-8eb6-a6e61081f3c5.jpg)
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Components in vSphere
+&nbsp;  
+&nbsp;  
+&nbsp; 
+
+Even if you don’t want to deploy overlay or Multi-Cloud, you should be able to use just subset of the scripts to create Jenkins multi parallel pipelines, configure security policies, build virtual machines and attach multi NIC cards in a cloud environment.  
 This project utilizes below tools and scripts extensively.   
 
 #### •	OVS – OpenvSwitch  
@@ -51,20 +65,7 @@ Jenkins Multi Parallel pipeline is implemented to accomplish the build, test and
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jenkins - multi parallel pipeline – Failed stage
 &nbsp;  
 &nbsp;  
-&nbsp;
 
-I have named the virtual machine that establishes tunnel with other public clouds as a router and the virtual machine, from the same cloud, that establishes tunnel with the router as a Client. Traffic between two spoke sites always send via Router in Hub site. Router virtual machine hosts atleast three docker containers in each environment. All virtual machines and containers have dual stack configurations. Virtual machines are built using Ubuntu. All router virtual machines have two interfaces. Client virtual machine in public cloud has only one interface. One difference is that client virtual machine in VMware has two interfaces because I preferred to have dedicated management interface in private cloud. All public cloud virtual machines are managed over internet and private cloud virtual machines are managed within the environment over dedicated management interface. 
-&nbsp;    
-![Components - Cloud - watermark](https://user-images.githubusercontent.com/42124227/90312733-ba7c7700-defe-11ea-9342-a63939c3a683.jpg)
-#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Components in Cloud 
-&nbsp;  
-&nbsp;  
-&nbsp;  
-![Components - vSphere - watermark](https://user-images.githubusercontent.com/42124227/90312735-c10aee80-defe-11ea-8eb6-a6e61081f3c5.jpg)
-#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Components in vSphere
-&nbsp;  
-&nbsp;  
-&nbsp; 
 
 
 You can find a brief description on the each stage below.
