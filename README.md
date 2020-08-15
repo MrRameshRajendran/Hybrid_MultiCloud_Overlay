@@ -1,6 +1,6 @@
 # MultiCloud_Overlay
 
-MutiCloud_Overlay demonstrates a use case of overlay over multi clouds such as AWS, Azure, GCP, OCI, Alibaba and a vSphere private infrastructure in a hub and spoke topology. Two or more clouds are sufficient to run the script. Overlay protocols IPv6 and IPv4 independent of underlying infrastructure. This project uses 
+MutiCloud_Overlay demonstrates a use case of overlay over multi clouds such as AWS, Azure, GCP, OCI, Alibaba and a vSphere private infrastructure in a hub and spoke or in a point to point topology. Two or more clouds are sufficient to run the script. Overlay protocols IPv6 and IPv4 independent of underlying infrastructure. This solution can be integrated with encryption and additional security features. 
  
 
  ![sample LAN - watermark](https://user-images.githubusercontent.com/42124227/90287026-eea85700-de6e-11ea-8510-4aca7e13aa5c.jpg) 
@@ -10,10 +10,16 @@ MutiCloud_Overlay demonstrates a use case of overlay over multi clouds such as A
 &nbsp;  
     
 ![hub and spoke watermark](https://user-images.githubusercontent.com/42124227/90286728-59a55e00-de6e-11ea-9bee-2f15827c9a65.jpg)
-#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sample hub and spoke topology
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sample Hub and Spoke topology
 &nbsp;  
 &nbsp;  
 &nbsp;    
+![point to point watermark](https://user-images.githubusercontent.com/42124227/90312396-1396db80-defc-11ea-9bd9-f2f9eff71be6.jpg)
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sample Point to Point topology
+&nbsp;  
+&nbsp;  
+&nbsp;  
+
 Even if you don’t want to deploy overlay or Multi-Cloud, you should be able to use just subset of the scripts to create Jenkins multi parallel pipelines, configure security policies, build virtual machines and attach multi NIC cards in the major cloud environment.  
 This project utilizes below tools and scripts extensively.   
 
@@ -26,6 +32,8 @@ This project utilizes below tools and scripts extensively.
 #### •	Groovy  
 #### •	Docker  
 #### •	Ubuntu Virtual machines  
+&nbsp;  
+&nbsp;   
 
 Jenkins Multi Parallel pipeline is implemented to accomplish the build, test and destroy stages. Below screenshots are showing the sample pipeline output.   
 
@@ -43,8 +51,22 @@ Jenkins Multi Parallel pipeline is implemented to accomplish the build, test and
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jenkins - multi parallel pipeline – Failed stage
 &nbsp;  
 &nbsp;  
+&nbsp;
+
+I have named the virtual machine that establishes tunnel with other public clouds as a router and the virtual machine, from the same cloud, that establishes tunnel with the router as a Client. Traffic between two spoke sites always send via Router in Hub site. Router virtual machine hosts atleast three docker containers in each environment. All virtual machines and containers have dual stack configurations. Virtual machines are built using Ubuntu. All router virtual machines have two interfaces. Client virtual machine in public cloud has only one interface. One difference is that client virtual machine in VMware has two interfaces because I preferred to have dedicated management interface in private cloud. All public cloud virtual machines are managed over internet and private cloud virtual machines are managed within the environment over dedicated management interface. 
+&nbsp;    
+![Components - Cloud - watermark](https://user-images.githubusercontent.com/42124227/90312733-ba7c7700-defe-11ea-9342-a63939c3a683.jpg)
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Components in Cloud 
 &nbsp;  
-  
+&nbsp;  
+&nbsp;  
+![Components - vSphere - watermark](https://user-images.githubusercontent.com/42124227/90312735-c10aee80-defe-11ea-8eb6-a6e61081f3c5.jpg)
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Components in vSphere
+&nbsp;  
+&nbsp;  
+&nbsp; 
+
+
 You can find a brief description on the each stage below.
 &nbsp;  
 In the first stage, as name states, I am assigning values for the variables. If you want to assign values dynamically prior to creating resources, you can do in this stage.  
@@ -65,7 +87,11 @@ In the final stage, testing, connectivity is tested from the client virtual mach
 Once the testing is completed, scripted stage “unconfig” will be called from the main script to destroy the all resources created in previous stages.  
 &nbsp;  
 &nbsp;  
-All parameters required for the scripts are configured using environment variables. Below is the list of environment variables that can be configured before any running the scripts.    
+All parameters required for the scripts are configured using environment variables. Below is the list of environment variables that can be configured before any running the scripts.  
+&nbsp;  
+&nbsp;  
+&nbsp;  
+
 ## *Environment variables:*
 //Please configure the below environment variables in either Jenkins GUI or here
 
@@ -114,7 +140,10 @@ TF_VAR_VM_SSH_PUBLICKEY_FILE	=	"$HOME/.ssh/ssh_public_key"
 //and then packer will change the SSH password authentication to SSH public key.   
 TF_VAR_VM_USER	=	"ramesh"  
 TF_VAR_VM_PASSWORD=	"ramesh"  
-
+  
+&nbsp;  
+&nbsp;  
+&nbsp;  
 // *****VSPHERE variables*****  
 &nbsp;  
 //I used ESXi server without any VCENTER license. Hence, I couldn't clone any VM. I used packer(registered on) for creating VMs and ansible for destroying VMs   
@@ -156,8 +185,11 @@ TF_VAR_VSPHERE_UBUNTU_ISO_URLS	=	'''/var/cache/iso/ubuntu-18.04.4-server-amd64.i
 TF_VAR_VSPHERE_UBUNTU_ISO_CHECKSUM=	"e2ecdace33c939527cbc9e8d23576381c493b071107207d2040af72595f8990b"  
 TF_VAR_VSPHERE_UBUNTU_ISO_CHECKSUM_TYPE	=	"sha256"  
 
-
-// ******AWS variables******  	
+  
+&nbsp;  
+&nbsp;  
+&nbsp;
+// ******AWS variables******  
 &nbsp;  
 // Do not check secrets_file into github. You can use either the command "git update-index --skip-worktree secrets/aws_secrets.tfvars" or .gitignore file  
 AWS_SECRETS_FILE=	"$HOME/scripts/L2_Overlay_Cloud_Dockers/secrets/aws_secrets.tfvars"  
@@ -167,10 +199,14 @@ TF_VAR_AWS_FRONT_SUBNET	=	"192.168.0.0/24"
 TF_VAR_AWS_UNDERLAY_SUBNET=	"192.168.1.0/24"  
 //Refer TF_VAR_L2_OVERLAY_NETWORK. This should be subset of it.  
 AWS_OVERLAY_IP_RANGE	=	"192.168.2.32/28"  
+&nbsp;    
 	
-	
-// ******AZURE variables******
+  
 &nbsp;  
+&nbsp;  
+&nbsp;	
+// ******AZURE variables******  
+&nbsp;   
 // Do not check secrets_file into github. You can use either the command "git update-index --skip-worktree secrets/azure_secrets.tfvars" or .gitignore file  
 AZURE_SECRETS_FILE=	"$HOME/scripts/L2_Overlay_Cloud_Dockers/secrets/azure_secrets.tfvars"  
 TF_VAR_AZURE_LOCATION	=	"westeurope"  
@@ -180,7 +216,10 @@ TF_VAR_AZURE_UNDERLAY_SUBNET	=	"192.168.1.0/24"
 //Refer TF_VAR_L2_OVERLAY_NETWORK. This should be subset of it.  
 AZURE_OVERLAY_IP_RANGE	=	"192.168.2.48/28"  
 
-
+  
+&nbsp;  
+&nbsp;  
+&nbsp;
 // ******GCP variables******  
 &nbsp;  
 // Do not check secrets_file into github. You can use either the command "git update-index --skip-worktree secrets/gcp_secrets.tfvars" or .gitignore file  
@@ -191,9 +230,12 @@ TF_VAR_GCP_REGION=	"europe-west2"
 TF_VAR_GCP_ZONE	=	"europe-west2-a"  
 TF_VAR_GCP_UNDERLAY_SUBNET=	"192.168.1.0/24"  	
 //Refer TF_VAR_L2_OVERLAY_NETWORK. This should be subset of it.  
-GCP_OVERLAY_IP_RANGE	=	"192.168.2.64/28"	  
+GCP_OVERLAY_IP_RANGE	=	"192.168.2.64/28"  
 
 
+&nbsp;  
+&nbsp;  
+&nbsp;
 // ******OCI variables******  
 &nbsp;  
 // Do not check secrets_file into github. You can use either the command "git update-index --skip-worktree secrets/oci_secrets.tfvars" or .gitignore file  
@@ -203,10 +245,14 @@ TF_VAR_OCI_CIDR	=	"192.168.0.0/16"
 TF_VAR_OCI_FRONT_SUBNET	=	"192.168.0.0/24"  
 TF_VAR_OCI_UNDERLAY_SUBNET=	"192.168.1.0/24"	  
 //Refer TF_VAR_L2_OVERLAY_NETWORK. This should be subset of it.  
-OCI_OVERLAY_IP_RANGE	=	"192.168.2.80/28"	  
+OCI_OVERLAY_IP_RANGE	=	"192.168.2.80/28"  
 
-
-// ******ALIBABA CLOUD variables******	  
+  
+&nbsp;  
+&nbsp;  
+&nbsp;
+// ******ALIBABA CLOUD variables******  
+&nbsp;  
 // Do not check secrets_file into github. You can use either the command "git update-index --skip-worktree secrets/aws_secrets.tfvars" or .gitignore file  
 ALI_SECRETS_FILE=	"$HOME/scripts/L2_Overlay_Cloud_Dockers/secrets/ali_secrets.tfvars"  
 TF_VAR_ALI_REGION=	"eu-west-1"  
