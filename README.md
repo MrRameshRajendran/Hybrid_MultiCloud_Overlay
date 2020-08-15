@@ -330,7 +330,7 @@ Below script configures a tunnel in a virtual machine.
 ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/tunnelConfig.yml -i 13.81.202.147, --extra-vars  tunnel_id=0 remote_ip=192.168.1.5
 
 &nbsp;  
-Below script runs a ping test. 
+Below script runs a ping test.  
 ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 192.168.0.28, --extra-vars remote_client=192.168.2.81
 
 
