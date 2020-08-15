@@ -93,6 +93,8 @@ All parameters required for the scripts are configured using environment variabl
 &nbsp;  
 &nbsp;  
 
+
+
 ## *Environment variables:*
 //Please configure the below environment variables in either Jenkins GUI or here
 
@@ -262,3 +264,74 @@ TF_VAR_ALI_FRONT_SUBNET	=	"192.168.0.0/24"
 TF_VAR_ALI_UNDERLAY_SUBNET=	"192.168.1.0/24"  
 //Refer TF_VAR_L2_OVERLAY_NETWORK. This should be subset of it.  
 ALI_OVERLAY_IP_RANGE	=	"192.168.2.96/28"  
+
+&nbsp;
+&nbsp;  
+&nbsp;  
+&nbsp;  
+
+## *Scripts without Jenkins:*  
+&nbsp;  
+It is possible to run terraform, ansible, packer and shell scripts on their own outside of Jenkins pipeline. I assumed that you will be using environment variables. However, if you prefer not to use environment variables, pass them as command line variables. All the relevant variables are documented above under “Environment variables” section. You can directly run the script by executing the below list of commands.  
+&nbsp;
+&nbsp;
+
+### *vSphere:*  
+&nbsp;  
+Below script creates logical switch and port-groups. This script also switches on the virtual machines.
+&nbsp;  
+terraform apply -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/vsphere_secrets.tfvars -var CLIENT1_MGMT_IP=192.168.0.28 -var ROUTER_MGMT_IP=192.168.0.29 -auto-approve terraform/
+
+&nbsp;  
+Below script builds virtual machines from ISO files in a vSphere environment.
+&nbsp;  
+packer build -force vsphere/packer/ubuntu.json
+
+
+### *GCP:*  
+&nbsp;  
+Below script creates networks, security groups and virtual machines in GCP.
+&nbsp;  
+terraform apply -auto-approve terraform/  
+### *OCI:*  
+&nbsp;  
+Below script creates networks, security groups and virtual machines in OCI.
+&nbsp;  
+terraform apply -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/oci_secrets.tfvars -auto-approve terraform/  
+&nbsp;  
+### *Alibaba:*  
+&nbsp;  
+Below script creates networks, security groups and virtual machines in Alibaba Cloud.
+&nbsp;  
+terraform apply -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/ali_secrets.tfvars -auto-approve terraform/
+
+### *AWS:*  
+&nbsp;  
+Below script creates networks, security groups and virtual machines in AWS.
+&nbsp;  
+terraform apply -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/aws_secrets.tfvars -auto-approve terraform/
+
+### *Azure:*  
+&nbsp;  
+Below script creates networks, security groups and virtual machines in Azure.  
+terraform apply -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/azure_secrets.tfvars -auto-approve terraform/  
+
+### *Common:*  
+&nbsp;  
+Below script creates docker containers. IPv4 and IPv6 addresses are picked up from global variables and command line arguments.  
+ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/Containers.yml -i 3.11.55.25, --extra-vars  ip_range=192.168.2.32/28 ipv6_index=2 file=aws_containers 
+
+&nbsp;  
+Below script removes known host from the ssh file. IPv4 and IPv6 addresses are configured on the bridge interface.  
+ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/VMs.yml -i 140.238.85.40, --extra-vars  ip_address=192.168.2.80 ipv6_index=26
+
+&nbsp;  
+Below script configures a tunnel in a virtual machine. 
+ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/tunnelConfig.yml -i 13.81.202.147, --extra-vars  tunnel_id=0 remote_ip=192.168.1.5
+
+&nbsp;  
+Below script runs a ping test. 
+ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 192.168.0.28, --extra-vars remote_client=192.168.2.81
+
+
+
