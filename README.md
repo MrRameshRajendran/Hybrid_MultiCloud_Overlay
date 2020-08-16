@@ -1,6 +1,6 @@
 # MultiCloud_Overlay
 
-MutiCloud_Overlay demonstrates a use case of overlay over multi clouds such as AWS, Azure, GCP, OCI, Alibaba and a vSphere private infrastructure in Hub and spoke topology, point to point topology and in a Single cloud. Overlay protocols IPv6 and IPv4 independent of underlying infrastructure. This solution can be integrated with encryption and additional security features. 
+MutiCloud_Overlay demonstrates a use case of overlay over one or more clouds such as AWS, Azure, GCP, OCI, Alibaba and a vSphere private infrastructure in Hub and spoke topology, point to point topology and in a Single cloud. Overlay protocols IPv6 and IPv4 are independent of underlying infrastructure. This solution can be integrated with encryption and additional security features. 
  
 
  ![sample LAN - watermark](https://user-images.githubusercontent.com/42124227/90287026-eea85700-de6e-11ea-8510-4aca7e13aa5c.jpg) 
@@ -85,13 +85,13 @@ In the 2nd stage, Infrastructure change, terraform script is bringing up virtual
 In the 3rd stage, “Containers & VMs config”, ansible scripts are bringing up containers in all router virtual machines. We are also gathering IP addresses to terminate tunnels in this stage.  
 &nbsp;  
 &nbsp;   
-In the fourth stage, tunnel config, this is where all magic happens, connectivity is established based on the information prepared in the previous step. Ansible scripts are bringing up tunnels between hub and spoke sites over router virtual machines. Initially, I thought of writing the tunnel configurations in Python. However, I managed to accommodate within Groovy.      
+In the fourth stage, tunnel config, this is where all magic happens, connectivity is established based on the information prepared in the previous step. Ansible scripts are bringing up tunnels between hub and spoke sites over router virtual machines. Initially, I considered writing the tunnel configurations in Python. However, I managed to accommodate within Groovy.      
 &nbsp;  
 &nbsp;   
 In the final stage, testing, connectivity is tested from the client virtual machine located in hub site to the all containers and client virtual machines located in all spoke sites.  
 &nbsp;  
 &nbsp;  
-Once the testing is completed, scripted stage “unconfig” will be called from the main script to destroy the all resources created in previous stages.  
+Once the testing is completed, scripted stage “unconfig” will be called from the main script to destroy all resources created in previous stages.  
 &nbsp;  
 &nbsp;  
 All parameters required for the scripts are configured using environment variables. Below is the list of environment variables that can be configured before any running the scripts.  
@@ -303,12 +303,10 @@ Below script removes known host from the ssh file. IPv4 and IPv6 addresses are c
 
 &nbsp;  
 Below script configures a tunnel in a virtual machine.  
-&nbsp;   
 ```ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/tunnelConfig.yml -i 13.81.202.147, --extra-vars  tunnel_id=0 remote_ip=192.168.1.5```
 
 &nbsp;  
-Below script runs a ping test. 
-&nbsp;   
+Below script runs a ping test.  
 ```ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 192.168.0.28, --extra-vars remote_client=192.168.2.81```
 
 
