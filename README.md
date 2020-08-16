@@ -1,6 +1,6 @@
 # MultiCloud_Overlay
 
-MutiCloud_Overlay demonstrates a use case of overlay over multi clouds such as AWS, Azure, GCP, OCI, Alibaba and a vSphere private infrastructure in a hub and spoke topology, point to point topology and single cloud. Overlay protocols IPv6 and IPv4 independent of underlying infrastructure. This solution can be integrated with encryption and additional security features. 
+MutiCloud_Overlay demonstrates a use case of overlay over multi clouds such as AWS, Azure, GCP, OCI, Alibaba and a vSphere private infrastructure in Hub and spoke topology, point to point topology and in a Single cloud. Overlay protocols IPv6 and IPv4 independent of underlying infrastructure. This solution can be integrated with encryption and additional security features. 
  
 
  ![sample LAN - watermark](https://user-images.githubusercontent.com/42124227/90287026-eea85700-de6e-11ea-8510-4aca7e13aa5c.jpg) 
