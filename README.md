@@ -102,6 +102,7 @@ All parameters required for the scripts are configured using environment variabl
 
 
 ## *Environment variables:*
+```
 //Please configure the below environment variables in either Jenkins GUI or here
 
 //You can add/remove "cloud keywords" from below line. You need to specify atleast two cloud. 
@@ -150,11 +151,7 @@ TF_VAR_VM_SSH_PUBLICKEY_FILE	=	"$HOME/.ssh/ssh_public_key"
 TF_VAR_VM_USER	=	"ramesh"  
 TF_VAR_VM_PASSWORD=	"ramesh"  
   
-&nbsp;  
-&nbsp;  
-&nbsp;  
 // *****VSPHERE variables*****  
-&nbsp;  
 //I used ESXi server without any VCENTER license. Hence, I couldn't clone any VM. I used packer(registered on) for creating VMs and ansible for destroying VMs   
 // Do not check secrets_file into github. Use either "git update-index --skip-worktree secrets/vsphere_secrets.tfvars" or .gitignore  
 VSPHERE_SECRETS_FILE	=	"$HOME/scripts/L2_Overlay_Cloud_Dockers/secrets/vsphere_secrets.tfvars"  
@@ -195,11 +192,7 @@ TF_VAR_VSPHERE_UBUNTU_ISO_CHECKSUM=	"e2ecdace33c939527cbc9e8d23576381c493b071107
 TF_VAR_VSPHERE_UBUNTU_ISO_CHECKSUM_TYPE	=	"sha256"  
 
   
-&nbsp;  
-&nbsp;  
-&nbsp;
 // ******AWS variables******  
-&nbsp;  
 // Do not check secrets_file into github. You can use either the command "git update-index --skip-worktree secrets/aws_secrets.tfvars" or .gitignore file  
 AWS_SECRETS_FILE=	"$HOME/scripts/L2_Overlay_Cloud_Dockers/secrets/aws_secrets.tfvars"  
 TF_VAR_AWS_REGION=	"eu-west-2"  
@@ -208,14 +201,8 @@ TF_VAR_AWS_FRONT_SUBNET	=	"192.168.0.0/24"
 TF_VAR_AWS_UNDERLAY_SUBNET=	"192.168.1.0/24"  
 //Refer TF_VAR_L2_OVERLAY_NETWORK. This should be subset of it.  
 AWS_OVERLAY_IP_RANGE	=	"192.168.2.32/28"  
-&nbsp;    
-	
-  
-&nbsp;  
-&nbsp;  
-&nbsp;	
+
 // ******AZURE variables******  
-&nbsp;   
 // Do not check secrets_file into github. You can use either the command "git update-index --skip-worktree secrets/azure_secrets.tfvars" or .gitignore file  
 AZURE_SECRETS_FILE=	"$HOME/scripts/L2_Overlay_Cloud_Dockers/secrets/azure_secrets.tfvars"  
 TF_VAR_AZURE_LOCATION	=	"westeurope"  
@@ -226,11 +213,7 @@ TF_VAR_AZURE_UNDERLAY_SUBNET	=	"192.168.1.0/24"
 AZURE_OVERLAY_IP_RANGE	=	"192.168.2.48/28"  
 
   
-&nbsp;  
-&nbsp;  
-&nbsp;
 // ******GCP variables******  
-&nbsp;  
 // Do not check secrets_file into github. You can use either the command "git update-index --skip-worktree secrets/gcp_secrets.tfvars" or .gitignore file  
 TF_VAR_GCP_KEY_FILE=	"$HOME/.ssh/gcp-key.json"  
 TF_VAR_GCP_FRONT_SUBNET	=	"192.168.0.0/24"  
@@ -242,11 +225,7 @@ TF_VAR_GCP_UNDERLAY_SUBNET=	"192.168.1.0/24"
 GCP_OVERLAY_IP_RANGE	=	"192.168.2.64/28"  
 
 
-&nbsp;  
-&nbsp;  
-&nbsp;
 // ******OCI variables******  
-&nbsp;  
 // Do not check secrets_file into github. You can use either the command "git update-index --skip-worktree secrets/oci_secrets.tfvars" or .gitignore file  
 OCI_SECRETS_FILE=	"$HOME/scripts/L2_Overlay_Cloud_Dockers/secrets/oci_secrets.tfvars"  
 TF_VAR_OCI_REGION=	"uk-london-1"  
@@ -257,11 +236,7 @@ TF_VAR_OCI_UNDERLAY_SUBNET=	"192.168.1.0/24"
 OCI_OVERLAY_IP_RANGE	=	"192.168.2.80/28"  
 
   
-&nbsp;  
-&nbsp;  
-&nbsp;
 // ******ALIBABA CLOUD variables******  
-&nbsp;  
 // Do not check secrets_file into github. You can use either the command "git update-index --skip-worktree secrets/aws_secrets.tfvars" or .gitignore file  
 ALI_SECRETS_FILE=	"$HOME/scripts/L2_Overlay_Cloud_Dockers/secrets/ali_secrets.tfvars"  
 TF_VAR_ALI_REGION=	"eu-west-1"  
@@ -270,14 +245,9 @@ TF_VAR_ALI_FRONT_SUBNET	=	"192.168.0.0/24"
 TF_VAR_ALI_UNDERLAY_SUBNET=	"192.168.1.0/24"  
 //Refer TF_VAR_L2_OVERLAY_NETWORK. This should be subset of it.  
 ALI_OVERLAY_IP_RANGE	=	"192.168.2.96/28"  
-
-&nbsp;
-&nbsp;  
-&nbsp;  
-&nbsp;  
+```
 
 ## *Scripts without Jenkins:*  
-&nbsp;  
 It is possible to run terraform, ansible, packer and shell scripts on their own outside of Jenkins pipeline. I assumed that you will be using environment variables. However, if you prefer not to use environment variables, pass them as command line variables. All the relevant variables are documented above under “Environment variables” section. Below are list of examples.  
 &nbsp;
 &nbsp;
@@ -286,58 +256,58 @@ It is possible to run terraform, ansible, packer and shell scripts on their own 
 &nbsp;  
 Below script creates logical switch and port-groups. This script also switches on the virtual machines.
 &nbsp;  
-terraform apply -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/vsphere_secrets.tfvars -var CLIENT1_MGMT_IP=192.168.0.28 -var ROUTER_MGMT_IP=192.168.0.29 -auto-approve terraform/
+```terraform apply -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/vsphere_secrets.tfvars -var CLIENT1_MGMT_IP=192.168.0.28 -var ROUTER_MGMT_IP=192.168.0.29 -auto-approve terraform/```
 
 &nbsp;  
 Below script builds virtual machines from ISO files in a vSphere environment.
 &nbsp;  
-packer build -force vsphere/packer/ubuntu.json
+```packer build -force vsphere/packer/ubuntu.json```
 
 
 ### *GCP:*  
 &nbsp;  
 Below script creates networks, security groups and virtual machines in GCP.
 &nbsp;  
-terraform apply -auto-approve terraform/  
+```terraform apply -auto-approve terraform/```  
 ### *OCI:*  
 &nbsp;  
 Below script creates networks, security groups and virtual machines in OCI.
 &nbsp;  
-terraform apply -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/oci_secrets.tfvars -auto-approve terraform/  
+```terraform apply -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/oci_secrets.tfvars -auto-approve terraform/```  
 &nbsp;  
 ### *Alibaba:*  
 &nbsp;  
 Below script creates networks, security groups and virtual machines in Alibaba Cloud.
 &nbsp;  
-terraform apply -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/ali_secrets.tfvars -auto-approve terraform/
+```terraform apply -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/ali_secrets.tfvars -auto-approve terraform/```
 
 ### *AWS:*  
 &nbsp;  
 Below script creates networks, security groups and virtual machines in AWS.
 &nbsp;  
-terraform apply -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/aws_secrets.tfvars -auto-approve terraform/
+```terraform apply -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/aws_secrets.tfvars -auto-approve terraform/```
 
 ### *Azure:*  
 &nbsp;  
 Below script creates networks, security groups and virtual machines in Azure.  
-terraform apply -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/azure_secrets.tfvars -auto-approve terraform/  
+```terraform apply -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/azure_secrets.tfvars -auto-approve terraform/```  
 
 ### *Common:*  
 &nbsp;  
 Below script creates docker containers. IPv4 and IPv6 addresses are picked up from global variables and command line arguments.  
-ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/Containers.yml -i 3.11.55.25, --extra-vars  ip_range=192.168.2.32/28 ipv6_index=2 file=aws_containers 
+```ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/Containers.yml -i 3.11.55.25, --extra-vars  ip_range=192.168.2.32/28 ipv6_index=2 file=aws_containers``` 
 
 &nbsp;  
 Below script removes known host from the ssh file. IPv4 and IPv6 addresses are configured on the bridge interface.  
-ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/VMs.yml -i 140.238.85.40, --extra-vars  ip_address=192.168.2.80 ipv6_index=26
+```ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/VMs.yml -i 140.238.85.40, --extra-vars  ip_address=192.168.2.80 ipv6_index=26```
 
 &nbsp;  
 Below script configures a tunnel in a virtual machine. 
-ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/tunnelConfig.yml -i 13.81.202.147, --extra-vars  tunnel_id=0 remote_ip=192.168.1.5
+```ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/tunnelConfig.yml -i 13.81.202.147, --extra-vars  tunnel_id=0 remote_ip=192.168.1.5```
 
 &nbsp;  
 Below script runs a ping test.  
-ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 192.168.0.28, --extra-vars remote_client=192.168.2.81
+ansible-playbook ```/home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 192.168.0.28, --extra-vars remote_client=192.168.2.81```
 
 
 
