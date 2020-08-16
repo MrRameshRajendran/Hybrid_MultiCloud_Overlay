@@ -278,7 +278,7 @@ ALI_OVERLAY_IP_RANGE	=	"192.168.2.96/28"
 
 ## *Scripts without Jenkins:*  
 &nbsp;  
-It is possible to run terraform, ansible, packer and shell scripts on their own outside of Jenkins pipeline. I assumed that you will be using environment variables. However, if you prefer not to use environment variables, pass them as command line variables. All the relevant variables are documented above under “Environment variables” section. You can directly run the script by executing the below list of commands.  
+It is possible to run terraform, ansible, packer and shell scripts on their own outside of Jenkins pipeline. I assumed that you will be using environment variables. However, if you prefer not to use environment variables, pass them as command line variables. All the relevant variables are documented above under “Environment variables” section. Below are list of examples.  
 &nbsp;
 &nbsp;
 
