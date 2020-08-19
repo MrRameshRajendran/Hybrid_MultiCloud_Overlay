@@ -63,12 +63,12 @@ Jenkins Multi Parallel pipeline is implemented to accomplish the build, test and
 &nbsp;  
 &nbsp;    
 ![Multi Pipeline - skip - watermark](https://user-images.githubusercontent.com/42124227/90286725-58743100-de6e-11ea-8796-a88652742fb9.jpg) 
-#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jenkins - multi parallel pipeline – skipping stages
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jenkins - multi parallel pipeline – skipping stages when hub failed
 &nbsp;  
 &nbsp;  
 &nbsp;    
 ![Multi Pipeline - error - watermark](https://user-images.githubusercontent.com/42124227/90286730-5b6f2180-de6e-11ea-9c14-291b283ac62a.jpg)
-#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jenkins - multi parallel pipeline – failed stage
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jenkins - multi parallel pipeline – dynamically removing the failed stage  
 &nbsp;  
 &nbsp;  
 
@@ -91,13 +91,32 @@ In the fourth stage, tunnel config, this is where all magic happens, connectivit
 In the final stage, testing, connectivity is tested from the client virtual machine located in hub site to the all containers and client virtual machines located in all spoke sites.  
 &nbsp;  
 &nbsp;  
-Once the testing is completed, scripted stage “unconfig” will be called from the main script to destroy all resources created in previous stages.  
+Once the testing is completed, scripted stage “unconfig” will be called from the main script to destroy the all resources created in previous stages.  
 &nbsp;  
 &nbsp;  
-All parameters required for the scripts are configured using environment variables. Below is the list of environment variables that can be configured before any running the scripts.  
+Router and Client virtual machines download the software packages automatically from the target servers specified in the source-list file. Automation server requires some software packages prior to running the script. I used the below software versions in my setup.  
+## *software versions:*
+```
+Software packages in the Automation Server:
+              Terraform v0.12.24
+             Packer v1.4.2-dev
+             Jenkins 2.204.5
+             Jenkins plugins:
+                          Pipeline: GitHub Groovy Libraries 1.0		
+                          Pipeline: Groovy 2.8
+                          BlueOcean 1.22.0 (Optional)
+
+Software packages in the Virtual Machines:
+             Operating system: Ubuntu 18.x, mostly 18.04 LTS version
+             docker.io_19.03.6-0
+             ansible_2.5.1 or ansible_2.9.6
+             ubuntu 18.x, mostly 18.04 LTS version
+             openvswitch-switch 2.13.0 or 2.9.5
+```
+I have uploaded the log file “SampleOutput.txt”. If you have any issue, you can compare your log file with the file “SampleOutput.txt”
 &nbsp;  
 &nbsp;  
-&nbsp;  
+All parameters required for the scripts are configured using environment variables. Below is the list of environment variables that should be configured before running the scripts.  
 
 
 
@@ -118,7 +137,7 @@ REMOVE_CONFIG	=	"yes"
 //If you intend to keep all resources, please take backup of tf state files before next build overwrites them.  
 
 //TUNNEL_TYPE can be configured as geneve or vxlan;   
-//Please note that only TCP/UDP/ICMP based ACLs are allowed in public clouds,and GRE is always blocked in certain clouds.   
+//Please note that only TCP/UDP/ICMP based ACLs are allowed in public clouds, and GRE is always blocked in certain clouds.   
 TUNNEL_TYPE=	"geneve"  
 
 //Disabling ansible ssh host key checking   
