@@ -50,7 +50,8 @@ This project utilizes below tools and scripts extensively.
 &nbsp;  
 &nbsp;   
 
-Jenkins Multi Parallel pipeline is implemented to accomplish the build, test and destroy stages. Below screenshots are showing the sample pipeline output.   
+Jenkins Multi Parallel pipeline is implemented to accomplish the build, test and destroy stages. You can dynamically add or remove stages. Below screenshots are showing sample pipelines.   
+
 
 ![Multi Pipeline watermark](https://user-images.githubusercontent.com/42124227/90286729-5ad68b00-de6e-11ea-8a7c-fe636030e455.jpg)
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jenkins - multi parallel pipeline
@@ -62,13 +63,21 @@ Jenkins Multi Parallel pipeline is implemented to accomplish the build, test and
 &nbsp;  
 &nbsp;  
 &nbsp;    
+
+As you see in the screenshot below, I used only three clouds in this deployment. I greyed out unused clouds during build and removed all other clouds in the remaining stages.
+![Multi Pipeline with three Clouds](https://user-images.githubusercontent.com/42124227/90961675-8f67c980-e4a2-11ea-9b20-29cac09ff19a.JPG) 
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Jenkins - multi parallel pipeline – three Clouds
+&nbsp;  
+&nbsp;  
+&nbsp;    
+
 ![Multi Pipeline - skip - watermark](https://user-images.githubusercontent.com/42124227/90286725-58743100-de6e-11ea-8796-a88652742fb9.jpg) 
-#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jenkins - multi parallel pipeline – skipping stages when hub failed
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Jenkins - multi parallel pipeline – skipping stages when hub failed
 &nbsp;  
 &nbsp;  
 &nbsp;    
 ![Multi Pipeline - error - watermark](https://user-images.githubusercontent.com/42124227/90286730-5b6f2180-de6e-11ea-9c14-291b283ac62a.jpg)
-#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jenkins - multi parallel pipeline – dynamically removing the failed stage  
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Jenkins - multi parallel pipeline – dynamically removing the failed stage  
 &nbsp;  
 &nbsp;  
 
@@ -76,19 +85,19 @@ Jenkins Multi Parallel pipeline is implemented to accomplish the build, test and
 
 You can find a brief description on the each stage below.
 &nbsp;  
-In the first stage, as name states, I am assigning values for the variables. If you want to assign values dynamically prior to creating resources, you can do in this stage.  
+In the first stage “Initializing variables”, as name states, I am assigning values for the variables. If you want to assign values dynamically prior to creating resources, you can do in this stage.  
 &nbsp;  
 &nbsp;  
-In the 2nd stage, Infrastructure change, terraform script is bringing up virtual machines in all environment. This stage also provisions the virtual machines with necessary packages.  
+In the 2nd stage, “Infrastructure changes”, terraform script is bringing up virtual machines in all environment. This stage also provisions the virtual machines with necessary packages.  
 &nbsp;  
 &nbsp;   
 In the 3rd stage, “Containers & VMs config”, ansible scripts are bringing up containers in all router virtual machines. We are also gathering IP addresses to terminate tunnels in this stage.  
 &nbsp;  
 &nbsp;   
-In the fourth stage, tunnel config, this is where all magic happens, connectivity is established based on the information prepared in the previous step. Ansible scripts are bringing up tunnels between hub and spoke sites over router virtual machines. Initially, I considered writing the tunnel configurations in Python. However, I managed to accommodate within Groovy.      
+In the fourth stage, “tunnel config”, this is where all magic happens, connectivity is established based on the information prepared in the previous step. Ansible scripts are bringing up tunnels between hub and spoke sites over router virtual machines. Initially, I thought of writing the tunnel configurations in Python. However, I managed to accommodate within Groovy.  
 &nbsp;  
 &nbsp;   
-In the final stage, testing, connectivity is tested from the client virtual machine located in hub site to the all containers and client virtual machines located in all spoke sites.  
+In the final stage, “testing”, connectivity is tested from the client virtual machine located in hub site to the all containers and client virtual machines located in all spoke sites.
 &nbsp;  
 &nbsp;  
 Once the testing is completed, scripted stage “unconfig” will be called from the main script to destroy the all resources created in previous stages.  
