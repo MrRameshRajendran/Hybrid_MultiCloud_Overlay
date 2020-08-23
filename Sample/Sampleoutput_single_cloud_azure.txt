@@ -1,0 +1,2222 @@
+Started by user jenkins
+ > git rev-parse --is-inside-work-tree # timeout=10
+Setting origin to https://github.com/MrRameshRajendran/MultiCloud_Overlay.git
+ > git config remote.origin.url https://github.com/MrRameshRajendran/MultiCloud_Overlay.git # timeout=10
+Fetching origin...
+Fetching upstream changes from origin
+ > git --version # timeout=10
+ > git config --get remote.origin.url # timeout=10
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --force --progress -- origin +refs/heads/*:refs/remotes/origin/* # timeout=10
+Seen branch in repository origin/master
+Seen 1 remote branch
+Obtained Jenkinsfile from 023f1a81210bd046efc2f1359cc794b9da4edaa8
+Running in Durability level: MAX_SURVIVABILITY
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /home/jenkins/workspace/MultiCloud_Overlay_master
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+using credential 88de3a4b-8c38-4ef1-8a67-91c466079f36
+ > git rev-parse --is-inside-work-tree # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/MrRameshRajendran/MultiCloud_Overlay.git # timeout=10
+Cleaning workspace
+ > git rev-parse --verify HEAD # timeout=10
+Resetting working tree
+ > git reset --hard # timeout=10
+ > git clean -fdx # timeout=10
+Fetching without tags
+Fetching upstream changes from https://github.com/MrRameshRajendran/MultiCloud_Overlay.git
+ > git --version # timeout=10
+using GIT_ASKPASS to set credentials 
+ > git fetch --no-tags --force --progress -- https://github.com/MrRameshRajendran/MultiCloud_Overlay.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+Checking out Revision 023f1a81210bd046efc2f1359cc794b9da4edaa8 (master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 023f1a81210bd046efc2f1359cc794b9da4edaa8 # timeout=10
+Commit message: "updated"
+ > git rev-list --no-walk 808ba2f3298ea665e153e30f20bc44c524ac9f56 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Initializing variables)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ pwd
+[Pipeline] sh
++ export TF_LOG=TRACE
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Infrastructure changes)
+[Pipeline] parallel
+[Pipeline] { (Branch: VSphere)
+[Pipeline] { (Branch: aws)
+[Pipeline] { (Branch: azure)
+[Pipeline] { (Branch: gcp)
+[Pipeline] { (Branch: oracle)
+[Pipeline] { (Branch: ali)
+[Pipeline] stage
+[Pipeline] { (VSphere)
+[Pipeline] stage
+[Pipeline] { (aws)
+[Pipeline] stage
+[Pipeline] { (azure)
+[Pipeline] stage
+[Pipeline] { (gcp)
+[Pipeline] stage
+[Pipeline] { (oracle)
+[Pipeline] stage
+[Pipeline] { (ali)
+Stage "VSphere" skipped due to when conditional
+[Pipeline] }
+Stage "aws" skipped due to when conditional
+[Pipeline] }
+Stage "gcp" skipped due to when conditional
+[Pipeline] }
+Stage "oracle" skipped due to when conditional
+[Pipeline] }
+Stage "ali" skipped due to when conditional
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] // stage
+[Pipeline] // stage
+[Pipeline] // stage
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] }
+[Pipeline] }
+[Pipeline] }
+[Pipeline] }
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+Calling terraform to build Infra in azure
+[Pipeline] sh
++ cd azure
++ terraform init terraform/
+
+[0m[1mInitializing the backend...[0m
+
+[0m[1mInitializing provider plugins...[0m
+- Checking for available provider plugins...
+- Downloading plugin for provider "null" (hashicorp/null) 2.1.2...
+- Downloading plugin for provider "random" (hashicorp/random) 2.2.1...
+- Downloading plugin for provider "azurerm" (hashicorp/azurerm) 2.8.0...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.azurerm: version = "~> 2.8"
+* provider.null: version = "~> 2.1"
+* provider.random: version = "~> 2.2"
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[32m
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.[0m
++ cd -
+/home/jenkins/workspace/MultiCloud_Overlay_master
+[Pipeline] sh
++ cd azure
++ terraform apply -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/azure_secrets.tfvars -auto-approve terraform/
+[0m[1mazurerm_resource_group.l2project_rg: Creating...[0m[0m
+[0m[1mazurerm_resource_group.l2project_rg: Creation complete after 1s [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg][0m[0m
+[0m[1mrandom_id.randomId: Creating...[0m[0m
+[0m[1mazurerm_virtual_network.default-network: Creating...[0m[0m
+[0m[1mrandom_id.randomId: Creation complete after 0s [id=a1u-vrJs_9M][0m[0m
+[0m[1mazurerm_public_ip.router: Creating...[0m[0m
+[0m[1mazurerm_public_ip.client1: Creating...[0m[0m
+[0m[1mazurerm_storage_account.storage_account: Creating...[0m[0m
+[0m[1mazurerm_network_security_group.ssh-icmp-tunnel: Creating...[0m[0m
+[0m[1mazurerm_network_security_group.ssh-icmp-tunnel: Creation complete after 1s [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/networkSecurityGroups/ssh-icmp-tunnel][0m[0m
+[0m[1mazurerm_public_ip.client1: Creation complete after 4s [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/publicIPAddresses/client1][0m[0m
+[0m[1mazurerm_public_ip.router: Creation complete after 4s [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/publicIPAddresses/router][0m[0m
+[0m[1mdata.azurerm_public_ip.client1: Refreshing state...[0m
+[0m[1mdata.azurerm_public_ip.router: Refreshing state...[0m
+[0m[1mazurerm_virtual_network.default-network: Still creating... [10s elapsed][0m[0m
+[0m[1mazurerm_storage_account.storage_account: Still creating... [10s elapsed][0m[0m
+[0m[1mazurerm_virtual_network.default-network: Creation complete after 12s [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network][0m[0m
+[0m[1mazurerm_subnet.front-subnet: Creating...[0m[0m
+[0m[1mazurerm_subnet.underlay-subnet: Creating...[0m[0m
+[0m[1mazurerm_subnet.underlay-subnet: Creation complete after 0s [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network/subnets/underlay-subnet][0m[0m
+[0m[1mazurerm_network_interface.Router_Backend_NIC: Creating...[0m[0m
+[0m[1mazurerm_subnet_network_security_group_association.underlay-security: Creating...[0m[0m
+[0m[1mazurerm_network_interface.Client1_NIC: Creating...[0m[0m
+[0m[1mazurerm_subnet.front-subnet: Creation complete after 1s [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network/subnets/front-subnet][0m[0m
+[0m[1mazurerm_subnet_network_security_group_association.front-security: Creating...[0m[0m
+[0m[1mazurerm_network_interface.Router_Front_NIC: Creating...[0m[0m
+[0m[1mazurerm_storage_account.storage_account: Still creating... [20s elapsed][0m[0m
+[0m[1mazurerm_storage_account.storage_account: Creation complete after 20s [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Storage/storageAccounts/diag6b5bbebeb26cffd3][0m[0m
+[0m[1mazurerm_network_interface.Router_Backend_NIC: Still creating... [10s elapsed][0m[0m
+[0m[1mazurerm_network_interface.Client1_NIC: Still creating... [10s elapsed][0m[0m
+[0m[1mazurerm_subnet_network_security_group_association.underlay-security: Still creating... [10s elapsed][0m[0m
+[0m[1mazurerm_subnet_network_security_group_association.front-security: Still creating... [10s elapsed][0m[0m
+[0m[1mazurerm_network_interface.Router_Front_NIC: Still creating... [10s elapsed][0m[0m
+[0m[1mazurerm_subnet_network_security_group_association.underlay-security: Creation complete after 11s [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network/subnets/underlay-subnet][0m[0m
+[0m[1mazurerm_network_interface.Router_Backend_NIC: Still creating... [20s elapsed][0m[0m
+[0m[1mazurerm_network_interface.Client1_NIC: Still creating... [20s elapsed][0m[0m
+[0m[1mazurerm_subnet_network_security_group_association.front-security: Still creating... [20s elapsed][0m[0m
+[0m[1mazurerm_network_interface.Router_Front_NIC: Still creating... [20s elapsed][0m[0m
+[0m[1mazurerm_network_interface.Router_Front_NIC: Creation complete after 23s [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/networkInterfaces/Router_Front_NIC][0m[0m
+[0m[1mazurerm_network_interface.Router_Backend_NIC: Still creating... [30s elapsed][0m[0m
+[0m[1mazurerm_network_interface.Client1_NIC: Still creating... [30s elapsed][0m[0m
+[0m[1mazurerm_subnet_network_security_group_association.front-security: Still creating... [30s elapsed][0m[0m
+[0m[1mazurerm_subnet_network_security_group_association.front-security: Creation complete after 34s [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network/subnets/front-subnet][0m[0m
+[0m[1mazurerm_network_interface.Router_Backend_NIC: Creation complete after 36s [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/networkInterfaces/Router_Backend_NIC][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Creating...[0m[0m
+[0m[1mazurerm_network_interface.Client1_NIC: Creation complete after 36s [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/networkInterfaces/Client1_NIC][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Creating...[0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still creating... [10s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still creating... [10s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still creating... [20s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still creating... [20s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Creation complete after 24s [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Compute/virtualMachines/layer2-azure-client1][0m[0m
+[0m[1mnull_resource.client1_config: Creating...[0m[0m
+[0m[1mnull_resource.client1_config: Provisioning with 'file'...[0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still creating... [30s elapsed][0m[0m
+[0m[1mnull_resource.client1_config: Still creating... [10s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still creating... [40s elapsed][0m[0m
+[0m[1mnull_resource.client1_config: Provisioning with 'remote-exec'...[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): Connecting to remote host via SSH...
+null_resource.client1_config (remote-exec):   Host: client1ip-dns.westeurope.cloudapp.azure.com
+null_resource.client1_config (remote-exec):   User: ramesh
+null_resource.client1_config (remote-exec):   Password: false
+null_resource.client1_config (remote-exec):   Private key: true
+null_resource.client1_config (remote-exec):   Certificate: false
+null_resource.client1_config (remote-exec):   SSH Agent: false
+null_resource.client1_config (remote-exec):   Checking Host Key: false
+[0m[0mnull_resource.client1_config (remote-exec): Connected!
+[0m[0mnull_resource.client1_config (remote-exec): sudo: /etc/sudoers.d/ramesh is owned by uid 1000, should be 0
+[0m[0mnull_resource.client1_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt-get -y -qq update
+[0m[1mnull_resource.client1_config: Still creating... [20s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still creating... [50s elapsed][0m[0m
+[0m[1mnull_resource.client1_config: Still creating... [30s elapsed][0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt-get -y -qq update --fix-missing
+[0m[0mnull_resource.client1_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt -y -qq -o Acquire::Check-Valid-Until=false update
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still creating... [1m0s elapsed][0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): 3 packages can be upgraded. Run 'apt list --upgradable' to see them.
+[0m[0mnull_resource.client1_config (remote-exec): + sudo cat /etc/apt/sources.list
+[0m[0mnull_resource.client1_config (remote-exec): ## Note, this file is written by cloud-init on first boot of an instance
+[0m[0mnull_resource.client1_config (remote-exec): ## modifications made here will not survive a re-bundle.
+[0m[0mnull_resource.client1_config (remote-exec): ## if you wish to make changes you can:
+[0m[0mnull_resource.client1_config (remote-exec): ## a.) add 'apt_preserve_sources_list: true' to /etc/cloud/cloud.cfg
+[0m[0mnull_resource.client1_config (remote-exec): ##     or do the same in user-data
+[0m[0mnull_resource.client1_config (remote-exec): ## b.) add sources in /etc/apt/sources.list.d
+[0m[0mnull_resource.client1_config (remote-exec): ## c.) make changes to template file /etc/cloud/templates/sources.list.tmpl
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): # See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to
+[0m[0mnull_resource.client1_config (remote-exec): # newer versions of the distribution.
+[0m[0mnull_resource.client1_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic main restricted
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic main restricted
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): ## Major bug fix updates produced after the final release of the
+[0m[0mnull_resource.client1_config (remote-exec): ## distribution.
+[0m[0mnull_resource.client1_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic-updates main restricted
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic-updates main restricted
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
+[0m[0mnull_resource.client1_config (remote-exec): ## team. Also, please note that software in universe WILL NOT receive any
+[0m[0mnull_resource.client1_config (remote-exec): ## review or updates from the Ubuntu security team.
+[0m[0mnull_resource.client1_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic universe
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic universe
+[0m[0mnull_resource.client1_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic-updates universe
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic-updates universe
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
+[0m[0mnull_resource.client1_config (remote-exec): ## team, and may not be under a free licence. Please satisfy yourself as to
+[0m[0mnull_resource.client1_config (remote-exec): ## your rights to use the software. Also, please note that software in
+[0m[0mnull_resource.client1_config (remote-exec): ## multiverse WILL NOT receive any review or updates from the Ubuntu
+[0m[0mnull_resource.client1_config (remote-exec): ## security team.
+[0m[0mnull_resource.client1_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic multiverse
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic multiverse
+[0m[0mnull_resource.client1_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic-updates multiverse
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic-updates multiverse
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): ## N.B. software from this repository may not have been tested as
+[0m[0mnull_resource.client1_config (remote-exec): ## extensively as that contained in the main release, although it includes
+[0m[0mnull_resource.client1_config (remote-exec): ## newer versions of some applications which may provide useful features.
+[0m[0mnull_resource.client1_config (remote-exec): ## Also, please note that software in backports WILL NOT receive any review
+[0m[0mnull_resource.client1_config (remote-exec): ## or updates from the Ubuntu security team.
+[0m[0mnull_resource.client1_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic-backports main restricted universe multiverse
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic-backports main restricted universe multiverse
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): ## Uncomment the following two lines to add software from Canonical's
+[0m[0mnull_resource.client1_config (remote-exec): ## 'partner' repository.
+[0m[0mnull_resource.client1_config (remote-exec): ## This software is not part of Ubuntu, but is offered by Canonical and the
+[0m[0mnull_resource.client1_config (remote-exec): ## respective vendors as a service to Ubuntu users.
+[0m[0mnull_resource.client1_config (remote-exec): # deb http://archive.canonical.com/ubuntu bionic partner
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://archive.canonical.com/ubuntu bionic partner
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): deb http://security.ubuntu.com/ubuntu bionic-security main restricted
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://security.ubuntu.com/ubuntu bionic-security main restricted
+[0m[0mnull_resource.client1_config (remote-exec): deb http://security.ubuntu.com/ubuntu bionic-security universe
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://security.ubuntu.com/ubuntu bionic-security universe
+[0m[0mnull_resource.client1_config (remote-exec): deb http://security.ubuntu.com/ubuntu bionic-security multiverse
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://security.ubuntu.com/ubuntu bionic-security multiverse
+[0m[0mnull_resource.client1_config (remote-exec): + sleep 5
+[0m[1mnull_resource.client1_config: Still creating... [40s elapsed][0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt-get -y -qq install software-properties-common
+[0m[0mnull_resource.client1_config (remote-exec): + sudo add-apt-repository main
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still creating... [1m10s elapsed][0m[0m
+[0m[1mnull_resource.client1_config: Still creating... [50s elapsed][0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): 'main' distribution component is already enabled for all sources.
+[0m[0mnull_resource.client1_config (remote-exec): + sudo add-apt-repository universe
+[0m[0mnull_resource.client1_config (remote-exec): 'universe' distribution component is already enabled for all sources.
+[0m[0mnull_resource.client1_config (remote-exec): + sudo add-apt-repository restricted
+[0m[0mnull_resource.client1_config (remote-exec): 'restricted' distribution component is already enabled for all sources.
+[0m[0mnull_resource.client1_config (remote-exec): + sudo add-apt-repository multiverse
+[0m[0mnull_resource.client1_config (remote-exec): 'multiverse' distribution component is already enabled for all sources.
+[0m[0mnull_resource.client1_config (remote-exec): + sudo cat /etc/apt/sources.list
+[0m[0mnull_resource.client1_config (remote-exec): ## Note, this file is written by cloud-init on first boot of an instance
+[0m[0mnull_resource.client1_config (remote-exec): ## modifications made here will not survive a re-bundle.
+[0m[0mnull_resource.client1_config (remote-exec): ## if you wish to make changes you can:
+[0m[0mnull_resource.client1_config (remote-exec): ## a.) add 'apt_preserve_sources_list: true' to /etc/cloud/cloud.cfg
+[0m[0mnull_resource.client1_config (remote-exec): ##     or do the same in user-data
+[0m[0mnull_resource.client1_config (remote-exec): ## b.) add sources in /etc/apt/sources.list.d
+[0m[0mnull_resource.client1_config (remote-exec): ## c.) make changes to template file /etc/cloud/templates/sources.list.tmpl
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): # See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to
+[0m[0mnull_resource.client1_config (remote-exec): # newer versions of the distribution.
+[0m[0mnull_resource.client1_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic main restricted
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic main restricted
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): ## Major bug fix updates produced after the final release of the
+[0m[0mnull_resource.client1_config (remote-exec): ## distribution.
+[0m[0mnull_resource.client1_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic-updates main restricted
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic-updates main restricted
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
+[0m[0mnull_resource.client1_config (remote-exec): ## team. Also, please note that software in universe WILL NOT receive any
+[0m[0mnull_resource.client1_config (remote-exec): ## review or updates from the Ubuntu security team.
+[0m[0mnull_resource.client1_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic universe
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic universe
+[0m[0mnull_resource.client1_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic-updates universe
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic-updates universe
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
+[0m[0mnull_resource.client1_config (remote-exec): ## team, and may not be under a free licence. Please satisfy yourself as to
+[0m[0mnull_resource.client1_config (remote-exec): ## your rights to use the software. Also, please note that software in
+[0m[0mnull_resource.client1_config (remote-exec): ## multiverse WILL NOT receive any review or updates from the Ubuntu
+[0m[0mnull_resource.client1_config (remote-exec): ## security team.
+[0m[0mnull_resource.client1_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic multiverse
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic multiverse
+[0m[0mnull_resource.client1_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic-updates multiverse
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic-updates multiverse
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): ## N.B. software from this repository may not have been tested as
+[0m[0mnull_resource.client1_config (remote-exec): ## extensively as that contained in the main release, although it includes
+[0m[0mnull_resource.client1_config (remote-exec): ## newer versions of some applications which may provide useful features.
+[0m[0mnull_resource.client1_config (remote-exec): ## Also, please note that software in backports WILL NOT receive any review
+[0m[0mnull_resource.client1_config (remote-exec): ## or updates from the Ubuntu security team.
+[0m[0mnull_resource.client1_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic-backports main restricted universe multiverse
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic-backports main restricted universe multiverse
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): ## Uncomment the following two lines to add software from Canonical's
+[0m[0mnull_resource.client1_config (remote-exec): ## 'partner' repository.
+[0m[0mnull_resource.client1_config (remote-exec): ## This software is not part of Ubuntu, but is offered by Canonical and the
+[0m[0mnull_resource.client1_config (remote-exec): ## respective vendors as a service to Ubuntu users.
+[0m[0mnull_resource.client1_config (remote-exec): # deb http://archive.canonical.com/ubuntu bionic partner
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://archive.canonical.com/ubuntu bionic partner
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): deb http://security.ubuntu.com/ubuntu bionic-security main restricted
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://security.ubuntu.com/ubuntu bionic-security main restricted
+[0m[0mnull_resource.client1_config (remote-exec): deb http://security.ubuntu.com/ubuntu bionic-security universe
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://security.ubuntu.com/ubuntu bionic-security universe
+[0m[0mnull_resource.client1_config (remote-exec): deb http://security.ubuntu.com/ubuntu bionic-security multiverse
+[0m[0mnull_resource.client1_config (remote-exec): # deb-src http://security.ubuntu.com/ubuntu bionic-security multiverse
+[0m[0mnull_resource.client1_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt-get -y -qq install -f
+[0m[0mnull_resource.client1_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt install -y -qq net-tools
+[0m[0mnull_resource.client1_config (remote-exec): net-tools is already the newest version (1.60+git20161116.90da8a0-1ubuntu1).
+[0m[0mnull_resource.client1_config (remote-exec): net-tools set to manually installed.
+[0m[0mnull_resource.client1_config (remote-exec): The following packages were automatically installed and are no longer required:
+[0m[0mnull_resource.client1_config (remote-exec):   grub-pc-bin linux-headers-4.15.0-99
+[0m[0mnull_resource.client1_config (remote-exec): Use 'sudo apt autoremove' to remove them.
+[0m[0mnull_resource.client1_config (remote-exec): 0 upgraded, 0 newly installed, 0 to remove and 3 not upgraded.
+[0m[0mnull_resource.client1_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt install -y -qq openvswitch-switch
+[0m[0mnull_resource.client1_config (remote-exec): The following packages were automatically installed and are no longer required:
+[0m[0mnull_resource.client1_config (remote-exec):   grub-pc-bin linux-headers-4.15.0-99
+[0m[0mnull_resource.client1_config (remote-exec): Use 'sudo apt autoremove' to remove them.
+[0m[0mnull_resource.client1_config (remote-exec): The following additional packages will be installed:
+[0m[0mnull_resource.client1_config (remote-exec):   openvswitch-common python-six
+[0m[0mnull_resource.client1_config (remote-exec): Suggested packages:
+[0m[0mnull_resource.client1_config (remote-exec):   openvswitch-doc
+[0m[0mnull_resource.client1_config (remote-exec): The following NEW packages will be installed:
+[0m[0mnull_resource.client1_config (remote-exec):   openvswitch-common
+[0m[0mnull_resource.client1_config (remote-exec):   openvswitch-switch python-six
+[0m[0mnull_resource.client1_config (remote-exec): 0 upgraded, 3 newly installed, 0 to remove and 3 not upgraded.
+[0m[0mnull_resource.client1_config (remote-exec): Need to get 2333 kB of archives.
+[0m[0mnull_resource.client1_config (remote-exec): After this operation, 10.4 MB of additional disk space will be used.
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still creating... [1m20s elapsed][0m[0m
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): 7[0;79r8[1A
+[0m[0mnull_resource.client1_config (remote-exec): Selecting previously unselected package python-six.
+[0m[0mnull_resource.client1_config (remote-exec): (Reading database ...
+[0m[0mnull_resource.client1_config (remote-exec): (Reading database ... 5%
+null_resource.client1_config (remote-exec): (Reading database ... 10%
+null_resource.client1_config (remote-exec): (Reading database ... 15%
+null_resource.client1_config (remote-exec): (Reading database ... 20%
+null_resource.client1_config (remote-exec): (Reading database ... 25%
+null_resource.client1_config (remote-exec): (Reading database ... 30%
+null_resource.client1_config (remote-exec): (Reading database ... 35%
+null_resource.client1_config (remote-exec): (Reading database ... 40%
+null_resource.client1_config (remote-exec): (Reading database ... 45%
+null_resource.client1_config (remote-exec): (Reading database ... 50%
+null_resource.client1_config (remote-exec): (Reading database ... 55%
+[0m[0mnull_resource.client1_config (remote-exec): (Reading database ... 60%
+[0m[0mnull_resource.client1_config (remote-exec): (Reading database ... 65%
+[0m[1mnull_resource.client1_config: Still creating... [1m0s elapsed][0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): (Reading database ... 70%
+[0m[0mnull_resource.client1_config (remote-exec): (Reading database ... 75%
+[0m[0mnull_resource.client1_config (remote-exec): (Reading database ... 80%
+[0m[0mnull_resource.client1_config (remote-exec): (Reading database ... 85%
+[0m[0mnull_resource.client1_config (remote-exec): (Reading database ... 90%
+[0m[0mnull_resource.client1_config (remote-exec): (Reading database ... 95%
+[0m[0mnull_resource.client1_config (remote-exec): (Reading database ... 100%
+null_resource.client1_config (remote-exec): (Reading database ... 76571 files and directories currently installed.)
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../python-six_1.11.0-2_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [  0%][49m[39m [..................] 87[80;0f[42m[30mProgress: [  6%][49m[39m [#.................] 8
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still creating... [1m30s elapsed][0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): Unpacking python-six (1.11.0-2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 13%][49m[39m [##................] 87[80;0f[42m[30mProgress: [ 19%][49m[39m [###...............] 8Selecting previously unselected package openvswitch-common.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../openvswitch-common_2.9.5-0ubuntu0.18.04.1_amd64.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 25%][49m[39m [####..............] 8Unpacking openvswitch-common (2.9.5-0ubuntu0.18.04.1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 31%][49m[39m [#####.............] 87[80;0f[42m[30mProgress: [ 38%][49m[39m [######............] 8
+[0m[0mnull_resource.client1_config (remote-exec): Selecting previously unselected package openvswitch-switch.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../openvswitch-switch_2.9.5-0ubuntu0.18.04.1_amd64.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 44%][49m[39m [#######...........] 8Unpacking openvswitch-switch (2.9.5-0ubuntu0.18.04.1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 50%][49m[39m [#########.........] 87[80;0f[42m[30mProgress: [ 56%][49m[39m [##########........] 8
+[0m[0mnull_resource.client1_config (remote-exec): Setting up python-six (1.11.0-2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 63%][49m[39m [###########.......] 8
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 69%][49m[39m [############......] 8Setting up openvswitch-common (2.9.5-0ubuntu0.18.04.1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 75%][49m[39m [#############.....] 87[80;0f[42m[30mProgress: [ 81%][49m[39m [##############....] 8Setting up openvswitch-switch (2.9.5-0ubuntu0.18.04.1) ...
+[0m[1mnull_resource.client1_config: Still creating... [1m10s elapsed][0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 88%][49m[39m [###############...] 8
+[0m[0mnull_resource.client1_config (remote-exec): update-alternatives: using /usr/lib/openvswitch-switch/ovs-vswitchd to provide /usr/sbin/ovs-vswitchd (ovs-vswitchd) in auto mode
+[0m[0mnull_resource.client1_config (remote-exec): Created symlink /etc/systemd/system/multi-user.target.wants/openvswitch-switch.service → /lib/systemd/system/openvswitch-switch.service.
+[0m[0mnull_resource.client1_config (remote-exec): ovs-vswitchd.service is a disabled or a static unit, not starting it.
+[0m[0mnull_resource.client1_config (remote-exec): ovsdb-server.service is a disabled or a static unit, not starting it.
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 94%][49m[39m [################..] 8Processing triggers for ureadahead (0.100.0-21) ...
+[0m[0mnull_resource.client1_config (remote-exec): Processing triggers for systemd (237-3ubuntu10.39) ...
+[0m[0mnull_resource.client1_config (remote-exec): Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Creation complete after 1m38s [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Compute/virtualMachines/layer2-azure-router][0m[0m
+[0m[1mnull_resource.router_config: Creating...[0m[0m
+[0m[1mnull_resource.router_config: Provisioning with 'file'...[0m[0m
+[0m[1mnull_resource.router_config: Provisioning with 'remote-exec'...[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): Connecting to remote host via SSH...
+null_resource.router_config (remote-exec):   Host: routerip-dns.westeurope.cloudapp.azure.com
+null_resource.router_config (remote-exec):   User: ramesh
+null_resource.router_config (remote-exec):   Password: false
+null_resource.router_config (remote-exec):   Private key: true
+null_resource.router_config (remote-exec):   Certificate: false
+null_resource.router_config (remote-exec):   SSH Agent: false
+null_resource.router_config (remote-exec):   Checking Host Key: false
+[0m[0mnull_resource.router_config (remote-exec): Connected!
+[0m[0mnull_resource.router_config (remote-exec): sudo: /etc/sudoers.d/ramesh is owned by uid 1000, should be 0
+[0m[0mnull_resource.router_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt-get -y -qq update
+[0m[1mnull_resource.client1_config: Still creating... [1m20s elapsed][0m[0m
+[0m[1mnull_resource.router_config: Still creating... [10s elapsed][0m[0m
+[0m[1mnull_resource.client1_config: Still creating... [1m30s elapsed][0m[0m
+[0m[0mnull_resource.router_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt-get -y -qq update --fix-missing
+[0m[0mnull_resource.router_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt -y -qq -o Acquire::Check-Valid-Until=false update
+[0m[1mnull_resource.router_config: Still creating... [20s elapsed][0m[0m
+[0m[0mnull_resource.router_config (remote-exec): 3 packages can be upgraded. Run 'apt list --upgradable' to see them.
+[0m[0mnull_resource.router_config (remote-exec): + sudo cat /etc/apt/sources.list
+[0m[0mnull_resource.router_config (remote-exec): ## Note, this file is written by cloud-init on first boot of an instance
+[0m[0mnull_resource.router_config (remote-exec): ## modifications made here will not survive a re-bundle.
+[0m[0mnull_resource.router_config (remote-exec): ## if you wish to make changes you can:
+[0m[0mnull_resource.router_config (remote-exec): ## a.) add 'apt_preserve_sources_list: true' to /etc/cloud/cloud.cfg
+[0m[0mnull_resource.router_config (remote-exec): ##     or do the same in user-data
+[0m[0mnull_resource.router_config (remote-exec): ## b.) add sources in /etc/apt/sources.list.d
+[0m[0mnull_resource.router_config (remote-exec): ## c.) make changes to template file /etc/cloud/templates/sources.list.tmpl
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): # See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to
+[0m[0mnull_resource.router_config (remote-exec): # newer versions of the distribution.
+[0m[0mnull_resource.router_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic main restricted
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic main restricted
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): ## Major bug fix updates produced after the final release of the
+[0m[0mnull_resource.router_config (remote-exec): ## distribution.
+[0m[0mnull_resource.router_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic-updates main restricted
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic-updates main restricted
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
+[0m[0mnull_resource.router_config (remote-exec): ## team. Also, please note that software in universe WILL NOT receive any
+[0m[0mnull_resource.router_config (remote-exec): ## review or updates from the Ubuntu security team.
+[0m[0mnull_resource.router_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic universe
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic universe
+[0m[0mnull_resource.router_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic-updates universe
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic-updates universe
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
+[0m[0mnull_resource.router_config (remote-exec): ## team, and may not be under a free licence. Please satisfy yourself as to
+[0m[0mnull_resource.router_config (remote-exec): ## your rights to use the software. Also, please note that software in
+[0m[0mnull_resource.router_config (remote-exec): ## multiverse WILL NOT receive any review or updates from the Ubuntu
+[0m[0mnull_resource.router_config (remote-exec): ## security team.
+[0m[0mnull_resource.router_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic multiverse
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic multiverse
+[0m[0mnull_resource.router_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic-updates multiverse
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic-updates multiverse
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): ## N.B. software from this repository may not have been tested as
+[0m[0mnull_resource.router_config (remote-exec): ## extensively as that contained in the main release, although it includes
+[0m[0mnull_resource.router_config (remote-exec): ## newer versions of some applications which may provide useful features.
+[0m[0mnull_resource.router_config (remote-exec): ## Also, please note that software in backports WILL NOT receive any review
+[0m[0mnull_resource.router_config (remote-exec): ## or updates from the Ubuntu security team.
+[0m[0mnull_resource.router_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic-backports main restricted universe multiverse
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic-backports main restricted universe multiverse
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): ## Uncomment the following two lines to add software from Canonical's
+[0m[0mnull_resource.router_config (remote-exec): ## 'partner' repository.
+[0m[0mnull_resource.router_config (remote-exec): ## This software is not part of Ubuntu, but is offered by Canonical and the
+[0m[0mnull_resource.router_config (remote-exec): ## respective vendors as a service to Ubuntu users.
+[0m[0mnull_resource.router_config (remote-exec): # deb http://archive.canonical.com/ubuntu bionic partner
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://archive.canonical.com/ubuntu bionic partner
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): deb http://security.ubuntu.com/ubuntu bionic-security main restricted
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://security.ubuntu.com/ubuntu bionic-security main restricted
+[0m[0mnull_resource.router_config (remote-exec): deb http://security.ubuntu.com/ubuntu bionic-security universe
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://security.ubuntu.com/ubuntu bionic-security universe
+[0m[0mnull_resource.router_config (remote-exec): deb http://security.ubuntu.com/ubuntu bionic-security multiverse
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://security.ubuntu.com/ubuntu bionic-security multiverse
+[0m[0mnull_resource.router_config (remote-exec): + sleep 5
+[0m[1mnull_resource.client1_config: Still creating... [1m40s elapsed][0m[0m
+[0m[0mnull_resource.router_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt-get -y -qq install software-properties-common
+[0m[0mnull_resource.router_config (remote-exec): + sudo add-apt-repository main
+[0m[1mnull_resource.router_config: Still creating... [30s elapsed][0m[0m
+[0m[1mnull_resource.client1_config: Still creating... [1m50s elapsed][0m[0m
+[0m[0mnull_resource.router_config (remote-exec): 'main' distribution component is already enabled for all sources.
+[0m[0mnull_resource.router_config (remote-exec): + sudo add-apt-repository universe
+[0m[0mnull_resource.router_config (remote-exec): 'universe' distribution component is already enabled for all sources.
+[0m[0mnull_resource.router_config (remote-exec): + sudo add-apt-repository restricted
+[0m[0mnull_resource.router_config (remote-exec): 'restricted' distribution component is already enabled for all sources.
+[0m[0mnull_resource.router_config (remote-exec): + sudo add-apt-repository multiverse
+[0m[0mnull_resource.router_config (remote-exec): 'multiverse' distribution component is already enabled for all sources.
+[0m[0mnull_resource.router_config (remote-exec): + sudo cat /etc/apt/sources.list
+[0m[0mnull_resource.router_config (remote-exec): ## Note, this file is written by cloud-init on first boot of an instance
+[0m[0mnull_resource.router_config (remote-exec): ## modifications made here will not survive a re-bundle.
+[0m[0mnull_resource.router_config (remote-exec): ## if you wish to make changes you can:
+[0m[0mnull_resource.router_config (remote-exec): ## a.) add 'apt_preserve_sources_list: true' to /etc/cloud/cloud.cfg
+[0m[0mnull_resource.router_config (remote-exec): ##     or do the same in user-data
+[0m[0mnull_resource.router_config (remote-exec): ## b.) add sources in /etc/apt/sources.list.d
+[0m[0mnull_resource.router_config (remote-exec): ## c.) make changes to template file /etc/cloud/templates/sources.list.tmpl
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): # See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to
+[0m[0mnull_resource.router_config (remote-exec): # newer versions of the distribution.
+[0m[0mnull_resource.router_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic main restricted
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic main restricted
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): ## Major bug fix updates produced after the final release of the
+[0m[0mnull_resource.router_config (remote-exec): ## distribution.
+[0m[0mnull_resource.router_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic-updates main restricted
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic-updates main restricted
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
+[0m[0mnull_resource.router_config (remote-exec): ## team. Also, please note that software in universe WILL NOT receive any
+[0m[0mnull_resource.router_config (remote-exec): ## review or updates from the Ubuntu security team.
+[0m[0mnull_resource.router_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic universe
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic universe
+[0m[0mnull_resource.router_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic-updates universe
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic-updates universe
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
+[0m[0mnull_resource.router_config (remote-exec): ## team, and may not be under a free licence. Please satisfy yourself as to
+[0m[0mnull_resource.router_config (remote-exec): ## your rights to use the software. Also, please note that software in
+[0m[0mnull_resource.router_config (remote-exec): ## multiverse WILL NOT receive any review or updates from the Ubuntu
+[0m[0mnull_resource.router_config (remote-exec): ## security team.
+[0m[0mnull_resource.router_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic multiverse
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic multiverse
+[0m[0mnull_resource.router_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic-updates multiverse
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic-updates multiverse
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): ## N.B. software from this repository may not have been tested as
+[0m[0mnull_resource.router_config (remote-exec): ## extensively as that contained in the main release, although it includes
+[0m[0mnull_resource.router_config (remote-exec): ## newer versions of some applications which may provide useful features.
+[0m[0mnull_resource.router_config (remote-exec): ## Also, please note that software in backports WILL NOT receive any review
+[0m[0mnull_resource.router_config (remote-exec): ## or updates from the Ubuntu security team.
+[0m[0mnull_resource.router_config (remote-exec): deb http://azure.archive.ubuntu.com/ubuntu/ bionic-backports main restricted universe multiverse
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://azure.archive.ubuntu.com/ubuntu/ bionic-backports main restricted universe multiverse
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): ## Uncomment the following two lines to add software from Canonical's
+[0m[0mnull_resource.router_config (remote-exec): ## 'partner' repository.
+[0m[0mnull_resource.router_config (remote-exec): ## This software is not part of Ubuntu, but is offered by Canonical and the
+[0m[0mnull_resource.router_config (remote-exec): ## respective vendors as a service to Ubuntu users.
+[0m[0mnull_resource.router_config (remote-exec): # deb http://archive.canonical.com/ubuntu bionic partner
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://archive.canonical.com/ubuntu bionic partner
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): deb http://security.ubuntu.com/ubuntu bionic-security main restricted
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://security.ubuntu.com/ubuntu bionic-security main restricted
+[0m[0mnull_resource.router_config (remote-exec): deb http://security.ubuntu.com/ubuntu bionic-security universe
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://security.ubuntu.com/ubuntu bionic-security universe
+[0m[0mnull_resource.router_config (remote-exec): deb http://security.ubuntu.com/ubuntu bionic-security multiverse
+[0m[0mnull_resource.router_config (remote-exec): # deb-src http://security.ubuntu.com/ubuntu bionic-security multiverse
+[0m[0mnull_resource.router_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt-get -y -qq install -f
+[0m[0mnull_resource.router_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt install -y -qq net-tools
+[0m[0mnull_resource.router_config (remote-exec): net-tools is already the newest version (1.60+git20161116.90da8a0-1ubuntu1).
+[0m[0mnull_resource.router_config (remote-exec): net-tools set to manually installed.
+[0m[1mnull_resource.router_config: Still creating... [40s elapsed][0m[0m
+[0m[0mnull_resource.router_config (remote-exec): The following packages were automatically installed and are no longer required:
+[0m[0mnull_resource.router_config (remote-exec):   grub-pc-bin linux-headers-4.15.0-99
+[0m[0mnull_resource.router_config (remote-exec): Use 'sudo apt autoremove' to remove them.
+[0m[0mnull_resource.router_config (remote-exec): 0 upgraded, 0 newly installed, 0 to remove and 3 not upgraded.
+[0m[0mnull_resource.router_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt install -y -qq openvswitch-switch
+[0m[0mnull_resource.router_config (remote-exec): The following packages were automatically installed and are no longer required:
+[0m[0mnull_resource.router_config (remote-exec):   grub-pc-bin linux-headers-4.15.0-99
+[0m[0mnull_resource.router_config (remote-exec): Use 'sudo apt autoremove' to remove them.
+[0m[0mnull_resource.router_config (remote-exec): The following additional packages will be installed:
+[0m[0mnull_resource.router_config (remote-exec):   openvswitch-common python-six
+[0m[0mnull_resource.router_config (remote-exec): Suggested packages:
+[0m[0mnull_resource.router_config (remote-exec):   openvswitch-doc
+[0m[0mnull_resource.router_config (remote-exec): The following NEW packages will be installed:
+[0m[0mnull_resource.router_config (remote-exec):   openvswitch-common
+[0m[0mnull_resource.router_config (remote-exec):   openvswitch-switch python-six
+[0m[0mnull_resource.router_config (remote-exec): 0 upgraded, 3 newly installed, 0 to remove and 3 not upgraded.
+[0m[0mnull_resource.router_config (remote-exec): Need to get 2333 kB of archives.
+[0m[0mnull_resource.router_config (remote-exec): After this operation, 10.4 MB of additional disk space will be used.
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): 7[0;79r8[1A
+[0m[0mnull_resource.router_config (remote-exec): Selecting previously unselected package python-six.
+[0m[0mnull_resource.router_config (remote-exec): (Reading database ...
+null_resource.router_config (remote-exec): (Reading database ... 5%
+null_resource.router_config (remote-exec): (Reading database ... 10%
+null_resource.router_config (remote-exec): (Reading database ... 15%
+null_resource.router_config (remote-exec): (Reading database ... 20%
+null_resource.router_config (remote-exec): (Reading database ... 25%
+null_resource.router_config (remote-exec): (Reading database ... 30%
+null_resource.router_config (remote-exec): (Reading database ... 35%
+null_resource.router_config (remote-exec): (Reading database ... 40%
+null_resource.router_config (remote-exec): (Reading database ... 45%
+null_resource.router_config (remote-exec): (Reading database ... 50%
+null_resource.router_config (remote-exec): (Reading database ... 55%
+null_resource.router_config (remote-exec): (Reading database ... 60%
+[0m[0mnull_resource.router_config (remote-exec): (Reading database ... 65%
+[0m[0mnull_resource.router_config (remote-exec): (Reading database ... 70%
+[0m[0mnull_resource.router_config (remote-exec): (Reading database ... 75%
+[0m[0mnull_resource.router_config (remote-exec): (Reading database ... 80%
+[0m[0mnull_resource.router_config (remote-exec): (Reading database ... 85%
+[0m[0mnull_resource.router_config (remote-exec): (Reading database ... 90%
+[0m[0mnull_resource.router_config (remote-exec): (Reading database ... 95%
+[0m[0mnull_resource.router_config (remote-exec): (Reading database ... 100%
+null_resource.router_config (remote-exec): (Reading database ... 76571 files and directories currently installed.)
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../python-six_1.11.0-2_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [  0%][49m[39m [..................] 87[80;0f[42m[30mProgress: [  6%][49m[39m [#.................] 8Unpacking python-six (1.11.0-2) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 13%][49m[39m [##................] 87[80;0f[42m[30mProgress: [ 19%][49m[39m [###...............] 8Selecting previously unselected package openvswitch-common.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../openvswitch-common_2.9.5-0ubuntu0.18.04.1_amd64.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 25%][49m[39m [####..............] 8Unpacking openvswitch-common (2.9.5-0ubuntu0.18.04.1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 31%][49m[39m [#####.............] 87[80;0f[42m[30mProgress: [ 38%][49m[39m [######............] 8Selecting previously unselected package openvswitch-switch.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../openvswitch-switch_2.9.5-0ubuntu0.18.04.1_amd64.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 44%][49m[39m [#######...........] 8Unpacking openvswitch-switch (2.9.5-0ubuntu0.18.04.1) ...
+[0m[1mnull_resource.client1_config: Still creating... [2m0s elapsed][0m[0m
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 50%][49m[39m [#########.........] 87[80;0f[42m[30mProgress: [ 56%][49m[39m [##########........] 8Setting up python-six (1.11.0-2) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 63%][49m[39m [###########.......] 8
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 69%][49m[39m [############......] 8Setting up openvswitch-common (2.9.5-0ubuntu0.18.04.1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 75%][49m[39m [#############.....] 87[80;0f[42m[30mProgress: [ 81%][49m[39m [##############....] 8Setting up openvswitch-switch (2.9.5-0ubuntu0.18.04.1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 88%][49m[39m [###############...] 8
+[0m[0mnull_resource.router_config (remote-exec): update-alternatives: using /usr/lib/openvswitch-switch/ovs-vswitchd to provide /usr/sbin/ovs-vswitchd (ovs-vswitchd) in auto mode
+[0m[0mnull_resource.router_config (remote-exec): Created symlink /etc/systemd/system/multi-user.target.wants/openvswitch-switch.service → /lib/systemd/system/openvswitch-switch.service.
+[0m[0mnull_resource.router_config (remote-exec): ovs-vswitchd.service is a disabled or a static unit, not starting it.
+[0m[0mnull_resource.router_config (remote-exec): ovsdb-server.service is a disabled or a static unit, not starting it.
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 94%][49m[39m [################..] 8Processing triggers for ureadahead (0.100.0-21) ...
+[0m[0mnull_resource.router_config (remote-exec): Processing triggers for systemd (237-3ubuntu10.39) ...
+[0m[0mnull_resource.router_config (remote-exec): Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+[0m[1mnull_resource.router_config: Still creating... [50s elapsed][0m[0m
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): 7[0;80r8[1A[J
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): 7[0;80r8[1A[J
+[0m[0mnull_resource.router_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt-get -y -qq install python
+[0m[0mnull_resource.client1_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt-get -y -qq install python
+[0m[0mnull_resource.router_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt-get -y -qq install python3
+[0m[0mnull_resource.client1_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt-get -y -qq install python3
+[0m[0mnull_resource.router_config (remote-exec): + '[' -f /usr/bin/python3 ']'
+[0m[0mnull_resource.router_config (remote-exec): + '[' '!' -f /usr/bin/python ']'
+[0m[0mnull_resource.router_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt install -y -qq ansible
+[0m[0mnull_resource.client1_config (remote-exec): + '[' -f /usr/bin/python3 ']'
+[0m[0mnull_resource.client1_config (remote-exec): + '[' '!' -f /usr/bin/python ']'
+[0m[0mnull_resource.client1_config (remote-exec): + sudo DEBIAN_FRONTEND=noninteractive apt install -y -qq ansible
+[0m[0mnull_resource.router_config (remote-exec): The following packages were automatically installed and are no longer required:
+[0m[0mnull_resource.router_config (remote-exec):   grub-pc-bin linux-headers-4.15.0-99
+[0m[0mnull_resource.router_config (remote-exec): Use 'sudo apt autoremove' to remove them.
+[0m[0mnull_resource.router_config (remote-exec): The following additional packages will be installed:
+[0m[0mnull_resource.router_config (remote-exec):   ieee-data python-asn1crypto
+[0m[0mnull_resource.router_config (remote-exec):   python-certifi python-cffi-backend
+[0m[0mnull_resource.router_config (remote-exec):   python-chardet python-cryptography
+[0m[0mnull_resource.router_config (remote-exec):   python-enum34 python-httplib2
+[0m[0mnull_resource.router_config (remote-exec):   python-idna python-ipaddress
+[0m[0mnull_resource.router_config (remote-exec):   python-jinja2 python-jmespath
+[0m[0mnull_resource.router_config (remote-exec):   python-kerberos python-libcloud
+[0m[0mnull_resource.router_config (remote-exec):   python-lockfile python-markupsafe
+[0m[0mnull_resource.router_config (remote-exec):   python-netaddr python-openssl
+[0m[0mnull_resource.router_config (remote-exec):   python-paramiko python-pkg-resources
+[0m[0mnull_resource.router_config (remote-exec):   python-pyasn1 python-requests
+[0m[0mnull_resource.router_config (remote-exec):   python-selinux python-simplejson
+[0m[0mnull_resource.router_config (remote-exec):   python-urllib3 python-xmltodict
+[0m[0mnull_resource.router_config (remote-exec):   python-yaml
+[0m[0mnull_resource.router_config (remote-exec): Suggested packages:
+[0m[0mnull_resource.router_config (remote-exec):   cowsay sshpass
+[0m[0mnull_resource.router_config (remote-exec):   python-cryptography-doc
+[0m[0mnull_resource.router_config (remote-exec):   python-cryptography-vectors
+[0m[0mnull_resource.router_config (remote-exec):   python-enum34-doc python-jinja2-doc
+[0m[0mnull_resource.router_config (remote-exec):   python-lockfile-doc ipython
+[0m[0mnull_resource.router_config (remote-exec):   python-netaddr-docs
+[0m[0mnull_resource.router_config (remote-exec):   python-openssl-doc
+[0m[0mnull_resource.router_config (remote-exec):   python-openssl-dbg python-gssapi
+[0m[0mnull_resource.router_config (remote-exec):   python-setuptools python-socks
+[0m[0mnull_resource.router_config (remote-exec):   python-ntlm
+[0m[0mnull_resource.router_config (remote-exec): Recommended packages:
+[0m[0mnull_resource.router_config (remote-exec):   python-winrm
+[0m[0mnull_resource.router_config (remote-exec): The following NEW packages will be installed:
+[0m[0mnull_resource.router_config (remote-exec):   ansible ieee-data python-asn1crypto
+[0m[0mnull_resource.router_config (remote-exec):   python-certifi python-cffi-backend
+[0m[0mnull_resource.router_config (remote-exec):   python-chardet python-cryptography
+[0m[0mnull_resource.router_config (remote-exec):   python-enum34 python-httplib2
+[0m[0mnull_resource.router_config (remote-exec):   python-idna python-ipaddress
+[0m[0mnull_resource.router_config (remote-exec):   python-jinja2 python-jmespath
+[0m[0mnull_resource.router_config (remote-exec):   python-kerberos python-libcloud
+[0m[0mnull_resource.router_config (remote-exec):   python-lockfile python-markupsafe
+[0m[0mnull_resource.router_config (remote-exec):   python-netaddr python-openssl
+[0m[0mnull_resource.router_config (remote-exec):   python-paramiko python-pkg-resources
+[0m[0mnull_resource.router_config (remote-exec):   python-pyasn1 python-requests
+[0m[0mnull_resource.router_config (remote-exec):   python-selinux python-simplejson
+[0m[0mnull_resource.router_config (remote-exec):   python-urllib3 python-xmltodict
+[0m[0mnull_resource.router_config (remote-exec):   python-yaml
+[0m[0mnull_resource.router_config (remote-exec): 0 upgraded, 28 newly installed, 0 to remove and 3 not upgraded.
+[0m[0mnull_resource.router_config (remote-exec): Need to get 7849 kB of archives.
+[0m[0mnull_resource.router_config (remote-exec): After this operation, 61.2 MB of additional disk space will be used.
+[0m[0mnull_resource.client1_config (remote-exec): The following packages were automatically installed and are no longer required:
+[0m[0mnull_resource.client1_config (remote-exec):   grub-pc-bin linux-headers-4.15.0-99
+[0m[0mnull_resource.client1_config (remote-exec): Use 'sudo apt autoremove' to remove them.
+[0m[0mnull_resource.client1_config (remote-exec): The following additional packages will be installed:
+[0m[0mnull_resource.client1_config (remote-exec):   ieee-data python-asn1crypto
+[0m[0mnull_resource.client1_config (remote-exec):   python-certifi python-cffi-backend
+[0m[0mnull_resource.client1_config (remote-exec):   python-chardet python-cryptography
+[0m[0mnull_resource.client1_config (remote-exec):   python-enum34 python-httplib2
+[0m[0mnull_resource.client1_config (remote-exec):   python-idna python-ipaddress
+[0m[0mnull_resource.client1_config (remote-exec):   python-jinja2 python-jmespath
+[0m[0mnull_resource.client1_config (remote-exec):   python-kerberos python-libcloud
+[0m[0mnull_resource.client1_config (remote-exec):   python-lockfile python-markupsafe
+[0m[0mnull_resource.client1_config (remote-exec):   python-netaddr python-openssl
+[0m[0mnull_resource.client1_config (remote-exec):   python-paramiko python-pkg-resources
+[0m[0mnull_resource.client1_config (remote-exec):   python-pyasn1 python-requests
+[0m[0mnull_resource.client1_config (remote-exec):   python-selinux python-simplejson
+[0m[0mnull_resource.client1_config (remote-exec):   python-urllib3 python-xmltodict
+[0m[0mnull_resource.client1_config (remote-exec):   python-yaml
+[0m[0mnull_resource.client1_config (remote-exec): Suggested packages:
+[0m[0mnull_resource.client1_config (remote-exec):   cowsay sshpass
+[0m[0mnull_resource.client1_config (remote-exec):   python-cryptography-doc
+[0m[0mnull_resource.client1_config (remote-exec):   python-cryptography-vectors
+[0m[0mnull_resource.client1_config (remote-exec):   python-enum34-doc python-jinja2-doc
+[0m[0mnull_resource.client1_config (remote-exec):   python-lockfile-doc ipython
+[0m[0mnull_resource.client1_config (remote-exec):   python-netaddr-docs
+[0m[0mnull_resource.client1_config (remote-exec):   python-openssl-doc
+[0m[0mnull_resource.client1_config (remote-exec):   python-openssl-dbg python-gssapi
+[0m[0mnull_resource.client1_config (remote-exec):   python-setuptools python-socks
+[0m[0mnull_resource.client1_config (remote-exec):   python-ntlm
+[0m[0mnull_resource.client1_config (remote-exec): Recommended packages:
+[0m[0mnull_resource.client1_config (remote-exec):   python-winrm
+[0m[0mnull_resource.client1_config (remote-exec): The following NEW packages will be installed:
+[0m[0mnull_resource.client1_config (remote-exec):   ansible ieee-data python-asn1crypto
+[0m[0mnull_resource.client1_config (remote-exec):   python-certifi python-cffi-backend
+[0m[0mnull_resource.client1_config (remote-exec):   python-chardet python-cryptography
+[0m[0mnull_resource.client1_config (remote-exec):   python-enum34 python-httplib2
+[0m[0mnull_resource.client1_config (remote-exec):   python-idna python-ipaddress
+[0m[0mnull_resource.client1_config (remote-exec):   python-jinja2 python-jmespath
+[0m[0mnull_resource.client1_config (remote-exec):   python-kerberos python-libcloud
+[0m[0mnull_resource.client1_config (remote-exec):   python-lockfile python-markupsafe
+[0m[0mnull_resource.client1_config (remote-exec):   python-netaddr python-openssl
+[0m[0mnull_resource.client1_config (remote-exec):   python-paramiko python-pkg-resources
+[0m[0mnull_resource.client1_config (remote-exec):   python-pyasn1 python-requests
+[0m[0mnull_resource.client1_config (remote-exec):   python-selinux python-simplejson
+[0m[0mnull_resource.client1_config (remote-exec):   python-urllib3 python-xmltodict
+[0m[0mnull_resource.client1_config (remote-exec):   python-yaml
+[0m[0mnull_resource.client1_config (remote-exec): 0 upgraded, 28 newly installed, 0 to remove and 3 not upgraded.
+[0m[0mnull_resource.client1_config (remote-exec): Need to get 7849 kB of archives.
+[0m[0mnull_resource.client1_config (remote-exec): After this operation, 61.2 MB of additional disk space will be used.
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): 7[0;79r8[1A
+[0m[0mnull_resource.router_config (remote-exec): Selecting previously unselected package python-asn1crypto.
+[0m[0mnull_resource.router_config (remote-exec): (Reading database ...
+null_resource.router_config (remote-exec): (Reading database ... 5%
+null_resource.router_config (remote-exec): (Reading database ... 10%
+null_resource.router_config (remote-exec): (Reading database ... 15%
+null_resource.router_config (remote-exec): (Reading database ... 20%
+null_resource.router_config (remote-exec): (Reading database ... 25%
+null_resource.router_config (remote-exec): (Reading database ... 30%
+null_resource.router_config (remote-exec): (Reading database ... 35%
+null_resource.router_config (remote-exec): (Reading database ... 40%
+null_resource.router_config (remote-exec): (Reading database ... 45%
+null_resource.router_config (remote-exec): (Reading database ... 50%
+null_resource.router_config (remote-exec): (Reading database ... 55%
+null_resource.router_config (remote-exec): (Reading database ... 60%
+null_resource.router_config (remote-exec): (Reading database ... 65%
+null_resource.router_config (remote-exec): (Reading database ... 70%
+null_resource.router_config (remote-exec): (Reading database ... 75%
+null_resource.router_config (remote-exec): (Reading database ... 80%
+null_resource.router_config (remote-exec): (Reading database ... 85%
+null_resource.router_config (remote-exec): (Reading database ... 90%
+null_resource.router_config (remote-exec): (Reading database ... 95%
+null_resource.router_config (remote-exec): (Reading database ... 100%
+null_resource.router_config (remote-exec): (Reading database ... 76665 files and directories currently installed.)
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../00-python-asn1crypto_0.24.0-1_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [  0%][49m[39m [..................] 8Unpacking python-asn1crypto (0.24.0-1) ...
+[0m[1mnull_resource.client1_config: Still creating... [2m10s elapsed][0m[0m
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [  1%][49m[39m [..................] 87[80;0f[42m[30mProgress: [  2%][49m[39m [..................] 8Selecting previously unselected package python-cffi-backend.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../01-python-cffi-backend_1.11.5-1_amd64.deb ...
+[0m[0mnull_resource.router_config (remote-exec): Unpacking python-cffi-backend (1.11.5-1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [  4%][49m[39m [..................] 87[80;0f[42m[30mProgress: [  4%][49m[39m [..................] 8Selecting previously unselected package python-enum34.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../02-python-enum34_1.1.6-2_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): Unpacking python-enum34 (1.1.6-2) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [  6%][49m[39m [#.................] 87[80;0f[42m[30mProgress: [  6%][49m[39m [#.................] 8Selecting previously unselected package python-idna.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../03-python-idna_2.6-1_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [  7%][49m[39m [#.................] 8Unpacking python-idna (2.6-1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [  9%][49m[39m [#.................] 8Selecting previously unselected package python-ipaddress.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../04-python-ipaddress_1.0.17-1_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [  9%][49m[39m [#.................] 8Unpacking python-ipaddress (1.0.17-1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 11%][49m[39m [#.................] 8Selecting previously unselected package python-cryptography.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../05-python-cryptography_2.1.4-1ubuntu1.3_amd64.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 11%][49m[39m [##................] 8Unpacking python-cryptography (2.1.4-1ubuntu1.3) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 12%][49m[39m [##................] 8Selecting previously unselected package python-markupsafe.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../06-python-markupsafe_1.0-1build1_amd64.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 13%][49m[39m [##................] 8Unpacking python-markupsafe (1.0-1build1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 14%][49m[39m [##................] 8Selecting previously unselected package python-jinja2.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../07-python-jinja2_2.10-1ubuntu0.18.04.1_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 16%][49m[39m [##................] 8Unpacking python-jinja2 (2.10-1ubuntu0.18.04.1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 16%][49m[39m [##................] 87[80;0f[42m[30mProgress: [ 17%][49m[39m [###...............] 8Selecting previously unselected package python-pyasn1.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../08-python-pyasn1_0.4.2-3_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): Unpacking python-pyasn1 (0.4.2-3) ...
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 18%][49m[39m [###...............] 87[80;0f[42m[30mProgress: [ 19%][49m[39m [###...............] 8Selecting previously unselected package python-paramiko.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../09-python-paramiko_2.0.0-1ubuntu1.2_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): Unpacking python-paramiko (2.0.0-1ubuntu1.2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[0;79r8[1A
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 21%][49m[39m [###...............] 87[80;0f[42m[30mProgress: [ 21%][49m[39m [###...............] 8Selecting previously unselected package python-pkg-resources.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../10-python-pkg-resources_39.0.1-2_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): Unpacking python-pkg-resources (39.0.1-2) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 23%][49m[39m [####..............] 87[80;0f[42m[30mProgress: [ 23%][49m[39m [####..............] 8Selecting previously unselected package python-yaml.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../11-python-yaml_3.12-1build2_amd64.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 24%][49m[39m [####..............] 8Unpacking python-yaml (3.12-1build2) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 26%][49m[39m [####..............] 8Selecting previously unselected package python-httplib2.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../12-python-httplib2_0.9.2+dfsg-1ubuntu0.1_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 26%][49m[39m [####..............] 8Unpacking python-httplib2 (0.9.2+dfsg-1ubuntu0.1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 28%][49m[39m [####..............] 8Selecting previously unselected package ieee-data.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../13-ieee-data_20180204.1_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 28%][49m[39m [#####.............] 8Unpacking ieee-data (20180204.1) ...
+[0m[0mnull_resource.client1_config (remote-exec): Selecting previously unselected package python-asn1crypto.
+[0m[0mnull_resource.client1_config (remote-exec): (Reading database ...
+null_resource.client1_config (remote-exec): (Reading database ... 5%
+null_resource.client1_config (remote-exec): (Reading database ... 10%
+null_resource.client1_config (remote-exec): (Reading database ... 15%
+null_resource.client1_config (remote-exec): (Reading database ... 20%
+null_resource.client1_config (remote-exec): (Reading database ... 25%
+null_resource.client1_config (remote-exec): (Reading database ... 30%
+null_resource.client1_config (remote-exec): (Reading database ... 35%
+null_resource.client1_config (remote-exec): (Reading database ... 40%
+null_resource.client1_config (remote-exec): (Reading database ... 45%
+null_resource.client1_config (remote-exec): (Reading database ... 50%
+null_resource.client1_config (remote-exec): (Reading database ... 55%
+null_resource.client1_config (remote-exec): (Reading database ... 60%
+null_resource.client1_config (remote-exec): (Reading database ... 65%
+null_resource.client1_config (remote-exec): (Reading database ... 70%
+null_resource.client1_config (remote-exec): (Reading database ... 75%
+null_resource.client1_config (remote-exec): (Reading database ... 80%
+null_resource.client1_config (remote-exec): (Reading database ... 85%
+null_resource.client1_config (remote-exec): (Reading database ... 90%
+null_resource.client1_config (remote-exec): (Reading database ... 95%
+null_resource.client1_config (remote-exec): (Reading database ... 100%
+null_resource.client1_config (remote-exec): (Reading database ... 76665 files and directories currently installed.)
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../00-python-asn1crypto_0.24.0-1_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [  0%][49m[39m [..................] 8Unpacking python-asn1crypto (0.24.0-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [  1%][49m[39m [..................] 87[80;0f[42m[30mProgress: [  2%][49m[39m [..................] 8Selecting previously unselected package python-cffi-backend.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../01-python-cffi-backend_1.11.5-1_amd64.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): Unpacking python-cffi-backend (1.11.5-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [  4%][49m[39m [..................] 87[80;0f[42m[30mProgress: [  4%][49m[39m [..................] 8Selecting previously unselected package python-enum34.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../02-python-enum34_1.1.6-2_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): Unpacking python-enum34 (1.1.6-2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [  6%][49m[39m [#.................] 8
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [  6%][49m[39m [#.................] 8
+[0m[0mnull_resource.client1_config (remote-exec): Selecting previously unselected package python-idna.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../03-python-idna_2.6-1_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [  7%][49m[39m [#.................] 8Unpacking python-idna (2.6-1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 29%][49m[39m [#####.............] 8Selecting previously unselected package python-netaddr.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../14-python-netaddr_0.7.19-1_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 30%][49m[39m [#####.............] 8Unpacking python-netaddr (0.7.19-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [  9%][49m[39m [#.................] 8Selecting previously unselected package python-ipaddress.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../04-python-ipaddress_1.0.17-1_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [  9%][49m[39m [#.................] 8Unpacking python-ipaddress (1.0.17-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 11%][49m[39m [#.................] 8Selecting previously unselected package python-cryptography.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../05-python-cryptography_2.1.4-1ubuntu1.3_amd64.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 31%][49m[39m [#####.............] 8Selecting previously unselected package ansible.
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 11%][49m[39m [##................] 8Unpacking python-cryptography (2.1.4-1ubuntu1.3) ...
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../15-ansible_2.5.1+dfsg-1ubuntu0.1_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 33%][49m[39m [#####.............] 8Unpacking ansible (2.5.1+dfsg-1ubuntu0.1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 12%][49m[39m [##................] 8Selecting previously unselected package python-markupsafe.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../06-python-markupsafe_1.0-1build1_amd64.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 13%][49m[39m [##................] 8Unpacking python-markupsafe (1.0-1build1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 14%][49m[39m [##................] 8Selecting previously unselected package python-jinja2.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../07-python-jinja2_2.10-1ubuntu0.18.04.1_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 16%][49m[39m [##................] 8Unpacking python-jinja2 (2.10-1ubuntu0.18.04.1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 16%][49m[39m [##................] 87[80;0f[42m[30mProgress: [ 17%][49m[39m [###...............] 8Selecting previously unselected package python-pyasn1.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../08-python-pyasn1_0.4.2-3_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): Unpacking python-pyasn1 (0.4.2-3) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 18%][49m[39m [###...............] 87[80;0f[42m[30mProgress: [ 19%][49m[39m [###...............] 8Selecting previously unselected package python-paramiko.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../09-python-paramiko_2.0.0-1ubuntu1.2_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): Unpacking python-paramiko (2.0.0-1ubuntu1.2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 21%][49m[39m [###...............] 87[80;0f[42m[30mProgress: [ 21%][49m[39m [###...............] 8Selecting previously unselected package python-pkg-resources.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../10-python-pkg-resources_39.0.1-2_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): Unpacking python-pkg-resources (39.0.1-2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 23%][49m[39m [####..............] 87[80;0f[42m[30mProgress: [ 23%][49m[39m [####..............] 8Selecting previously unselected package python-yaml.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../11-python-yaml_3.12-1build2_amd64.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 24%][49m[39m [####..............] 8Unpacking python-yaml (3.12-1build2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 26%][49m[39m [####..............] 8Selecting previously unselected package python-httplib2.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../12-python-httplib2_0.9.2+dfsg-1ubuntu0.1_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 26%][49m[39m [####..............] 8Unpacking python-httplib2 (0.9.2+dfsg-1ubuntu0.1) ...
+[0m[1mnull_resource.router_config: Still creating... [1m0s elapsed][0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 28%][49m[39m [####..............] 8Selecting previously unselected package ieee-data.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../13-ieee-data_20180204.1_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 28%][49m[39m [#####.............] 8Unpacking ieee-data (20180204.1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 29%][49m[39m [#####.............] 8
+[0m[0mnull_resource.client1_config (remote-exec): Selecting previously unselected package python-netaddr.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../14-python-netaddr_0.7.19-1_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 30%][49m[39m [#####.............] 8Unpacking python-netaddr (0.7.19-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 31%][49m[39m [#####.............] 8
+[0m[0mnull_resource.client1_config (remote-exec): Selecting previously unselected package ansible.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../15-ansible_2.5.1+dfsg-1ubuntu0.1_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 33%][49m[39m [#####.............] 8Unpacking ansible (2.5.1+dfsg-1ubuntu0.1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 33%][49m[39m [#####.............] 87[80;0f[42m[30mProgress: [ 34%][49m[39m [######............] 8Selecting previously unselected package python-certifi.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../16-python-certifi_2018.1.18-2_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): Unpacking python-certifi (2018.1.18-2) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 35%][49m[39m [######............] 87[80;0f[42m[30mProgress: [ 36%][49m[39m [######............] 8Selecting previously unselected package python-chardet.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../17-python-chardet_3.0.4-1_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): Unpacking python-chardet (3.0.4-1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 38%][49m[39m [######............] 87[80;0f[42m[30mProgress: [ 38%][49m[39m [######............] 8Selecting previously unselected package python-jmespath.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../18-python-jmespath_0.9.3-1ubuntu1_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 39%][49m[39m [#######...........] 8Unpacking python-jmespath (0.9.3-1ubuntu1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 40%][49m[39m [#######...........] 8Selecting previously unselected package python-kerberos.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../19-python-kerberos_1.1.14-1_amd64.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 41%][49m[39m [#######...........] 8Unpacking python-kerberos (1.1.14-1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 43%][49m[39m [#######...........] 8Selecting previously unselected package python-urllib3.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../20-python-urllib3_1.22-1ubuntu0.18.04.1_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 43%][49m[39m [#######...........] 8Unpacking python-urllib3 (1.22-1ubuntu0.18.04.1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 45%][49m[39m [########..........] 8Selecting previously unselected package python-requests.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../21-python-requests_2.18.4-2ubuntu0.1_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 45%][49m[39m [########..........] 8Unpacking python-requests (2.18.4-2ubuntu0.1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 46%][49m[39m [########..........] 8Selecting previously unselected package python-lockfile.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../22-python-lockfile_1%3a0.12.2-2_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 48%][49m[39m [########..........] 8Unpacking python-lockfile (1:0.12.2-2) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 48%][49m[39m [########..........] 8Selecting previously unselected package python-simplejson.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../23-python-simplejson_3.13.2-1_amd64.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 50%][49m[39m [########..........] 8Unpacking python-simplejson (3.13.2-1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 50%][49m[39m [#########.........] 87[80;0f[42m[30mProgress: [ 51%][49m[39m [#########.........] 8Selecting previously unselected package python-libcloud.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../24-python-libcloud_2.2.1-1_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): Unpacking python-libcloud (2.2.1-1) ...
+[0m[1mnull_resource.client1_config: Still creating... [2m20s elapsed][0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 33%][49m[39m [#####.............] 87[80;0f[42m[30mProgress: [ 34%][49m[39m [######............] 8Selecting previously unselected package python-certifi.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../16-python-certifi_2018.1.18-2_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): Unpacking python-certifi (2018.1.18-2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 35%][49m[39m [######............] 87[80;0f[42m[30mProgress: [ 36%][49m[39m [######............] 8Selecting previously unselected package python-chardet.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../17-python-chardet_3.0.4-1_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): Unpacking python-chardet (3.0.4-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 38%][49m[39m [######............] 87[80;0f[42m[30mProgress: [ 38%][49m[39m [######............] 8Selecting previously unselected package python-jmespath.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../18-python-jmespath_0.9.3-1ubuntu1_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 39%][49m[39m [#######...........] 8Unpacking python-jmespath (0.9.3-1ubuntu1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 40%][49m[39m [#######...........] 8Selecting previously unselected package python-kerberos.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../19-python-kerberos_1.1.14-1_amd64.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 41%][49m[39m [#######...........] 8Unpacking python-kerberos (1.1.14-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 43%][49m[39m [#######...........] 8Selecting previously unselected package python-urllib3.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../20-python-urllib3_1.22-1ubuntu0.18.04.1_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 43%][49m[39m [#######...........] 8Unpacking python-urllib3 (1.22-1ubuntu0.18.04.1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 45%][49m[39m [########..........] 8Selecting previously unselected package python-requests.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../21-python-requests_2.18.4-2ubuntu0.1_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 45%][49m[39m [########..........] 8Unpacking python-requests (2.18.4-2ubuntu0.1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 46%][49m[39m [########..........] 8Selecting previously unselected package python-lockfile.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../22-python-lockfile_1%3a0.12.2-2_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 48%][49m[39m [########..........] 8Unpacking python-lockfile (1:0.12.2-2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 48%][49m[39m [########..........] 8Selecting previously unselected package python-simplejson.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../23-python-simplejson_3.13.2-1_amd64.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 50%][49m[39m [########..........] 8Unpacking python-simplejson (3.13.2-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 50%][49m[39m [#########.........] 87[80;0f[42m[30mProgress: [ 51%][49m[39m [#########.........] 8Selecting previously unselected package python-libcloud.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../24-python-libcloud_2.2.1-1_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): Unpacking python-libcloud (2.2.1-1) ...
+[0m[1mnull_resource.router_config: Still creating... [1m10s elapsed][0m[0m
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 52%][49m[39m [#########.........] 87[80;0f[42m[30mProgress: [ 53%][49m[39m [#########.........] 8Selecting previously unselected package python-openssl.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../25-python-openssl_17.5.0-1ubuntu1_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): Unpacking python-openssl (17.5.0-1ubuntu1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 55%][49m[39m [#########.........] 87[80;0f[42m[30mProgress: [ 55%][49m[39m [#########.........] 8Selecting previously unselected package python-selinux.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../26-python-selinux_2.7-2build2_amd64.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 56%][49m[39m [##########........] 8Unpacking python-selinux (2.7-2build2) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 57%][49m[39m [##########........] 8Selecting previously unselected package python-xmltodict.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../27-python-xmltodict_0.11.0-1_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 58%][49m[39m [##########........] 8Unpacking python-xmltodict (0.11.0-1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 60%][49m[39m [##########........] 8
+[0m[0mnull_resource.router_config (remote-exec): Setting up python-idna (2.6-1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 60%][49m[39m [##########........] 8
+[0m[0mnull_resource.router_config (remote-exec): Setting up python-simplejson (3.13.2-1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 62%][49m[39m [###########.......] 8
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 62%][49m[39m [###########.......] 8Setting up python-urllib3 (1.22-1ubuntu0.18.04.1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 63%][49m[39m [###########.......] 8
+[0m[0mnull_resource.router_config (remote-exec): Setting up python-yaml (3.12-1build2) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 65%][49m[39m [###########.......] 87[80;0f[42m[30mProgress: [ 65%][49m[39m [###########.......] 8Setting up python-asn1crypto (0.24.0-1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 67%][49m[39m [###########.......] 8Setting up ieee-data (20180204.1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 67%][49m[39m [############......] 87[80;0f[42m[30mProgress: [ 68%][49m[39m [############......] 8Setting up python-pyasn1 (0.4.2-3) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 70%][49m[39m [############......] 8Setting up python-netaddr (0.7.19-1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 70%][49m[39m [############......] 8
+[0m[0mnull_resource.router_config (remote-exec): Setting up python-xmltodict (0.11.0-1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 72%][49m[39m [############......] 87[80;0f[42m[30mProgress: [ 72%][49m[39m [#############.....] 8Setting up python-jmespath (0.9.3-1ubuntu1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 73%][49m[39m [#############.....] 8Setting up python-certifi (2018.1.18-2) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 74%][49m[39m [#############.....] 87[80;0f[42m[30mProgress: [ 75%][49m[39m [#############.....] 8Setting up python-kerberos (1.1.14-1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 77%][49m[39m [#############.....] 8Setting up python-pkg-resources (39.0.1-2) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 77%][49m[39m [#############.....] 8
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 78%][49m[39m [##############....] 8
+[0m[0mnull_resource.router_config (remote-exec): Setting up python-markupsafe (1.0-1build1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 52%][49m[39m [#########.........] 87[80;0f[42m[30mProgress: [ 53%][49m[39m [#########.........] 8Selecting previously unselected package python-openssl.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../25-python-openssl_17.5.0-1ubuntu1_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 79%][49m[39m [##############....] 8Setting up python-httplib2 (0.9.2+dfsg-1ubuntu0.1) ...
+[0m[0mnull_resource.client1_config (remote-exec): Unpacking python-openssl (17.5.0-1ubuntu1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 80%][49m[39m [##############....] 8Setting up python-cffi-backend (1.11.5-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 55%][49m[39m [#########.........] 87[80;0f[42m[30mProgress: [ 55%][49m[39m [#########.........] 8Selecting previously unselected package python-selinux.
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 82%][49m[39m [##############....] 87[80;0f[42m[30mProgress: [ 82%][49m[39m [##############....] 8Setting up python-selinux (2.7-2build2) ...
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../26-python-selinux_2.7-2build2_amd64.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 56%][49m[39m [##########........] 8Unpacking python-selinux (2.7-2build2) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 84%][49m[39m [###############...] 8Setting up python-enum34 (1.1.6-2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 57%][49m[39m [##########........] 8Selecting previously unselected package python-xmltodict.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../27-python-xmltodict_0.11.0-1_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 58%][49m[39m [##########........] 8Unpacking python-xmltodict (0.11.0-1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 84%][49m[39m [###############...] 87[80;0f[42m[30mProgress: [ 85%][49m[39m [###############...] 8Setting up python-lockfile (1:0.12.2-2) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 87%][49m[39m [###############...] 8Setting up python-ipaddress (1.0.17-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 60%][49m[39m [##########........] 8
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 87%][49m[39m [###############...] 8Setting up python-chardet (3.0.4-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): Setting up python-idna (2.6-1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 89%][49m[39m [###############...] 8
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 89%][49m[39m [################..] 8Setting up python-jinja2 (2.10-1ubuntu0.18.04.1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 60%][49m[39m [##########........] 8
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 90%][49m[39m [################..] 8
+[0m[0mnull_resource.router_config (remote-exec): Setting up python-cryptography (2.1.4-1ubuntu1.3) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 91%][49m[39m [################..] 8
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 92%][49m[39m [################..] 8Setting up python-requests (2.18.4-2ubuntu0.1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 94%][49m[39m [################..] 8Setting up python-openssl (17.5.0-1ubuntu1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 94%][49m[39m [################..] 87[80;0f[42m[30mProgress: [ 95%][49m[39m [#################.] 8Setting up python-paramiko (2.0.0-1ubuntu1.2) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 96%][49m[39m [#################.] 8Setting up ansible (2.5.1+dfsg-1ubuntu0.1) ...
+[0m[1mnull_resource.client1_config: Still creating... [2m30s elapsed][0m[0m
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 97%][49m[39m [#################.] 8
+[0m[0mnull_resource.client1_config (remote-exec): Setting up python-simplejson (3.13.2-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 62%][49m[39m [###########.......] 8
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 62%][49m[39m [###########.......] 8Setting up python-urllib3 (1.22-1ubuntu0.18.04.1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 63%][49m[39m [###########.......] 8
+[0m[0mnull_resource.client1_config (remote-exec): Setting up python-yaml (3.12-1build2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 65%][49m[39m [###########.......] 8
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 65%][49m[39m [###########.......] 8Setting up python-asn1crypto (0.24.0-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 67%][49m[39m [###########.......] 8Setting up ieee-data (20180204.1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 67%][49m[39m [############......] 87[80;0f[42m[30mProgress: [ 68%][49m[39m [############......] 8Setting up python-pyasn1 (0.4.2-3) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 70%][49m[39m [############......] 8Setting up python-netaddr (0.7.19-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 70%][49m[39m [############......] 8
+[0m[0mnull_resource.client1_config (remote-exec): Setting up python-xmltodict (0.11.0-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 72%][49m[39m [############......] 87[80;0f[42m[30mProgress: [ 72%][49m[39m [#############.....] 8Setting up python-jmespath (0.9.3-1ubuntu1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 73%][49m[39m [#############.....] 8
+[0m[0mnull_resource.client1_config (remote-exec): Setting up python-certifi (2018.1.18-2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 74%][49m[39m [#############.....] 87[80;0f[42m[30mProgress: [ 75%][49m[39m [#############.....] 8Setting up python-kerberos (1.1.14-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 77%][49m[39m [#############.....] 8Setting up python-pkg-resources (39.0.1-2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 77%][49m[39m [#############.....] 8
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 78%][49m[39m [##############....] 8Setting up python-markupsafe (1.0-1build1) ...
+[0m[1mnull_resource.router_config: Still creating... [1m20s elapsed][0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 79%][49m[39m [##############....] 8Setting up python-httplib2 (0.9.2+dfsg-1ubuntu0.1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 80%][49m[39m [##############....] 8
+[0m[0mnull_resource.client1_config (remote-exec): Setting up python-cffi-backend (1.11.5-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 82%][49m[39m [##############....] 87[80;0f[42m[30mProgress: [ 82%][49m[39m [##############....] 8Setting up python-selinux (2.7-2build2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 84%][49m[39m [###############...] 8Setting up python-enum34 (1.1.6-2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 84%][49m[39m [###############...] 87[80;0f[42m[30mProgress: [ 85%][49m[39m [###############...] 8Setting up python-lockfile (1:0.12.2-2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 87%][49m[39m [###############...] 8Setting up python-ipaddress (1.0.17-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 87%][49m[39m [###############...] 8Setting up python-chardet (3.0.4-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 89%][49m[39m [###############...] 8
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 89%][49m[39m [################..] 8Setting up python-jinja2 (2.10-1ubuntu0.18.04.1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 90%][49m[39m [################..] 8
+[0m[0mnull_resource.router_config (remote-exec): Setting up python-libcloud (2.2.1-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): Setting up python-cryptography (2.1.4-1ubuntu1.3) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 99%][49m[39m [#################.] 8
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 91%][49m[39m [################..] 8
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 92%][49m[39m [################..] 8Setting up python-requests (2.18.4-2ubuntu0.1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 94%][49m[39m [################..] 8Setting up python-openssl (17.5.0-1ubuntu1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 94%][49m[39m [################..] 87[80;0f[42m[30mProgress: [ 95%][49m[39m [#################.] 8Setting up python-paramiko (2.0.0-1ubuntu1.2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 96%][49m[39m [#################.] 8Setting up ansible (2.5.1+dfsg-1ubuntu0.1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 97%][49m[39m [#################.] 8
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 99%][49m[39m [#################.] 8
+[0m[0mnull_resource.router_config (remote-exec): Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): 7[0;80r8[1A[J
+[0m[0mnull_resource.client1_config (remote-exec): Setting up python-libcloud (2.2.1-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 99%][49m[39m [#################.] 8
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 99%][49m[39m [#################.] 8
+[0m[0mnull_resource.client1_config (remote-exec): Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+[0m[0mnull_resource.router_config (remote-exec): + sudo service openvswitch-switch start
+[0m[1mnull_resource.client1_config: Still creating... [2m40s elapsed][0m[0m
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): + sudo service ovs-vswitchd start
+[0m[0mnull_resource.client1_config (remote-exec): 7[0;80r8[1A[J
+[0m[0mnull_resource.router_config (remote-exec): + sudo apt-get remove -qy docker docker-engine docker.io
+[0m[0mnull_resource.router_config (remote-exec): Reading package lists...
+[0m[0mnull_resource.router_config (remote-exec): Building dependency tree...
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): Reading state information...
+[0m[0mnull_resource.router_config (remote-exec): Package 'docker-engine' is not installed, so not removed
+[0m[0mnull_resource.router_config (remote-exec): Package 'docker' is not installed, so not removed
+[0m[0mnull_resource.router_config (remote-exec): Package 'docker.io' is not installed, so not removed
+[0m[0mnull_resource.router_config (remote-exec): The following packages were automatically installed and are no longer required:
+[0m[0mnull_resource.router_config (remote-exec):   grub-pc-bin linux-headers-4.15.0-99
+[0m[0mnull_resource.router_config (remote-exec): Use 'sudo apt autoremove' to remove them.
+[0m[0mnull_resource.router_config (remote-exec): 0 upgraded, 0 newly installed, 0 to remove and 3 not upgraded.
+[0m[0mnull_resource.router_config (remote-exec): + sudo apt install -qy docker.io
+[0m[0mnull_resource.router_config (remote-exec): Reading package lists...
+[0m[0mnull_resource.router_config (remote-exec): Building dependency tree...
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): Reading state information...
+[0m[0mnull_resource.router_config (remote-exec): The following packages were automatically installed and are no longer required:
+[0m[0mnull_resource.router_config (remote-exec):   grub-pc-bin linux-headers-4.15.0-99
+[0m[0mnull_resource.router_config (remote-exec): Use 'sudo apt autoremove' to remove them.
+[0m[0mnull_resource.router_config (remote-exec): The following additional packages will be installed:
+[0m[0mnull_resource.router_config (remote-exec):   bridge-utils cgroupfs-mount
+[0m[0mnull_resource.router_config (remote-exec):   containerd pigz runc ubuntu-fan
+[0m[0mnull_resource.router_config (remote-exec): Suggested packages:
+[0m[0mnull_resource.router_config (remote-exec):   ifupdown aufs-tools debootstrap
+[0m[0mnull_resource.router_config (remote-exec):   docker-doc rinse zfs-fuse | zfsutils
+[0m[0mnull_resource.router_config (remote-exec): The following NEW packages will be installed:
+[0m[0mnull_resource.router_config (remote-exec):   bridge-utils cgroupfs-mount
+[0m[0mnull_resource.router_config (remote-exec):   containerd docker.io pigz runc
+[0m[0mnull_resource.router_config (remote-exec):   ubuntu-fan
+[0m[0mnull_resource.router_config (remote-exec): 0 upgraded, 7 newly installed, 0 to remove and 3 not upgraded.
+[0m[0mnull_resource.router_config (remote-exec): Need to get 63.8 MB of archives.
+[0m[0mnull_resource.router_config (remote-exec): After this operation, 319 MB of additional disk space will be used.
+[0m[0mnull_resource.router_config (remote-exec): Get:1 http://azure.archive.ubuntu.com/ubuntu bionic/universe amd64 pigz amd64 2.4-1 [57.4 kB]
+[0m[0mnull_resource.router_config (remote-exec): Get:2 http://azure.archive.ubuntu.com/ubuntu bionic/main amd64 bridge-utils amd64 1.5-15ubuntu1 [30.1 kB]
+[0m[0mnull_resource.router_config (remote-exec): Get:3 http://azure.archive.ubuntu.com/ubuntu bionic/universe amd64 cgroupfs-mount all 1.4 [6320 B]
+[0m[0mnull_resource.router_config (remote-exec): Get:4 http://azure.archive.ubuntu.com/ubuntu bionic-updates/universe amd64 runc amd64 1.0.0~rc10-0ubuntu1~18.04.2 [2000 kB]
+[0m[0mnull_resource.router_config (remote-exec): Get:5 http://azure.archive.ubuntu.com/ubuntu bionic-updates/universe amd64 containerd amd64 1.3.3-0ubuntu1~18.04.2 [21.7 MB]
+[0m[0mnull_resource.router_config (remote-exec): Get:6 http://azure.archive.ubuntu.com/ubuntu bionic-updates/universe amd64 docker.io amd64 19.03.6-0ubuntu1~18.04.1 [39.9 MB]
+[0m[0mnull_resource.client1_config (remote-exec): + sudo service openvswitch-switch start
+[0m[0mnull_resource.client1_config (remote-exec): + sudo service ovs-vswitchd start
+[0m[0mnull_resource.client1_config (remote-exec): + sudo apt-get remove -qy docker docker-engine docker.io
+[0m[0mnull_resource.client1_config (remote-exec): Reading package lists...
+[0m[1mnull_resource.router_config: Still creating... [1m30s elapsed][0m[0m
+[0m[0mnull_resource.router_config (remote-exec): Get:7 http://azure.archive.ubuntu.com/ubuntu bionic/main amd64 ubuntu-fan all 0.12.10 [34.7 kB]
+[0m[0mnull_resource.router_config (remote-exec): Fetched 63.8 MB in 2s (29.0 MB/s)
+[0m[0mnull_resource.client1_config (remote-exec): Building dependency tree...
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): Reading state information...
+[0m[0mnull_resource.client1_config (remote-exec): Package 'docker-engine' is not installed, so not removed
+[0m[0mnull_resource.client1_config (remote-exec): Package 'docker' is not installed, so not removed
+[0m[0mnull_resource.client1_config (remote-exec): Package 'docker.io' is not installed, so not removed
+[0m[0mnull_resource.client1_config (remote-exec): The following packages were automatically installed and are no longer required:
+[0m[0mnull_resource.client1_config (remote-exec):   grub-pc-bin linux-headers-4.15.0-99
+[0m[0mnull_resource.client1_config (remote-exec): Use 'sudo apt autoremove' to remove them.
+[0m[0mnull_resource.client1_config (remote-exec): 0 upgraded, 0 newly installed, 0 to remove and 3 not upgraded.
+[0m[0mnull_resource.client1_config (remote-exec): + sudo apt install -qy docker.io
+[0m[0mnull_resource.client1_config (remote-exec): Reading package lists...
+[0m[0mnull_resource.client1_config (remote-exec): Building dependency tree...
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): Reading state information...
+[0m[0mnull_resource.client1_config (remote-exec): The following packages were automatically installed and are no longer required:
+[0m[0mnull_resource.client1_config (remote-exec):   grub-pc-bin linux-headers-4.15.0-99
+[0m[0mnull_resource.client1_config (remote-exec): Use 'sudo apt autoremove' to remove them.
+[0m[0mnull_resource.client1_config (remote-exec): The following additional packages will be installed:
+[0m[0mnull_resource.client1_config (remote-exec):   bridge-utils cgroupfs-mount
+[0m[0mnull_resource.client1_config (remote-exec):   containerd pigz runc ubuntu-fan
+[0m[0mnull_resource.client1_config (remote-exec): Suggested packages:
+[0m[0mnull_resource.client1_config (remote-exec):   ifupdown aufs-tools debootstrap
+[0m[0mnull_resource.client1_config (remote-exec):   docker-doc rinse zfs-fuse | zfsutils
+[0m[0mnull_resource.client1_config (remote-exec): The following NEW packages will be installed:
+[0m[0mnull_resource.client1_config (remote-exec):   bridge-utils cgroupfs-mount
+[0m[0mnull_resource.client1_config (remote-exec):   containerd docker.io pigz runc
+[0m[0mnull_resource.client1_config (remote-exec):   ubuntu-fan
+[0m[0mnull_resource.client1_config (remote-exec): 0 upgraded, 7 newly installed, 0 to remove and 3 not upgraded.
+[0m[0mnull_resource.client1_config (remote-exec): Need to get 63.8 MB of archives.
+[0m[0mnull_resource.client1_config (remote-exec): After this operation, 319 MB of additional disk space will be used.
+[0m[0mnull_resource.client1_config (remote-exec): Get:1 http://azure.archive.ubuntu.com/ubuntu bionic/universe amd64 pigz amd64 2.4-1 [57.4 kB]
+[0m[0mnull_resource.client1_config (remote-exec): Get:2 http://azure.archive.ubuntu.com/ubuntu bionic/main amd64 bridge-utils amd64 1.5-15ubuntu1 [30.1 kB]
+[0m[0mnull_resource.client1_config (remote-exec): Get:3 http://azure.archive.ubuntu.com/ubuntu bionic/universe amd64 cgroupfs-mount all 1.4 [6320 B]
+[0m[0mnull_resource.client1_config (remote-exec): Get:4 http://azure.archive.ubuntu.com/ubuntu bionic-updates/universe amd64 runc amd64 1.0.0~rc10-0ubuntu1~18.04.2 [2000 kB]
+[0m[0mnull_resource.client1_config (remote-exec): Get:5 http://azure.archive.ubuntu.com/ubuntu bionic-updates/universe amd64 containerd amd64 1.3.3-0ubuntu1~18.04.2 [21.7 MB]
+[0m[0mnull_resource.client1_config (remote-exec): Get:6 http://azure.archive.ubuntu.com/ubuntu bionic-updates/universe amd64 docker.io amd64 19.03.6-0ubuntu1~18.04.1 [39.9 MB]
+[0m[0mnull_resource.router_config (remote-exec): Preconfiguring packages ...
+[0m[0mnull_resource.client1_config (remote-exec): Get:7 http://azure.archive.ubuntu.com/ubuntu bionic/main amd64 ubuntu-fan all 0.12.10 [34.7 kB]
+[0m[0mnull_resource.client1_config (remote-exec): Fetched 63.8 MB in 1s (44.7 MB/s)
+[0m[0mnull_resource.client1_config (remote-exec): Preconfiguring packages ...
+[0m[1mnull_resource.client1_config: Still creating... [2m50s elapsed][0m[0m
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): 7[0;79r8[1ASelecting previously unselected package pigz.
+[0m[0mnull_resource.router_config (remote-exec): (Reading database ...
+null_resource.router_config (remote-exec): (Reading database ... 5%
+null_resource.router_config (remote-exec): (Reading database ... 10%
+null_resource.router_config (remote-exec): (Reading database ... 15%
+null_resource.router_config (remote-exec): (Reading database ... 20%
+null_resource.router_config (remote-exec): (Reading database ... 25%
+null_resource.router_config (remote-exec): (Reading database ... 30%
+null_resource.router_config (remote-exec): (Reading database ... 35%
+null_resource.router_config (remote-exec): (Reading database ... 40%
+null_resource.router_config (remote-exec): (Reading database ... 45%
+null_resource.router_config (remote-exec): (Reading database ... 50%
+null_resource.router_config (remote-exec): (Reading database ... 55%
+null_resource.router_config (remote-exec): (Reading database ... 60%
+null_resource.router_config (remote-exec): (Reading database ... 65%
+null_resource.router_config (remote-exec): (Reading database ... 70%
+null_resource.router_config (remote-exec): (Reading database ... 75%
+null_resource.router_config (remote-exec): (Reading database ... 80%
+null_resource.router_config (remote-exec): (Reading database ... 85%
+null_resource.router_config (remote-exec): (Reading database ... 90%
+null_resource.router_config (remote-exec): (Reading database ... 95%
+null_resource.router_config (remote-exec): (Reading database ... 100%
+null_resource.router_config (remote-exec): (Reading database ... 82657 files and directories currently installed.)
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../0-pigz_2.4-1_amd64.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [  0%][49m[39m [..................] 87[80;0f[42m[30mProgress: [  3%][49m[39m [..................] 8Unpacking pigz (2.4-1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [  6%][49m[39m [..................] 87[80;0f[42m[30mProgress: [  8%][49m[39m [#.................] 8Selecting previously unselected package bridge-utils.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../1-bridge-utils_1.5-15ubuntu1_amd64.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 11%][49m[39m [#.................] 8Unpacking bridge-utils (1.5-15ubuntu1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 14%][49m[39m [##................] 87[80;0f[42m[30mProgress: [ 17%][49m[39m [##................] 8Selecting previously unselected package cgroupfs-mount.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../2-cgroupfs-mount_1.4_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 19%][49m[39m [###...............] 8Unpacking cgroupfs-mount (1.4) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 22%][49m[39m [###...............] 87[80;0f[42m[30mProgress: [ 25%][49m[39m [####..............] 8Selecting previously unselected package runc.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../3-runc_1.0.0~rc10-0ubuntu1~18.04.2_amd64.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 28%][49m[39m [#####.............] 8Unpacking runc (1.0.0~rc10-0ubuntu1~18.04.2) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 31%][49m[39m [#####.............] 8
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 33%][49m[39m [#####.............] 8Selecting previously unselected package containerd.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../4-containerd_1.3.3-0ubuntu1~18.04.2_amd64.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 36%][49m[39m [######............] 8Unpacking containerd (1.3.3-0ubuntu1~18.04.2) ...
+[0m[1mnull_resource.router_config: Still creating... [1m40s elapsed][0m[0m
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): 7[0;79r8[1ASelecting previously unselected package pigz.
+[0m[0mnull_resource.client1_config (remote-exec): (Reading database ...
+null_resource.client1_config (remote-exec): (Reading database ... 5%
+null_resource.client1_config (remote-exec): (Reading database ... 10%
+null_resource.client1_config (remote-exec): (Reading database ... 15%
+null_resource.client1_config (remote-exec): (Reading database ... 20%
+null_resource.client1_config (remote-exec): (Reading database ... 25%
+null_resource.client1_config (remote-exec): (Reading database ... 30%
+null_resource.client1_config (remote-exec): (Reading database ... 35%
+null_resource.client1_config (remote-exec): (Reading database ... 40%
+null_resource.client1_config (remote-exec): (Reading database ... 45%
+null_resource.client1_config (remote-exec): (Reading database ... 50%
+null_resource.client1_config (remote-exec): (Reading database ... 55%
+null_resource.client1_config (remote-exec): (Reading database ... 60%
+null_resource.client1_config (remote-exec): (Reading database ... 65%
+null_resource.client1_config (remote-exec): (Reading database ... 70%
+null_resource.client1_config (remote-exec): (Reading database ... 75%
+null_resource.client1_config (remote-exec): (Reading database ... 80%
+null_resource.client1_config (remote-exec): (Reading database ... 85%
+null_resource.client1_config (remote-exec): (Reading database ... 90%
+null_resource.client1_config (remote-exec): (Reading database ... 95%
+null_resource.client1_config (remote-exec): (Reading database ... 100%
+null_resource.client1_config (remote-exec): (Reading database ... 82657 files and directories currently installed.)
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../0-pigz_2.4-1_amd64.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [  0%][49m[39m [..................] 87[80;0f[42m[30mProgress: [  3%][49m[39m [..................] 8Unpacking pigz (2.4-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [  6%][49m[39m [..................] 87[80;0f[42m[30mProgress: [  8%][49m[39m [#.................] 8Selecting previously unselected package bridge-utils.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../1-bridge-utils_1.5-15ubuntu1_amd64.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 11%][49m[39m [#.................] 8Unpacking bridge-utils (1.5-15ubuntu1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 14%][49m[39m [##................] 87[80;0f[42m[30mProgress: [ 17%][49m[39m [##................] 8Selecting previously unselected package cgroupfs-mount.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../2-cgroupfs-mount_1.4_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 19%][49m[39m [###...............] 8Unpacking cgroupfs-mount (1.4) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 22%][49m[39m [###...............] 87[80;0f[42m[30mProgress: [ 25%][49m[39m [####..............] 8Selecting previously unselected package runc.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../3-runc_1.0.0~rc10-0ubuntu1~18.04.2_amd64.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 28%][49m[39m [#####.............] 8Unpacking runc (1.0.0~rc10-0ubuntu1~18.04.2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 31%][49m[39m [#####.............] 87[80;0f[42m[30mProgress: [ 33%][49m[39m [#####.............] 8Selecting previously unselected package containerd.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../4-containerd_1.3.3-0ubuntu1~18.04.2_amd64.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 36%][49m[39m [######............] 8Unpacking containerd (1.3.3-0ubuntu1~18.04.2) ...
+[0m[1mnull_resource.client1_config: Still creating... [3m0s elapsed][0m[0m
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 39%][49m[39m [#######...........] 87[80;0f[42m[30mProgress: [ 42%][49m[39m [#######...........] 8Selecting previously unselected package docker.io.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../5-docker.io_19.03.6-0ubuntu1~18.04.1_amd64.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 44%][49m[39m [#######...........] 8Unpacking docker.io (19.03.6-0ubuntu1~18.04.1) ...
+[0m[1mnull_resource.router_config: Still creating... [1m50s elapsed][0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 39%][49m[39m [#######...........] 87[80;0f[42m[30mProgress: [ 42%][49m[39m [#######...........] 8Selecting previously unselected package docker.io.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../5-docker.io_19.03.6-0ubuntu1~18.04.1_amd64.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 44%][49m[39m [#######...........] 8Unpacking docker.io (19.03.6-0ubuntu1~18.04.1) ...
+[0m[1mnull_resource.client1_config: Still creating... [3m10s elapsed][0m[0m
+[0m[1mnull_resource.router_config: Still creating... [2m0s elapsed][0m[0m
+[0m[1mnull_resource.client1_config: Still creating... [3m20s elapsed][0m[0m
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 47%][49m[39m [########..........] 87[80;0f[42m[30mProgress: [ 50%][49m[39m [#########.........] 8Selecting previously unselected package ubuntu-fan.
+[0m[0mnull_resource.router_config (remote-exec): Preparing to unpack .../6-ubuntu-fan_0.12.10_all.deb ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 53%][49m[39m [#########.........] 8Unpacking ubuntu-fan (0.12.10) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 56%][49m[39m [##########........] 87[80;0f[42m[30mProgress: [ 58%][49m[39m [##########........] 8
+[0m[0mnull_resource.router_config (remote-exec): Setting up runc (1.0.0~rc10-0ubuntu1~18.04.2) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 61%][49m[39m [###########.......] 87[80;0f[42m[30mProgress: [ 64%][49m[39m [###########.......] 8Setting up cgroupfs-mount (1.4) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 67%][49m[39m [###########.......] 8
+[0m[1mnull_resource.router_config: Still creating... [2m10s elapsed][0m[0m
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 69%][49m[39m [############......] 8Setting up containerd (1.3.3-0ubuntu1~18.04.2) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 72%][49m[39m [#############.....] 8
+[0m[0mnull_resource.router_config (remote-exec): Created symlink /etc/systemd/system/multi-user.target.wants/containerd.service → /lib/systemd/system/containerd.service.
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 75%][49m[39m [#############.....] 8
+[0m[0mnull_resource.router_config (remote-exec): Setting up bridge-utils (1.5-15ubuntu1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 78%][49m[39m [##############....] 8
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 47%][49m[39m [########..........] 87[80;0f[42m[30mProgress: [ 50%][49m[39m [#########.........] 8Selecting previously unselected package ubuntu-fan.
+[0m[0mnull_resource.client1_config (remote-exec): Preparing to unpack .../6-ubuntu-fan_0.12.10_all.deb ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 53%][49m[39m [#########.........] 8Unpacking ubuntu-fan (0.12.10) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 81%][49m[39m [##############....] 8
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 56%][49m[39m [##########........] 87[80;0f[42m[30mProgress: [ 58%][49m[39m [##########........] 8
+[0m[0mnull_resource.router_config (remote-exec): Setting up ubuntu-fan (0.12.10) ...
+[0m[0mnull_resource.client1_config (remote-exec): Setting up runc (1.0.0~rc10-0ubuntu1~18.04.2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 61%][49m[39m [###########.......] 87[80;0f[42m[30mProgress: [ 64%][49m[39m [###########.......] 8Setting up cgroupfs-mount (1.4) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 67%][49m[39m [###########.......] 8
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 83%][49m[39m [###############...] 8
+[0m[0mnull_resource.router_config (remote-exec): Created symlink /etc/systemd/system/multi-user.target.wants/ubuntu-fan.service → /lib/systemd/system/ubuntu-fan.service.
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 69%][49m[39m [############......] 8Setting up containerd (1.3.3-0ubuntu1~18.04.2) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 72%][49m[39m [#############.....] 8
+[0m[0mnull_resource.client1_config (remote-exec): Created symlink /etc/systemd/system/multi-user.target.wants/containerd.service → /lib/systemd/system/containerd.service.
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 86%][49m[39m [###############...] 8
+[0m[0mnull_resource.router_config (remote-exec): Setting up pigz (2.4-1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 89%][49m[39m [###############...] 87[80;0f[42m[30mProgress: [ 92%][49m[39m [################..] 8Setting up docker.io (19.03.6-0ubuntu1~18.04.1) ...
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 94%][49m[39m [#################.] 8
+[0m[0mnull_resource.router_config (remote-exec): Adding group `docker' (GID 116) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 75%][49m[39m [#############.....] 8
+[0m[0mnull_resource.client1_config (remote-exec): Setting up bridge-utils (1.5-15ubuntu1) ...
+[0m[0mnull_resource.router_config (remote-exec): Done.
+[0m[0mnull_resource.router_config (remote-exec): Created symlink /etc/systemd/system/sockets.target.wants/docker.socket → /lib/systemd/system/docker.socket.
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 78%][49m[39m [##############....] 8
+[0m[0mnull_resource.router_config (remote-exec): docker.service is a disabled or a static unit, not starting it.
+[0m[0mnull_resource.router_config (remote-exec): 7[80;0f[42m[30mProgress: [ 97%][49m[39m [#################.] 8Processing triggers for systemd (237-3ubuntu10.39) ...
+[0m[0mnull_resource.router_config (remote-exec): Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 81%][49m[39m [##############....] 8Setting up ubuntu-fan (0.12.10) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 83%][49m[39m [###############...] 8
+[0m[0mnull_resource.client1_config (remote-exec): Created symlink /etc/systemd/system/multi-user.target.wants/ubuntu-fan.service → /lib/systemd/system/ubuntu-fan.service.
+[0m[1mnull_resource.client1_config: Still creating... [3m30s elapsed][0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 86%][49m[39m [###############...] 8Setting up pigz (2.4-1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 89%][49m[39m [###############...] 87[80;0f[42m[30mProgress: [ 92%][49m[39m [################..] 8Setting up docker.io (19.03.6-0ubuntu1~18.04.1) ...
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 94%][49m[39m [#################.] 8
+[0m[0mnull_resource.client1_config (remote-exec): Adding group `docker' (GID 116) ...
+[0m[0mnull_resource.client1_config (remote-exec): Done.
+[0m[0mnull_resource.client1_config (remote-exec): Created symlink /etc/systemd/system/sockets.target.wants/docker.socket → /lib/systemd/system/docker.socket.
+[0m[0mnull_resource.client1_config (remote-exec): docker.service is a disabled or a static unit, not starting it.
+[0m[0mnull_resource.client1_config (remote-exec): 7[80;0f[42m[30mProgress: [ 97%][49m[39m [#################.] 8Processing triggers for systemd (237-3ubuntu10.39) ...
+[0m[0mnull_resource.client1_config (remote-exec): Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+[0m[0mnull_resource.router_config (remote-exec): Processing triggers for ureadahead (0.100.0-21) ...
+[0m[1mnull_resource.router_config: Still creating... [2m20s elapsed][0m[0m
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): 7[0;80r8[1A[J
+[0m[0mnull_resource.client1_config (remote-exec): Processing triggers for ureadahead (0.100.0-21) ...
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): 7[0;80r8[1A[J
+[0m[0mnull_resource.router_config (remote-exec): + sudo apt install -qy iputils-ping
+[0m[0mnull_resource.router_config (remote-exec): Reading package lists...
+[0m[0mnull_resource.router_config (remote-exec): Building dependency tree...
+[0m[0m
+[0m[0mnull_resource.router_config (remote-exec): Reading state information...
+[0m[0mnull_resource.router_config (remote-exec): iputils-ping is already the newest version (3:20161105-1ubuntu3).
+[0m[0mnull_resource.router_config (remote-exec): iputils-ping set to manually installed.
+[0m[0mnull_resource.router_config (remote-exec): The following packages were automatically installed and are no longer required:
+[0m[0mnull_resource.router_config (remote-exec):   grub-pc-bin linux-headers-4.15.0-99
+[0m[0mnull_resource.router_config (remote-exec): Use 'sudo apt autoremove' to remove them.
+[0m[0mnull_resource.router_config (remote-exec): 0 upgraded, 0 newly installed, 0 to remove and 3 not upgraded.
+[0m[0mnull_resource.router_config (remote-exec): + export DOCKER_CLI_EXPERIMENTAL=enabled
+[0m[0mnull_resource.router_config (remote-exec): + DOCKER_CLI_EXPERIMENTAL=enabled
+[0m[0mnull_resource.router_config (remote-exec): + sudo systemctl enable docker
+[0m[0mnull_resource.router_config (remote-exec): Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /lib/systemd/system/docker.service.
+[0m[0mnull_resource.router_config (remote-exec): + sudo systemctl start docker
+[0m[0mnull_resource.client1_config (remote-exec): + sudo apt install -qy iputils-ping
+[0m[0mnull_resource.client1_config (remote-exec): Reading package lists...
+[0m[0mnull_resource.client1_config (remote-exec): Building dependency tree...
+[0m[0m
+[0m[0mnull_resource.client1_config (remote-exec): Reading state information...
+[0m[0mnull_resource.client1_config (remote-exec): iputils-ping is already the newest version (3:20161105-1ubuntu3).
+[0m[0mnull_resource.client1_config (remote-exec): iputils-ping set to manually installed.
+[0m[0mnull_resource.client1_config (remote-exec): The following packages were automatically installed and are no longer required:
+[0m[0mnull_resource.client1_config (remote-exec):   grub-pc-bin linux-headers-4.15.0-99
+[0m[0mnull_resource.client1_config (remote-exec): Use 'sudo apt autoremove' to remove them.
+[0m[0mnull_resource.client1_config (remote-exec): 0 upgraded, 0 newly installed, 0 to remove and 3 not upgraded.
+[0m[0mnull_resource.client1_config (remote-exec): + export DOCKER_CLI_EXPERIMENTAL=enabled
+[0m[0mnull_resource.client1_config (remote-exec): + DOCKER_CLI_EXPERIMENTAL=enabled
+[0m[0mnull_resource.client1_config (remote-exec): + sudo systemctl enable docker
+[0m[0mnull_resource.client1_config (remote-exec): Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /lib/systemd/system/docker.service.
+[0m[0mnull_resource.client1_config (remote-exec): + sudo systemctl start docker
+[0m[1mnull_resource.client1_config: Still creating... [3m40s elapsed][0m[0m
+[0m[1mnull_resource.router_config: Creation complete after 2m27s [id=2794133075335841773][0m[0m
+[0m[1mnull_resource.client1_config: Creation complete after 3m42s [id=2715016655609898565][0m[0m
+[0m[1m[32m
+Apply complete! Resources: 18 added, 0 changed, 0 destroyed.[0m
+[0m[1m[32m
+Outputs:
+
+client1_ip = 192.168.1.5
+client1_public_ip = 
+router_backend_ip = 192.168.1.4
+router_public_ip =[0m
++ terraform refresh -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/azure_secrets.tfvars terraform/
+[0m[1mazurerm_resource_group.l2project_rg: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg][0m
+[0m[1mrandom_id.randomId: Refreshing state... [id=a1u-vrJs_9M][0m
+[0m[1mazurerm_public_ip.client1: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/publicIPAddresses/client1][0m
+[0m[1mazurerm_virtual_network.default-network: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network][0m
+[0m[1mazurerm_public_ip.router: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/publicIPAddresses/router][0m
+[0m[1mazurerm_network_security_group.ssh-icmp-tunnel: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/networkSecurityGroups/ssh-icmp-tunnel][0m
+[0m[1mazurerm_storage_account.storage_account: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Storage/storageAccounts/diag6b5bbebeb26cffd3][0m
+[0m[1mdata.azurerm_public_ip.client1: Refreshing state...[0m
+[0m[1mdata.azurerm_public_ip.router: Refreshing state...[0m
+[0m[1mazurerm_subnet.underlay-subnet: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network/subnets/underlay-subnet][0m
+[0m[1mazurerm_subnet.front-subnet: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network/subnets/front-subnet][0m
+[0m[1mazurerm_subnet_network_security_group_association.front-security: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network/subnets/front-subnet][0m
+[0m[1mazurerm_network_interface.Router_Front_NIC: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/networkInterfaces/Router_Front_NIC][0m
+[0m[1mazurerm_subnet_network_security_group_association.underlay-security: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network/subnets/underlay-subnet][0m
+[0m[1mazurerm_network_interface.Router_Backend_NIC: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/networkInterfaces/Router_Backend_NIC][0m
+[0m[1mazurerm_network_interface.Client1_NIC: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/networkInterfaces/Client1_NIC][0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Compute/virtualMachines/layer2-azure-client1][0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Compute/virtualMachines/layer2-azure-router][0m
+[0m[1mnull_resource.router_config: Refreshing state... [id=2794133075335841773][0m
+[0m[1mnull_resource.client1_config: Refreshing state... [id=2715016655609898565][0m
+[0m[1m[32m
+Outputs:
+
+client1_ip = 192.168.1.5
+client1_public_ip = 52.174.47.191
+router_backend_ip = 192.168.1.4
+router_public_ip = 52.174.40.78[0m
++ cd -
+/home/jenkins/workspace/MultiCloud_Overlay_master
+[Pipeline] sh
++ terraform output -state azure/terraform.tfstate router_backend_ip
+[Pipeline] sh
++ terraform output -state azure/terraform.tfstate client1_ip
+[Pipeline] sh
++ terraform output -state azure/terraform.tfstate client1_public_ip
+[Pipeline] sh
++ terraform output -state azure/terraform.tfstate router_public_ip
+[Pipeline] echo
+[router_backend_ip:192.168.1.4, client1_ip:192.168.1.5, router_mgmt_ip:52.174.40.78, client1_mgmt_ip:52.174.47.191, overlay_ip_range:192.168.2.48/28, tunnel_source_ip:52.174.40.78]
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Containers & VMs config)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] parallel
+[Pipeline] { (Branch: azure)
+[Pipeline] node
+Running on Jenkins in /home/jenkins/workspace/MultiCloud_Overlay_master@2
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (azure)
+[Pipeline] echo
+inside containers vms
+[Pipeline] echo
+azure
+[Pipeline] lock
+Trying to acquire lock on [ipv6 allocations lock]
+Resource [ipv6 allocations lock] did not exist. Created.
+Lock acquired on [ipv6 allocations lock]
+[Pipeline] {
+[Pipeline] }
+Lock released on resource [ipv6 allocations lock]
+[Pipeline] // lock
+[Pipeline] sh
++ ssh-keygen -R 52.174.40.78
+Host 52.174.40.78 not found in /home/jenkins/.ssh/known_hosts
+[Pipeline] sh
++ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/Containers.yml -i 52.174.40.78, --extra-vars  ip_range=192.168.2.48/28 ipv6_index=2 file=azure_containers 
+
+PLAY [Setting variables' values] ***********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [52.174.40.78]
+
+TASK [remove hosts from known_hosts] *******************************************
+ok: [52.174.40.78 -> localhost]
+
+TASK [print out the hostname of target] ****************************************
+changed: [52.174.40.78]
+
+TASK [debug] *******************************************************************
+ok: [52.174.40.78] => {
+    "msg": "192.168.2.0/24"
+}
+
+TASK [Create containers] *******************************************************
+ [WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+changed: [52.174.40.78]
+
+TASK [Get containers' ip addresses] ********************************************
+changed: [52.174.40.78]
+
+TASK [Remove the temporary file] ***********************************************
+ [WARNING]: Consider using the file module with state=absent rather than
+running 'rm'.  If you need to use command because file is insufficient you can
+add 'warn: false' to this command task or set 'command_warnings=False' in
+ansible.cfg to get rid of this message.
+changed: [52.174.40.78]
+
+TASK [debug] *******************************************************************
+ok: [52.174.40.78] => {
+    "msg": "192.168.2.51,192.168.2.50,192.168.2.49,fc00::5,fc00::4,fc00::3"
+}
+
+TASK [copy] ********************************************************************
+changed: [52.174.40.78 -> localhost]
+
+PLAY RECAP *********************************************************************
+52.174.40.78               : ok=9    changed=5    unreachable=0    failed=0   
+
+[Pipeline] sh
++ cat /home/jenkins/workspace/MultiCloud_Overlay_master/common/azure_containers
+[Pipeline] echo
+[192.168.2.51, 192.168.2.50, 192.168.2.49, fc00::5, fc00::4, fc00::3]
+[Pipeline] lock
+Trying to acquire lock on [ipv6 allocations lock]
+Resource [ipv6 allocations lock] did not exist. Created.
+Lock acquired on [ipv6 allocations lock]
+[Pipeline] {
+[Pipeline] echo
+6
+[Pipeline] }
+Lock released on resource [ipv6 allocations lock]
+[Pipeline] // lock
+[Pipeline] sh
++ ssh-keygen -R 52.174.47.191
+Host 52.174.47.191 not found in /home/jenkins/.ssh/known_hosts
+[Pipeline] sh
++ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/VMs.yml -i 52.174.47.191, --extra-vars  ip_address=192.168.2.48 ipv6_index=6 
+
+PLAY [Setting variables' values] ***********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [52.174.47.191]
+
+TASK [remove hosts from known_hosts] *******************************************
+ok: [52.174.47.191 -> localhost]
+
+TASK [print out the hostname of target] ****************************************
+changed: [52.174.47.191]
+
+TASK [Assign IP for VM] ********************************************************
+ [WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+changed: [52.174.47.191]
+
+PLAY RECAP *********************************************************************
+52.174.47.191              : ok=4    changed=2    unreachable=0    failed=0   
+
+[Pipeline] echo
+[192.168.2.51, 192.168.2.50, 192.168.2.49, fc00::5, fc00::4, fc00::3, fc00::6, 192.168.2.48]
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Tunnel config)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] parallel
+[Pipeline] { (Branch: azure)
+[Pipeline] node
+Running on Jenkins in /home/jenkins/workspace/MultiCloud_Overlay_master@2
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (azure)
+[Pipeline] echo
+ 52.174.40.78
+[Pipeline] sh
++ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/tunnelConfig.yml -i 52.174.47.191, --extra-vars  tunnel_id=0 remote_ip=192.168.1.4 
+
+PLAY [Setting variables' values] ***********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [52.174.47.191]
+
+TASK [remove hosts from known_hosts] *******************************************
+ok: [52.174.47.191 -> localhost]
+
+TASK [print out the hostname of target] ****************************************
+changed: [52.174.47.191]
+
+TASK [print working directory] *************************************************
+changed: [52.174.47.191]
+
+TASK [Creating tunnels] ********************************************************
+ [WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+changed: [52.174.47.191]
+
+PLAY RECAP *********************************************************************
+52.174.47.191              : ok=5    changed=3    unreachable=0    failed=0   
+
+[Pipeline] sh
++ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/tunnelConfig.yml -i 52.174.40.78, --extra-vars  tunnel_id=0 remote_ip=192.168.1.5 
+
+PLAY [Setting variables' values] ***********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [52.174.40.78]
+
+TASK [remove hosts from known_hosts] *******************************************
+ok: [52.174.40.78 -> localhost]
+
+TASK [print out the hostname of target] ****************************************
+changed: [52.174.40.78]
+
+TASK [print working directory] *************************************************
+changed: [52.174.40.78]
+
+TASK [Creating tunnels] ********************************************************
+ [WARNING]: Consider using 'become', 'become_method', and 'become_user' rather
+than running sudo
+changed: [52.174.40.78]
+
+PLAY RECAP *********************************************************************
+52.174.40.78               : ok=5    changed=3    unreachable=0    failed=0   
+
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Testing)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sleep
+Sleeping for 45 sec
+[Pipeline] echo
+clients list [192.168.2.51, 192.168.2.50, 192.168.2.49, fc00::5, fc00::4, fc00::3, fc00::6, 192.168.2.48]
+[Pipeline] sh
++ ssh-keygen -R 52.174.47.191
+# Host 52.174.47.191 found: line 172
+/home/jenkins/.ssh/known_hosts updated.
+Original contents retained as /home/jenkins/.ssh/known_hosts.old
+[Pipeline] echo
+Testing 192.168.2.51 reachability
+[Pipeline] sh
++ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=192.168.2.51 
+[Pipeline] echo
+PLAY [Setting variables' values] ***********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [52.174.47.191]
+
+TASK [checking reachability] ***************************************************
+changed: [52.174.47.191]
+
+TASK [checking reachability] ***************************************************
+changed: [52.174.47.191]
+
+TASK [Collecting results] ******************************************************
+ok: [52.174.47.191]
+
+TASK [return results] **********************************************************
+ok: [52.174.47.191] => {
+    "msg": {
+        "changed": true,
+        "cmd": [
+            "ping",
+            "-c5",
+            "192.168.2.51"
+        ],
+        "delta": "0:00:04.027235",
+        "end": "2020-05-07 15:23:27.536813",
+        "failed": false,
+        "rc": 0,
+        "start": "2020-05-07 15:23:23.509578",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "PING 192.168.2.51 (192.168.2.51) 56(84) bytes of data.\n64 bytes from 192.168.2.51: icmp_seq=1 ttl=64 time=0.799 ms\n64 bytes from 192.168.2.51: icmp_seq=2 ttl=64 time=1.16 ms\n64 bytes from 192.168.2.51: icmp_seq=3 ttl=64 time=1.05 ms\n64 bytes from 192.168.2.51: icmp_seq=4 ttl=64 time=0.745 ms\n64 bytes from 192.168.2.51: icmp_seq=5 ttl=64 time=0.840 ms\n\n--- 192.168.2.51 ping statistics ---\n5 packets transmitted, 5 received, 0% packet loss, time 4023ms\nrtt min/avg/max/mdev = 0.745/0.919/1.164/0.163 ms",
+        "stdout_lines": [
+            "PING 192.168.2.51 (192.168.2.51) 56(84) bytes of data.",
+            "64 bytes from 192.168.2.51: icmp_seq=1 ttl=64 time=0.799 ms",
+            "64 bytes from 192.168.2.51: icmp_seq=2 ttl=64 time=1.16 ms",
+            "64 bytes from 192.168.2.51: icmp_seq=3 ttl=64 time=1.05 ms",
+            "64 bytes from 192.168.2.51: icmp_seq=4 ttl=64 time=0.745 ms",
+            "64 bytes from 192.168.2.51: icmp_seq=5 ttl=64 time=0.840 ms",
+            "",
+            "--- 192.168.2.51 ping statistics ---",
+            "5 packets transmitted, 5 received, 0% packet loss, time 4023ms",
+            "rtt min/avg/max/mdev = 0.745/0.919/1.164/0.163 ms"
+        ]
+    }
+}
+
+PLAY RECAP *********************************************************************
+52.174.47.191              : ok=5    changed=2    unreachable=0    failed=0
+[Pipeline] echo
+192.168.2.51 is reachable from azure client1 
+[Pipeline] echo
+Testing 192.168.2.50 reachability
+[Pipeline] sh
++ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=192.168.2.50 
+[Pipeline] echo
+PLAY [Setting variables' values] ***********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [52.174.47.191]
+
+TASK [checking reachability] ***************************************************
+changed: [52.174.47.191]
+
+TASK [checking reachability] ***************************************************
+changed: [52.174.47.191]
+
+TASK [Collecting results] ******************************************************
+ok: [52.174.47.191]
+
+TASK [return results] **********************************************************
+ok: [52.174.47.191] => {
+    "msg": {
+        "changed": true,
+        "cmd": [
+            "ping",
+            "-c5",
+            "192.168.2.50"
+        ],
+        "delta": "0:00:04.036547",
+        "end": "2020-05-07 15:23:39.889013",
+        "failed": false,
+        "rc": 0,
+        "start": "2020-05-07 15:23:35.852466",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "PING 192.168.2.50 (192.168.2.50) 56(84) bytes of data.\n64 bytes from 192.168.2.50: icmp_seq=1 ttl=64 time=0.852 ms\n64 bytes from 192.168.2.50: icmp_seq=2 ttl=64 time=0.654 ms\n64 bytes from 192.168.2.50: icmp_seq=3 ttl=64 time=0.985 ms\n64 bytes from 192.168.2.50: icmp_seq=4 ttl=64 time=0.745 ms\n64 bytes from 192.168.2.50: icmp_seq=5 ttl=64 time=1.15 ms\n\n--- 192.168.2.50 ping statistics ---\n5 packets transmitted, 5 received, 0% packet loss, time 4031ms\nrtt min/avg/max/mdev = 0.654/0.877/1.151/0.177 ms",
+        "stdout_lines": [
+            "PING 192.168.2.50 (192.168.2.50) 56(84) bytes of data.",
+            "64 bytes from 192.168.2.50: icmp_seq=1 ttl=64 time=0.852 ms",
+            "64 bytes from 192.168.2.50: icmp_seq=2 ttl=64 time=0.654 ms",
+            "64 bytes from 192.168.2.50: icmp_seq=3 ttl=64 time=0.985 ms",
+            "64 bytes from 192.168.2.50: icmp_seq=4 ttl=64 time=0.745 ms",
+            "64 bytes from 192.168.2.50: icmp_seq=5 ttl=64 time=1.15 ms",
+            "",
+            "--- 192.168.2.50 ping statistics ---",
+            "5 packets transmitted, 5 received, 0% packet loss, time 4031ms",
+            "rtt min/avg/max/mdev = 0.654/0.877/1.151/0.177 ms"
+        ]
+    }
+}
+
+PLAY RECAP *********************************************************************
+52.174.47.191              : ok=5    changed=2    unreachable=0    failed=0
+[Pipeline] echo
+192.168.2.50 is reachable from azure client1 
+[Pipeline] echo
+Testing 192.168.2.49 reachability
+[Pipeline] sh
++ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=192.168.2.49 
+[Pipeline] echo
+PLAY [Setting variables' values] ***********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [52.174.47.191]
+
+TASK [checking reachability] ***************************************************
+changed: [52.174.47.191]
+
+TASK [checking reachability] ***************************************************
+changed: [52.174.47.191]
+
+TASK [Collecting results] ******************************************************
+ok: [52.174.47.191]
+
+TASK [return results] **********************************************************
+ok: [52.174.47.191] => {
+    "msg": {
+        "changed": true,
+        "cmd": [
+            "ping",
+            "-c5",
+            "192.168.2.49"
+        ],
+        "delta": "0:00:04.052860",
+        "end": "2020-05-07 15:23:52.347214",
+        "failed": false,
+        "rc": 0,
+        "start": "2020-05-07 15:23:48.294354",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "PING 192.168.2.49 (192.168.2.49) 56(84) bytes of data.\n64 bytes from 192.168.2.49: icmp_seq=1 ttl=64 time=0.794 ms\n64 bytes from 192.168.2.49: icmp_seq=2 ttl=64 time=0.849 ms\n64 bytes from 192.168.2.49: icmp_seq=3 ttl=64 time=0.790 ms\n64 bytes from 192.168.2.49: icmp_seq=4 ttl=64 time=1.66 ms\n64 bytes from 192.168.2.49: icmp_seq=5 ttl=64 time=1.41 ms\n\n--- 192.168.2.49 ping statistics ---\n5 packets transmitted, 5 received, 0% packet loss, time 4048ms\nrtt min/avg/max/mdev = 0.790/1.101/1.661/0.365 ms",
+        "stdout_lines": [
+            "PING 192.168.2.49 (192.168.2.49) 56(84) bytes of data.",
+            "64 bytes from 192.168.2.49: icmp_seq=1 ttl=64 time=0.794 ms",
+            "64 bytes from 192.168.2.49: icmp_seq=2 ttl=64 time=0.849 ms",
+            "64 bytes from 192.168.2.49: icmp_seq=3 ttl=64 time=0.790 ms",
+            "64 bytes from 192.168.2.49: icmp_seq=4 ttl=64 time=1.66 ms",
+            "64 bytes from 192.168.2.49: icmp_seq=5 ttl=64 time=1.41 ms",
+            "",
+            "--- 192.168.2.49 ping statistics ---",
+            "5 packets transmitted, 5 received, 0% packet loss, time 4048ms",
+            "rtt min/avg/max/mdev = 0.790/1.101/1.661/0.365 ms"
+        ]
+    }
+}
+
+PLAY RECAP *********************************************************************
+52.174.47.191              : ok=5    changed=2    unreachable=0    failed=0
+[Pipeline] echo
+192.168.2.49 is reachable from azure client1 
+[Pipeline] echo
+Testing fc00::5 reachability
+[Pipeline] sh
++ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=fc00::5 
+[Pipeline] echo
+PLAY [Setting variables' values] ***********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [52.174.47.191]
+
+TASK [checking reachability] ***************************************************
+changed: [52.174.47.191]
+
+TASK [checking reachability] ***************************************************
+changed: [52.174.47.191]
+
+TASK [Collecting results] ******************************************************
+ok: [52.174.47.191]
+
+TASK [return results] **********************************************************
+ok: [52.174.47.191] => {
+    "msg": {
+        "changed": true,
+        "cmd": [
+            "ping",
+            "-c5",
+            "fc00::5"
+        ],
+        "delta": "0:00:04.046846",
+        "end": "2020-05-07 15:24:04.794428",
+        "failed": false,
+        "rc": 0,
+        "start": "2020-05-07 15:24:00.747582",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "PING fc00::5(fc00::5) 56 data bytes\n64 bytes from fc00::5: icmp_seq=1 ttl=64 time=0.859 ms\n64 bytes from fc00::5: icmp_seq=2 ttl=64 time=0.944 ms\n64 bytes from fc00::5: icmp_seq=3 ttl=64 time=0.707 ms\n64 bytes from fc00::5: icmp_seq=4 ttl=64 time=1.28 ms\n64 bytes from fc00::5: icmp_seq=5 ttl=64 time=0.939 ms\n\n--- fc00::5 ping statistics ---\n5 packets transmitted, 5 received, 0% packet loss, time 4042ms\nrtt min/avg/max/mdev = 0.707/0.946/1.285/0.193 ms",
+        "stdout_lines": [
+            "PING fc00::5(fc00::5) 56 data bytes",
+            "64 bytes from fc00::5: icmp_seq=1 ttl=64 time=0.859 ms",
+            "64 bytes from fc00::5: icmp_seq=2 ttl=64 time=0.944 ms",
+            "64 bytes from fc00::5: icmp_seq=3 ttl=64 time=0.707 ms",
+            "64 bytes from fc00::5: icmp_seq=4 ttl=64 time=1.28 ms",
+            "64 bytes from fc00::5: icmp_seq=5 ttl=64 time=0.939 ms",
+            "",
+            "--- fc00::5 ping statistics ---",
+            "5 packets transmitted, 5 received, 0% packet loss, time 4042ms",
+            "rtt min/avg/max/mdev = 0.707/0.946/1.285/0.193 ms"
+        ]
+    }
+}
+
+PLAY RECAP *********************************************************************
+52.174.47.191              : ok=5    changed=2    unreachable=0    failed=0
+[Pipeline] echo
+fc00::5 is reachable from azure client1 
+[Pipeline] echo
+Testing fc00::4 reachability
+[Pipeline] sh
++ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=fc00::4 
+[Pipeline] echo
+PLAY [Setting variables' values] ***********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [52.174.47.191]
+
+TASK [checking reachability] ***************************************************
+changed: [52.174.47.191]
+
+TASK [checking reachability] ***************************************************
+changed: [52.174.47.191]
+
+TASK [Collecting results] ******************************************************
+ok: [52.174.47.191]
+
+TASK [return results] **********************************************************
+ok: [52.174.47.191] => {
+    "msg": {
+        "changed": true,
+        "cmd": [
+            "ping",
+            "-c5",
+            "fc00::4"
+        ],
+        "delta": "0:00:04.042400",
+        "end": "2020-05-07 15:24:17.018297",
+        "failed": false,
+        "rc": 0,
+        "start": "2020-05-07 15:24:12.975897",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "PING fc00::4(fc00::4) 56 data bytes\n64 bytes from fc00::4: icmp_seq=1 ttl=64 time=0.783 ms\n64 bytes from fc00::4: icmp_seq=2 ttl=64 time=0.700 ms\n64 bytes from fc00::4: icmp_seq=3 ttl=64 time=0.850 ms\n64 bytes from fc00::4: icmp_seq=4 ttl=64 time=1.00 ms\n64 bytes from fc00::4: icmp_seq=5 ttl=64 time=1.12 ms\n\n--- fc00::4 ping statistics ---\n5 packets transmitted, 5 received, 0% packet loss, time 4038ms\nrtt min/avg/max/mdev = 0.700/0.893/1.129/0.155 ms",
+        "stdout_lines": [
+            "PING fc00::4(fc00::4) 56 data bytes",
+            "64 bytes from fc00::4: icmp_seq=1 ttl=64 time=0.783 ms",
+            "64 bytes from fc00::4: icmp_seq=2 ttl=64 time=0.700 ms",
+            "64 bytes from fc00::4: icmp_seq=3 ttl=64 time=0.850 ms",
+            "64 bytes from fc00::4: icmp_seq=4 ttl=64 time=1.00 ms",
+            "64 bytes from fc00::4: icmp_seq=5 ttl=64 time=1.12 ms",
+            "",
+            "--- fc00::4 ping statistics ---",
+            "5 packets transmitted, 5 received, 0% packet loss, time 4038ms",
+            "rtt min/avg/max/mdev = 0.700/0.893/1.129/0.155 ms"
+        ]
+    }
+}
+
+PLAY RECAP *********************************************************************
+52.174.47.191              : ok=5    changed=2    unreachable=0    failed=0
+[Pipeline] echo
+fc00::4 is reachable from azure client1 
+[Pipeline] echo
+Testing fc00::3 reachability
+[Pipeline] sh
++ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=fc00::3 
+[Pipeline] echo
+PLAY [Setting variables' values] ***********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [52.174.47.191]
+
+TASK [checking reachability] ***************************************************
+changed: [52.174.47.191]
+
+TASK [checking reachability] ***************************************************
+changed: [52.174.47.191]
+
+TASK [Collecting results] ******************************************************
+ok: [52.174.47.191]
+
+TASK [return results] **********************************************************
+ok: [52.174.47.191] => {
+    "msg": {
+        "changed": true,
+        "cmd": [
+            "ping",
+            "-c5",
+            "fc00::3"
+        ],
+        "delta": "0:00:04.024265",
+        "end": "2020-05-07 15:24:29.584662",
+        "failed": false,
+        "rc": 0,
+        "start": "2020-05-07 15:24:25.560397",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "PING fc00::3(fc00::3) 56 data bytes\n64 bytes from fc00::3: icmp_seq=1 ttl=64 time=0.780 ms\n64 bytes from fc00::3: icmp_seq=2 ttl=64 time=1.20 ms\n64 bytes from fc00::3: icmp_seq=3 ttl=64 time=0.891 ms\n64 bytes from fc00::3: icmp_seq=4 ttl=64 time=0.626 ms\n64 bytes from fc00::3: icmp_seq=5 ttl=64 time=0.818 ms\n\n--- fc00::3 ping statistics ---\n5 packets transmitted, 5 received, 0% packet loss, time 4020ms\nrtt min/avg/max/mdev = 0.626/0.863/1.203/0.193 ms",
+        "stdout_lines": [
+            "PING fc00::3(fc00::3) 56 data bytes",
+            "64 bytes from fc00::3: icmp_seq=1 ttl=64 time=0.780 ms",
+            "64 bytes from fc00::3: icmp_seq=2 ttl=64 time=1.20 ms",
+            "64 bytes from fc00::3: icmp_seq=3 ttl=64 time=0.891 ms",
+            "64 bytes from fc00::3: icmp_seq=4 ttl=64 time=0.626 ms",
+            "64 bytes from fc00::3: icmp_seq=5 ttl=64 time=0.818 ms",
+            "",
+            "--- fc00::3 ping statistics ---",
+            "5 packets transmitted, 5 received, 0% packet loss, time 4020ms",
+            "rtt min/avg/max/mdev = 0.626/0.863/1.203/0.193 ms"
+        ]
+    }
+}
+
+PLAY RECAP *********************************************************************
+52.174.47.191              : ok=5    changed=2    unreachable=0    failed=0
+[Pipeline] echo
+fc00::3 is reachable from azure client1 
+[Pipeline] echo
+Testing fc00::6 reachability
+[Pipeline] sh
++ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=fc00::6 
+[Pipeline] echo
+PLAY [Setting variables' values] ***********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [52.174.47.191]
+
+TASK [checking reachability] ***************************************************
+changed: [52.174.47.191]
+
+TASK [checking reachability] ***************************************************
+changed: [52.174.47.191]
+
+TASK [Collecting results] ******************************************************
+ok: [52.174.47.191]
+
+TASK [return results] **********************************************************
+ok: [52.174.47.191] => {
+    "msg": {
+        "changed": true,
+        "cmd": [
+            "ping",
+            "-c5",
+            "fc00::6"
+        ],
+        "delta": "0:00:04.085858",
+        "end": "2020-05-07 15:24:42.064032",
+        "failed": false,
+        "rc": 0,
+        "start": "2020-05-07 15:24:37.978174",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "PING fc00::6(fc00::6) 56 data bytes\n64 bytes from fc00::6: icmp_seq=1 ttl=64 time=0.026 ms\n64 bytes from fc00::6: icmp_seq=2 ttl=64 time=0.040 ms\n64 bytes from fc00::6: icmp_seq=3 ttl=64 time=0.043 ms\n64 bytes from fc00::6: icmp_seq=4 ttl=64 time=0.041 ms\n64 bytes from fc00::6: icmp_seq=5 ttl=64 time=0.043 ms\n\n--- fc00::6 ping statistics ---\n5 packets transmitted, 5 received, 0% packet loss, time 4083ms\nrtt min/avg/max/mdev = 0.026/0.038/0.043/0.009 ms",
+        "stdout_lines": [
+            "PING fc00::6(fc00::6) 56 data bytes",
+            "64 bytes from fc00::6: icmp_seq=1 ttl=64 time=0.026 ms",
+            "64 bytes from fc00::6: icmp_seq=2 ttl=64 time=0.040 ms",
+            "64 bytes from fc00::6: icmp_seq=3 ttl=64 time=0.043 ms",
+            "64 bytes from fc00::6: icmp_seq=4 ttl=64 time=0.041 ms",
+            "64 bytes from fc00::6: icmp_seq=5 ttl=64 time=0.043 ms",
+            "",
+            "--- fc00::6 ping statistics ---",
+            "5 packets transmitted, 5 received, 0% packet loss, time 4083ms",
+            "rtt min/avg/max/mdev = 0.026/0.038/0.043/0.009 ms"
+        ]
+    }
+}
+
+PLAY RECAP *********************************************************************
+52.174.47.191              : ok=5    changed=2    unreachable=0    failed=0
+[Pipeline] echo
+fc00::6 is reachable from azure client1 
+[Pipeline] echo
+Testing 192.168.2.48 reachability
+[Pipeline] sh
++ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=192.168.2.48 
+[Pipeline] echo
+PLAY [Setting variables' values] ***********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [52.174.47.191]
+
+TASK [checking reachability] ***************************************************
+changed: [52.174.47.191]
+
+TASK [checking reachability] ***************************************************
+changed: [52.174.47.191]
+
+TASK [Collecting results] ******************************************************
+ok: [52.174.47.191]
+
+TASK [return results] **********************************************************
+ok: [52.174.47.191] => {
+    "msg": {
+        "changed": true,
+        "cmd": [
+            "ping",
+            "-c5",
+            "192.168.2.48"
+        ],
+        "delta": "0:00:04.092986",
+        "end": "2020-05-07 15:24:54.544169",
+        "failed": false,
+        "rc": 0,
+        "start": "2020-05-07 15:24:50.451183",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "PING 192.168.2.48 (192.168.2.48) 56(84) bytes of data.\n64 bytes from 192.168.2.48: icmp_seq=1 ttl=64 time=0.030 ms\n64 bytes from 192.168.2.48: icmp_seq=2 ttl=64 time=0.042 ms\n64 bytes from 192.168.2.48: icmp_seq=3 ttl=64 time=0.068 ms\n64 bytes from 192.168.2.48: icmp_seq=4 ttl=64 time=0.060 ms\n64 bytes from 192.168.2.48: icmp_seq=5 ttl=64 time=0.091 ms\n\n--- 192.168.2.48 ping statistics ---\n5 packets transmitted, 5 received, 0% packet loss, time 4089ms\nrtt min/avg/max/mdev = 0.030/0.058/0.091/0.021 ms",
+        "stdout_lines": [
+            "PING 192.168.2.48 (192.168.2.48) 56(84) bytes of data.",
+            "64 bytes from 192.168.2.48: icmp_seq=1 ttl=64 time=0.030 ms",
+            "64 bytes from 192.168.2.48: icmp_seq=2 ttl=64 time=0.042 ms",
+            "64 bytes from 192.168.2.48: icmp_seq=3 ttl=64 time=0.068 ms",
+            "64 bytes from 192.168.2.48: icmp_seq=4 ttl=64 time=0.060 ms",
+            "64 bytes from 192.168.2.48: icmp_seq=5 ttl=64 time=0.091 ms",
+            "",
+            "--- 192.168.2.48 ping statistics ---",
+            "5 packets transmitted, 5 received, 0% packet loss, time 4089ms",
+            "rtt min/avg/max/mdev = 0.030/0.058/0.091/0.021 ms"
+        ]
+    }
+}
+
+PLAY RECAP *********************************************************************
+52.174.47.191              : ok=5    changed=2    unreachable=0    failed=0
+[Pipeline] echo
+192.168.2.48 is reachable from azure client1 
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ cd /home/jenkins/workspace/MultiCloud_Overlay_master
+[Pipeline] load
+[Pipeline] { (free_Resources.groovy)
+[Pipeline] }
+[Pipeline] // load
+[Pipeline] node
+Running on Jenkins in /home/jenkins/workspace/MultiCloud_Overlay_master@2
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (unconfig)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] parallel
+[Pipeline] { (Branch: azure)
+[Pipeline] node
+Running on Jenkins in /home/jenkins/workspace/MultiCloud_Overlay_master@3
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (azure)
+[Pipeline] echo
+Removing azure resources
+[Pipeline] sh
++ cd /home/jenkins/workspace/MultiCloud_Overlay_master/azure
++ terraform destroy -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/azure_secrets.tfvars -auto-approve terraform/
+[0m[1mazurerm_resource_group.l2project_rg: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg][0m
+[0m[1mazurerm_public_ip.client1: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/publicIPAddresses/client1][0m
+[0m[1mrandom_id.randomId: Refreshing state... [id=a1u-vrJs_9M][0m
+[0m[1mazurerm_virtual_network.default-network: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network][0m
+[0m[1mazurerm_public_ip.router: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/publicIPAddresses/router][0m
+[0m[1mazurerm_storage_account.storage_account: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Storage/storageAccounts/diag6b5bbebeb26cffd3][0m
+[0m[1mazurerm_network_security_group.ssh-icmp-tunnel: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/networkSecurityGroups/ssh-icmp-tunnel][0m
+[0m[1mdata.azurerm_public_ip.client1: Refreshing state...[0m
+[0m[1mdata.azurerm_public_ip.router: Refreshing state...[0m
+[0m[1mazurerm_subnet.underlay-subnet: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network/subnets/underlay-subnet][0m
+[0m[1mazurerm_subnet.front-subnet: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network/subnets/front-subnet][0m
+[0m[1mazurerm_subnet_network_security_group_association.underlay-security: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network/subnets/underlay-subnet][0m
+[0m[1mazurerm_network_interface.Router_Backend_NIC: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/networkInterfaces/Router_Backend_NIC][0m
+[0m[1mazurerm_network_interface.Client1_NIC: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/networkInterfaces/Client1_NIC][0m
+[0m[1mazurerm_subnet_network_security_group_association.front-security: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network/subnets/front-subnet][0m
+[0m[1mazurerm_network_interface.Router_Front_NIC: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/networkInterfaces/Router_Front_NIC][0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Compute/virtualMachines/layer2-azure-router][0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Compute/virtualMachines/layer2-azure-client1][0m
+[0m[1mnull_resource.client1_config: Refreshing state... [id=2715016655609898565][0m
+[0m[1mnull_resource.router_config: Refreshing state... [id=2794133075335841773][0m
+[0m[1mnull_resource.router_config: Destroying... [id=2794133075335841773][0m[0m
+[0m[1mnull_resource.client1_config: Destroying... [id=2715016655609898565][0m[0m
+[0m[1mnull_resource.client1_config: Destruction complete after 0s[0m[0m
+[0m[1mnull_resource.router_config: Destruction complete after 0s[0m[0m
+[0m[1mazurerm_subnet_network_security_group_association.underlay-security: Destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network/subnets/underlay-subnet][0m[0m
+[0m[1mazurerm_subnet_network_security_group_association.front-security: Destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network/subnets/front-subnet][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Compute/virtualMachines/layer2-azure-client1][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Compute/virtualMachines/layer2-azure-router][0m[0m
+[0m[1mazurerm_subnet_network_security_group_association.underlay-security: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...efault-network/subnets/underlay-subnet, 10s elapsed][0m[0m
+[0m[1mazurerm_subnet_network_security_group_association.front-security: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...s/default-network/subnets/front-subnet, 10s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 10s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 10s elapsed][0m[0m
+[0m[1mazurerm_subnet_network_security_group_association.front-security: Destruction complete after 11s[0m[0m
+[0m[1mazurerm_subnet_network_security_group_association.underlay-security: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...efault-network/subnets/underlay-subnet, 20s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 20s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 20s elapsed][0m[0m
+[0m[1mazurerm_subnet_network_security_group_association.underlay-security: Destruction complete after 21s[0m[0m
+[0m[1mazurerm_network_security_group.ssh-icmp-tunnel: Destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/networkSecurityGroups/ssh-icmp-tunnel][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 30s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 30s elapsed][0m[0m
+[0m[1mazurerm_network_security_group.ssh-icmp-tunnel: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-.../networkSecurityGroups/ssh-icmp-tunnel, 10s elapsed][0m[0m
+[0m[1mazurerm_network_security_group.ssh-icmp-tunnel: Destruction complete after 11s[0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 40s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 40s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 50s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 50s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 1m0s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 1m0s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 1m10s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 1m10s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 1m20s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 1m20s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 1m30s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 1m30s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 1m40s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 1m40s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 1m50s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 1m50s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 2m0s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 2m0s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 2m10s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 2m10s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 2m20s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 2m20s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 2m30s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 2m30s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 2m40s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 2m40s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 2m50s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 2m50s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 3m0s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 3m0s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 3m10s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 3m10s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 3m20s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 3m20s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...e/virtualMachines/layer2-azure-client1, 3m30s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...te/virtualMachines/layer2-azure-router, 3m30s elapsed][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-router: Destruction complete after 3m37s[0m[0m
+[0m[1mazurerm_network_interface.Router_Front_NIC: Destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/networkInterfaces/Router_Front_NIC][0m[0m
+[0m[1mazurerm_network_interface.Router_Backend_NIC: Destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/networkInterfaces/Router_Backend_NIC][0m[0m
+[0m[1mazurerm_linux_virtual_machine.layer2-azure-client1: Destruction complete after 3m37s[0m[0m
+[0m[1mazurerm_network_interface.Client1_NIC: Destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/networkInterfaces/Client1_NIC][0m[0m
+[0m[1mazurerm_storage_account.storage_account: Destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Storage/storageAccounts/diag6b5bbebeb26cffd3][0m[0m
+[0m[1mazurerm_storage_account.storage_account: Destruction complete after 2s[0m[0m
+[0m[1mrandom_id.randomId: Destroying... [id=a1u-vrJs_9M][0m[0m
+[0m[1mrandom_id.randomId: Destruction complete after 0s[0m[0m
+[0m[1mazurerm_network_interface.Router_Front_NIC: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...ork/networkInterfaces/Router_Front_NIC, 10s elapsed][0m[0m
+[0m[1mazurerm_network_interface.Router_Backend_NIC: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...k/networkInterfaces/Router_Backend_NIC, 10s elapsed][0m[0m
+[0m[1mazurerm_network_interface.Client1_NIC: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-....Network/networkInterfaces/Client1_NIC, 10s elapsed][0m[0m
+[0m[1mazurerm_network_interface.Client1_NIC: Destruction complete after 11s[0m[0m
+[0m[1mazurerm_public_ip.client1: Destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/publicIPAddresses/client1][0m[0m
+[0m[1mazurerm_network_interface.Router_Front_NIC: Destruction complete after 11s[0m[0m
+[0m[1mazurerm_subnet.front-subnet: Destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network/subnets/front-subnet][0m[0m
+[0m[1mazurerm_public_ip.router: Destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/publicIPAddresses/router][0m[0m
+[0m[1mazurerm_network_interface.Router_Backend_NIC: Destruction complete after 11s[0m[0m
+[0m[1mazurerm_subnet.underlay-subnet: Destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network/subnets/underlay-subnet][0m[0m
+[0m[1mazurerm_subnet.front-subnet: Destruction complete after 1s[0m[0m
+[0m[1mazurerm_subnet.underlay-subnet: Destruction complete after 1s[0m[0m
+[0m[1mazurerm_virtual_network.default-network: Destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/virtualNetworks/default-network][0m[0m
+[0m[1mazurerm_virtual_network.default-network: Destruction complete after 0s[0m[0m
+[0m[1mazurerm_public_ip.client1: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...soft.Network/publicIPAddresses/client1, 10s elapsed][0m[0m
+[0m[1mazurerm_public_ip.router: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-...osoft.Network/publicIPAddresses/router, 10s elapsed][0m[0m
+[0m[1mazurerm_public_ip.client1: Destruction complete after 10s[0m[0m
+[0m[1mazurerm_public_ip.router: Destruction complete after 10s[0m[0m
+[0m[1mazurerm_resource_group.l2project_rg: Destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg][0m[0m
+[0m[1mazurerm_resource_group.l2project_rg: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg, 10s elapsed][0m[0m
+[0m[1mazurerm_resource_group.l2project_rg: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg, 20s elapsed][0m[0m
+[0m[1mazurerm_resource_group.l2project_rg: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg, 30s elapsed][0m[0m
+[0m[1mazurerm_resource_group.l2project_rg: Still destroying... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg, 40s elapsed][0m[0m
+[0m[1mazurerm_resource_group.l2project_rg: Destruction complete after 46s[0m[0m
+[0m[1m[32m
+Destroy complete! Resources: 18 destroyed.[0m
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] echo
+RESULT: SUCCESS
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
