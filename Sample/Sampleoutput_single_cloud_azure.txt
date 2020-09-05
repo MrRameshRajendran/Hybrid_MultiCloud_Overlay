@@ -1,7 +1,7 @@
 Started by user jenkins
  > git rev-parse --is-inside-work-tree # timeout=10
-Setting origin to https://github.com/MrRameshRajendran/MultiCloud_Overlay.git
- > git config remote.origin.url https://github.com/MrRameshRajendran/MultiCloud_Overlay.git # timeout=10
+Setting origin to https://github.com/MrRameshRajendran/Hybrid_MultiCloud_Overlay.git
+ > git config remote.origin.url https://github.com/MrRameshRajendran/Hybrid_MultiCloud_Overlay.git # timeout=10
 Fetching origin...
 Fetching upstream changes from origin
  > git --version # timeout=10
@@ -14,7 +14,7 @@ Obtained Jenkinsfile from 023f1a81210bd046efc2f1359cc794b9da4edaa8
 Running in Durability level: MAX_SURVIVABILITY
 [Pipeline] Start of Pipeline
 [Pipeline] node
-Running on Jenkins in /home/jenkins/workspace/MultiCloud_Overlay_master
+Running on Jenkins in /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master
 [Pipeline] {
 [Pipeline] stage
 [Pipeline] { (Declarative: Checkout SCM)
@@ -22,17 +22,17 @@ Running on Jenkins in /home/jenkins/workspace/MultiCloud_Overlay_master
 using credential 88de3a4b-8c38-4ef1-8a67-91c466079f36
  > git rev-parse --is-inside-work-tree # timeout=10
 Fetching changes from the remote Git repository
- > git config remote.origin.url https://github.com/MrRameshRajendran/MultiCloud_Overlay.git # timeout=10
+ > git config remote.origin.url https://github.com/MrRameshRajendran/Hybrid_MultiCloud_Overlay.git # timeout=10
 Cleaning workspace
  > git rev-parse --verify HEAD # timeout=10
 Resetting working tree
  > git reset --hard # timeout=10
  > git clean -fdx # timeout=10
 Fetching without tags
-Fetching upstream changes from https://github.com/MrRameshRajendran/MultiCloud_Overlay.git
+Fetching upstream changes from https://github.com/MrRameshRajendran/Hybrid_MultiCloud_Overlay.git
  > git --version # timeout=10
 using GIT_ASKPASS to set credentials 
- > git fetch --no-tags --force --progress -- https://github.com/MrRameshRajendran/MultiCloud_Overlay.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git fetch --no-tags --force --progress -- https://github.com/MrRameshRajendran/Hybrid_MultiCloud_Overlay.git +refs/heads/*:refs/remotes/origin/* # timeout=10
 Checking out Revision 023f1a81210bd046efc2f1359cc794b9da4edaa8 (master)
  > git config core.sparsecheckout # timeout=10
  > git checkout -f 023f1a81210bd046efc2f1359cc794b9da4edaa8 # timeout=10
@@ -135,10 +135,10 @@ If you ever set or change modules or backend configuration for Terraform,
 rerun this command to reinitialize your working directory. If you forget, other
 commands will detect it and remind you to do so if necessary.[0m
 + cd -
-/home/jenkins/workspace/MultiCloud_Overlay_master
+/home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master
 [Pipeline] sh
 + cd azure
-+ terraform apply -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/azure_secrets.tfvars -auto-approve terraform/
++ terraform apply -var-file=/home/jenkins/scripts/Hybrid_MultiCloud_Overlay/secrets/azure_secrets.tfvars -auto-approve terraform/
 [0m[1mazurerm_resource_group.l2project_rg: Creating...[0m[0m
 [0m[1mazurerm_resource_group.l2project_rg: Creation complete after 1s [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg][0m[0m
 [0m[1mrandom_id.randomId: Creating...[0m[0m
@@ -1352,7 +1352,7 @@ client1_ip = 192.168.1.5
 client1_public_ip = 
 router_backend_ip = 192.168.1.4
 router_public_ip =[0m
-+ terraform refresh -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/azure_secrets.tfvars terraform/
++ terraform refresh -var-file=/home/jenkins/scripts/Hybrid_MultiCloud_Overlay/secrets/azure_secrets.tfvars terraform/
 [0m[1mazurerm_resource_group.l2project_rg: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg][0m
 [0m[1mrandom_id.randomId: Refreshing state... [id=a1u-vrJs_9M][0m
 [0m[1mazurerm_public_ip.client1: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/publicIPAddresses/client1][0m
@@ -1381,7 +1381,7 @@ client1_public_ip = 52.174.47.191
 router_backend_ip = 192.168.1.4
 router_public_ip = 52.174.40.78[0m
 + cd -
-/home/jenkins/workspace/MultiCloud_Overlay_master
+/home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master
 [Pipeline] sh
 + terraform output -state azure/terraform.tfstate router_backend_ip
 [Pipeline] sh
@@ -1407,7 +1407,7 @@ router_public_ip = 52.174.40.78[0m
 [Pipeline] parallel
 [Pipeline] { (Branch: azure)
 [Pipeline] node
-Running on Jenkins in /home/jenkins/workspace/MultiCloud_Overlay_master@2
+Running on Jenkins in /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master@2
 [Pipeline] {
 [Pipeline] stage
 [Pipeline] { (azure)
@@ -1427,7 +1427,7 @@ Lock released on resource [ipv6 allocations lock]
 + ssh-keygen -R 52.174.40.78
 Host 52.174.40.78 not found in /home/jenkins/.ssh/known_hosts
 [Pipeline] sh
-+ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/Containers.yml -i 52.174.40.78, --extra-vars  ip_range=192.168.2.48/28 ipv6_index=2 file=azure_containers 
++ ansible-playbook /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master/common/Containers.yml -i 52.174.40.78, --extra-vars  ip_range=192.168.2.48/28 ipv6_index=2 file=azure_containers 
 
 PLAY [Setting variables' values] ***********************************************
 
@@ -1472,7 +1472,7 @@ PLAY RECAP *********************************************************************
 52.174.40.78               : ok=9    changed=5    unreachable=0    failed=0   
 
 [Pipeline] sh
-+ cat /home/jenkins/workspace/MultiCloud_Overlay_master/common/azure_containers
++ cat /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master/common/azure_containers
 [Pipeline] echo
 [192.168.2.51, 192.168.2.50, 192.168.2.49, fc00::5, fc00::4, fc00::3]
 [Pipeline] lock
@@ -1489,7 +1489,7 @@ Lock released on resource [ipv6 allocations lock]
 + ssh-keygen -R 52.174.47.191
 Host 52.174.47.191 not found in /home/jenkins/.ssh/known_hosts
 [Pipeline] sh
-+ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/VMs.yml -i 52.174.47.191, --extra-vars  ip_address=192.168.2.48 ipv6_index=6 
++ ansible-playbook /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master/common/VMs.yml -i 52.174.47.191, --extra-vars  ip_address=192.168.2.48 ipv6_index=6 
 
 PLAY [Setting variables' values] ***********************************************
 
@@ -1529,14 +1529,14 @@ PLAY RECAP *********************************************************************
 [Pipeline] parallel
 [Pipeline] { (Branch: azure)
 [Pipeline] node
-Running on Jenkins in /home/jenkins/workspace/MultiCloud_Overlay_master@2
+Running on Jenkins in /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master@2
 [Pipeline] {
 [Pipeline] stage
 [Pipeline] { (azure)
 [Pipeline] echo
  52.174.40.78
 [Pipeline] sh
-+ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/tunnelConfig.yml -i 52.174.47.191, --extra-vars  tunnel_id=0 remote_ip=192.168.1.4 
++ ansible-playbook /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master/common/tunnelConfig.yml -i 52.174.47.191, --extra-vars  tunnel_id=0 remote_ip=192.168.1.4 
 
 PLAY [Setting variables' values] ***********************************************
 
@@ -1561,7 +1561,7 @@ PLAY RECAP *********************************************************************
 52.174.47.191              : ok=5    changed=3    unreachable=0    failed=0   
 
 [Pipeline] sh
-+ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/tunnelConfig.yml -i 52.174.40.78, --extra-vars  tunnel_id=0 remote_ip=192.168.1.5 
++ ansible-playbook /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master/common/tunnelConfig.yml -i 52.174.40.78, --extra-vars  tunnel_id=0 remote_ip=192.168.1.5 
 
 PLAY [Setting variables' values] ***********************************************
 
@@ -1611,7 +1611,7 @@ Original contents retained as /home/jenkins/.ssh/known_hosts.old
 [Pipeline] echo
 Testing 192.168.2.51 reachability
 [Pipeline] sh
-+ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=192.168.2.51 
++ ansible-playbook /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=192.168.2.51 
 [Pipeline] echo
 PLAY [Setting variables' values] ***********************************************
 
@@ -1666,7 +1666,7 @@ PLAY RECAP *********************************************************************
 [Pipeline] echo
 Testing 192.168.2.50 reachability
 [Pipeline] sh
-+ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=192.168.2.50 
++ ansible-playbook /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=192.168.2.50 
 [Pipeline] echo
 PLAY [Setting variables' values] ***********************************************
 
@@ -1721,7 +1721,7 @@ PLAY RECAP *********************************************************************
 [Pipeline] echo
 Testing 192.168.2.49 reachability
 [Pipeline] sh
-+ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=192.168.2.49 
++ ansible-playbook /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=192.168.2.49 
 [Pipeline] echo
 PLAY [Setting variables' values] ***********************************************
 
@@ -1776,7 +1776,7 @@ PLAY RECAP *********************************************************************
 [Pipeline] echo
 Testing fc00::5 reachability
 [Pipeline] sh
-+ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=fc00::5 
++ ansible-playbook /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=fc00::5 
 [Pipeline] echo
 PLAY [Setting variables' values] ***********************************************
 
@@ -1831,7 +1831,7 @@ fc00::5 is reachable from azure client1
 [Pipeline] echo
 Testing fc00::4 reachability
 [Pipeline] sh
-+ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=fc00::4 
++ ansible-playbook /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=fc00::4 
 [Pipeline] echo
 PLAY [Setting variables' values] ***********************************************
 
@@ -1886,7 +1886,7 @@ fc00::4 is reachable from azure client1
 [Pipeline] echo
 Testing fc00::3 reachability
 [Pipeline] sh
-+ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=fc00::3 
++ ansible-playbook /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=fc00::3 
 [Pipeline] echo
 PLAY [Setting variables' values] ***********************************************
 
@@ -1941,7 +1941,7 @@ fc00::3 is reachable from azure client1
 [Pipeline] echo
 Testing fc00::6 reachability
 [Pipeline] sh
-+ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=fc00::6 
++ ansible-playbook /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=fc00::6 
 [Pipeline] echo
 PLAY [Setting variables' values] ***********************************************
 
@@ -1996,7 +1996,7 @@ fc00::6 is reachable from azure client1
 [Pipeline] echo
 Testing 192.168.2.48 reachability
 [Pipeline] sh
-+ ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=192.168.2.48 
++ ansible-playbook /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master/common/ping.yml -i 52.174.47.191, --extra-vars remote_client=192.168.2.48 
 [Pipeline] echo
 PLAY [Setting variables' values] ***********************************************
 
@@ -2057,13 +2057,13 @@ PLAY RECAP *********************************************************************
 [Pipeline] script
 [Pipeline] {
 [Pipeline] sh
-+ cd /home/jenkins/workspace/MultiCloud_Overlay_master
++ cd /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master
 [Pipeline] load
 [Pipeline] { (free_Resources.groovy)
 [Pipeline] }
 [Pipeline] // load
 [Pipeline] node
-Running on Jenkins in /home/jenkins/workspace/MultiCloud_Overlay_master@2
+Running on Jenkins in /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master@2
 [Pipeline] {
 [Pipeline] stage
 [Pipeline] { (unconfig)
@@ -2072,15 +2072,15 @@ Running on Jenkins in /home/jenkins/workspace/MultiCloud_Overlay_master@2
 [Pipeline] parallel
 [Pipeline] { (Branch: azure)
 [Pipeline] node
-Running on Jenkins in /home/jenkins/workspace/MultiCloud_Overlay_master@3
+Running on Jenkins in /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master@3
 [Pipeline] {
 [Pipeline] stage
 [Pipeline] { (azure)
 [Pipeline] echo
 Removing azure resources
 [Pipeline] sh
-+ cd /home/jenkins/workspace/MultiCloud_Overlay_master/azure
-+ terraform destroy -var-file=/home/jenkins/scripts/MultiCloud_Overlay/secrets/azure_secrets.tfvars -auto-approve terraform/
++ cd /home/jenkins/workspace/Hybrid_MultiCloud_Overlay_master/azure
++ terraform destroy -var-file=/home/jenkins/scripts/Hybrid_MultiCloud_Overlay/secrets/azure_secrets.tfvars -auto-approve terraform/
 [0m[1mazurerm_resource_group.l2project_rg: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg][0m
 [0m[1mazurerm_public_ip.client1: Refreshing state... [id=/subscriptions/00601bea-dd26-4b43-b09f-50cd164f88ef/resourceGroups/l2project_rg/providers/Microsoft.Network/publicIPAddresses/client1][0m
 [0m[1mrandom_id.randomId: Refreshing state... [id=a1u-vrJs_9M][0m
