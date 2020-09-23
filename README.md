@@ -337,5 +337,55 @@ Below script configures a tunnel in a virtual machine.
 Below script runs a ping test.  
 ```ansible-playbook /home/jenkins/workspace/MultiCloud_Overlay_master/common/ping.yml -i 192.168.0.28, --extra-vars remote_client=192.168.2.81```
 
+&nbsp;  
+
+&nbsp;  
+
+
+
+#### I have written five blogs on this topic. Medium.com links are mentioned below.
+
+[Part 1](https://medium.com/@MrRameshRajendran/hybrid-multi-cloud-overlay-introduction-b930ca2741a2)  
+&nbsp;  
+[Part 2](https://medium.com/@MrRameshRajendran/hybrid-multi-cloud-overlay-part-2-use-case-8847d276dec6)  
+&nbsp;  
+[Part 3](https://medium.com/@MrRameshRajendran/hybrid-multi-cloud-overlay-part-3-devops-df2ee352554c)  
+&nbsp;  
+[Part 4](https://medium.com/@MrRameshRajendran/hybrid-multi-cloud-overlay-part-4-challenges-terraform-ansible-packer-and-vsphere-b7533abf32c)  
+&nbsp;  
+[Part 5](https://medium.com/@MrRameshRajendran/hybrid-multi-cloud-overlay-part-5-challenges-aws-azure-gcp-oci-and-alicloud-a7e75f91fc8c) 
+&nbsp;  
+
+&nbsp;  
+ 
+
+#### Video blogs are mentioned below.
+
+&nbsp;  
+[![Part 1](http://img.youtube.com/vi/DjARiSgtVVk/0.jpg)](https://www.youtube.com/watch?v=DjARiSgtVVk "Part 1") 
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Part 1
+&nbsp;
+&nbsp; 
+
+[![Part 2](http://img.youtube.com/vi/IKOXYO9-plo/0.jpg)](https://www.youtube.com/watch?v=IKOXYO9-plo "Part 2") 
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Part 2
+&nbsp;
+&nbsp; 
+
+[![Part 3](http://img.youtube.com/vi/3iyEwp1eJLM/0.jpg)](https://www.youtube.com/watch?v=3iyEwp1eJLM "Part 3") 
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Part 3
+&nbsp;
+&nbsp; 
+
+[![Part 4](http://img.youtube.com/vi/lui8woYmOUs/0.jpg)](https://www.youtube.com/watch?v=lui8woYmOUs "Part 4") 
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Part 4
+&nbsp;
+&nbsp; 
+
+[![Part 5](http://img.youtube.com/vi/1HuEsvZmEXo/0.jpg)](https://www.youtube.com/watch?v=1HuEsvZmEXo "Part 5") 
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Part 5
+&nbsp;
+&nbsp; 
+
 
 
