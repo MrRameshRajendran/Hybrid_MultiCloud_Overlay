@@ -372,7 +372,7 @@ Below script runs a ping test.
 &nbsp;
 &nbsp; 
 
-[![Part 3](http://img.youtube.com/vi/3iyEwp1eJLM/0.jpg)](https://www.youtube.com/watch?v=3iyEwp1eJLM "Part 3") 
+[![Part 3](http://img.youtube.com/vi/3zWgPMx9Jws/0.jpg)](https://www.youtube.com/watch?v=3zWgPMx9Jws "Part 3") 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Part 3
 &nbsp;
 &nbsp; 
