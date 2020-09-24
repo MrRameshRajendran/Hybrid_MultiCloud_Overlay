@@ -362,7 +362,7 @@ Below script runs a ping test.
 #### Video blogs are mentioned below.
 
 &nbsp;  
-[![Part 1](http://img.youtube.com/vi/DjARiSgtVVk/0.jpg)](https://www.youtube.com/watch?v=DjARiSgtVVk "Part 1") 
+[![Part 1](http://img.youtube.com/vi/DjARiSgtVVk/0.jpg)](https://www.youtube.com/watch?v=3zWgPMx9Jws "Part 1") 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Part 1
 &nbsp;
 &nbsp; 
