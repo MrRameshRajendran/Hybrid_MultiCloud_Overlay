@@ -345,15 +345,15 @@ Below script runs a ping test.
 
 #### I have written five blogs on this topic. Medium.com links are mentioned below.
 
-[Part 1](https://medium.com/@MrRameshRajendran/hybrid-multi-cloud-overlay-introduction-b930ca2741a2)  
+[Part 1](https://ramesh-rajendran.medium.com/hybrid-multi-cloud-overlay-introduction-b930ca2741a2)  
 &nbsp;  
-[Part 2](https://medium.com/@MrRameshRajendran/hybrid-multi-cloud-overlay-part-2-use-case-8847d276dec6)  
+[Part 2](https://ramesh-rajendran.medium.com/hybrid-multi-cloud-overlay-part-2-use-case-8847d276dec6)  
 &nbsp;  
-[Part 3](https://medium.com/@MrRameshRajendran/hybrid-multi-cloud-overlay-part-3-devops-df2ee352554c)  
+[Part 3](https://ramesh-rajendran.medium.com/hybrid-multi-cloud-overlay-part-3-devops-df2ee352554c)  
 &nbsp;  
-[Part 4](https://medium.com/@MrRameshRajendran/hybrid-multi-cloud-overlay-part-4-challenges-terraform-ansible-packer-and-vsphere-b7533abf32c)  
+[Part 4](https://ramesh-rajendran.medium.com/hybrid-multi-cloud-overlay-part-4-challenges-terraform-ansible-packer-and-vsphere-b7533abf32c)  
 &nbsp;  
-[Part 5](https://medium.com/@MrRameshRajendran/hybrid-multi-cloud-overlay-part-5-challenges-aws-azure-gcp-oci-and-alicloud-a7e75f91fc8c) 
+[Part 5](https://ramesh-rajendran.medium.com/hybrid-multi-cloud-overlay-part-5-challenges-aws-azure-gcp-oci-and-alicloud-a7e75f91fc8c) 
 &nbsp;  
 
 &nbsp;  
